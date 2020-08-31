@@ -6,8 +6,20 @@
 </head>
 <body>
     <article>
-        <svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990" style="width: 15em;height: 15em;">
-            <use xlink:href="bigheads.svg#bigheads-base"/>
+        <style>
+            svg.wrapper {
+                --bigheads-color-skin: hsl(26, 75%, 85%);
+                --bigheads-color-hat: hsl(195, 83%, 65%);
+
+                --size: 15em;
+                width: var(--size, 15em);
+                height: var(--size, 15em);
+                border: 3px solid black;
+            }
+        </style>
+        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
+            <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#hat-big"/>
         </svg>
     </article>
 </body>

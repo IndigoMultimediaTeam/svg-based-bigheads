@@ -1,4 +1,3 @@
 <svg xmlns="http://www.w3.org/2000/svg">
-    gulp_place("__build__= { main_id: 'bigheads' }", "eval")
     gulp_place("bigheads-parts/**/*.sub.svg", "glob_once")
 </svg>
