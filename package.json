@@ -1,0 +1,77 @@
+{
+    "name": "svg-based-bigheads",
+    "version": "1.0.0",
+    "description": "DEV – https://bigheads.io/ alternative based on pieces of SVGs for better non-technical cooperation",
+    "main": "gulpfile.js",
+    "app_keys_map": [
+        [
+            "name",
+            "fullName"
+        ],
+        [
+            "version"
+        ],
+        [
+            "directories"
+        ],
+        [
+            "sequence"
+        ]
+    ],
+    "sequence": [
+        "svg"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/IndigoMultimediaTeam/svg-based-bigheads.git"
+    },
+    "keywords": [
+        "svg"
+    ],
+    "author": "Jan Andrle <jan.andrle@indigo.cz>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/IndigoMultimediaTeam/svg-based-bigheads/issues"
+    },
+    "homepage": "https://github.com/IndigoMultimediaTeam/svg-based-bigheads#readme",
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-place": "^1.8.0",
+        "jshint": "^2.12.0"
+    },
+    "directories": {
+        "gulp": "gulp/",
+        "src": "src/",
+        "bin": "bin/"
+    },
+    "jaaJBT": {
+        "config": {
+            "gulp_path": "gulp/",
+            "gulp_tasks": "gulp/tasks/"
+        },
+        "scripts": {
+            "gulpfile": "~1.1.4",
+            "gulp_task_default": "~1.0.1"
+        },
+        "resourses": [
+            "https://raw.githubusercontent.com/jaandrle/jaaJBT/master/"
+        ],
+        "rename": {}
+    },
+    "jshintConfig": {
+        "esversion": 6,
+        "browser": "true",
+        "undef": "true",
+        "latedef": "true",
+        "maxparams": 3,
+        "maxdepth": 2,
+        "maxcomplexity": 10,
+        "globals": {
+            "gulp_place": false,
+            "customElements": false
+        }
+    }
+}
