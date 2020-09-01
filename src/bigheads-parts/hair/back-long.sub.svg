@@ -1,5 +1,6 @@
-<svg id="hair-back-long" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-    <rect x="225.88" y="510.35" width="548" height="306.44" style="fill:var(--bigheads-color-hair, #d96e27)"/>
-    <circle cx="499" cy="510.35" r="273.5" style="fill:var(--bigheads-color-hair, #d96e27)"/>
-    <circle cx="499" cy="816.78" r="273.5" style="fill:var(--bigheads-color-hair, #d96e27)"/>
+<svg id="hair-back-long" xmlns="http://www.w3.org/2000/svg" viewBox="-69 0 1138 1000">
+    <path
+        d="M501.71,209.52c-166.14,0-300.83,134.68-300.83,300.83V816.78c0,166.14,134.69,300.83,300.83,300.83S802.54,982.92,802.54,816.78V510.35C802.54,344.2,667.85,209.52,501.71,209.52Z"
+        style="fill:var(--bigheads-color-hair, #d96e27);stroke:#592d3d;stroke-miterlimit:10;stroke-width:12px"
+        />
 </svg>
