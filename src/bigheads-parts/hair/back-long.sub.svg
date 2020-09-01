@@ -1,0 +1,5 @@
+<svg id="hair-back-long" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+    <rect x="225.88" y="510.35" width="548" height="306.44" style="fill:var(--bigheads-color-hair, #d96e27)"/>
+    <circle cx="499" cy="510.35" r="273.5" style="fill:var(--bigheads-color-hair, #d96e27)"/>
+    <circle cx="499" cy="816.78" r="273.5" style="fill:var(--bigheads-color-hair, #d96e27)"/>
+</svg>
