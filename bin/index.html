@@ -30,8 +30,6 @@
                 width: var(--size, 15em);
                 height: var(--size, 15em);
                 border: 3px solid black;
-                /* internal */
-                --bigheads-mask-hairs: url(bigheads.svg#mask-above-hat);
             }
         </style>
         <!-- mask="var(--bigheads-mask-hairs)" -->
@@ -61,7 +59,7 @@
             <use xlink:href="bigheads.svg#hair-front-simple" />
         </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#hair-back-afro" mask="var(--bigheads-mask-hairs)" />
+            <use xlink:href="bigheads.svg#hair-back-afro" style="--bigheads-show-hair-back: 0;" />
             <use xlink:href="bigheads.svg#base"/>
             <use xlink:href="bigheads.svg#hair-front-bob" />
             <use xlink:href="bigheads.svg#hat-beanie" />
