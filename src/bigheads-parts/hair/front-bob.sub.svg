@@ -57,6 +57,6 @@
         />
     <path
         d="M 780.82422,500.74414 C 776.67383,478.52734 768.70538,211.18211 500.07296,215.99368 342.81108,217.48507 240.64023,325.27125 217.2207,464.53906 l 20.62696,-4.84179"
-        style="fill:none;stroke:var(--bigheads-color-back-hair, #592d3d);stroke-width:12px;stroke-miterlimit:10"
+        style="fill:none;stroke:#592d3d; stroke-width:12px;stroke-miterlimit:10"
         />
 </svg>
