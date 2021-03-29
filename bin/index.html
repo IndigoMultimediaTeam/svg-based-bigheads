@@ -24,12 +24,15 @@
                 /* avatar edit */
                 --bigheads-color-skin: hsl(26, 75%, 85%);
                 --bigheads-color-hat: hsl(195, 83%, 65%);
-                --bigheads-color-hair: hsl(23.1, 48.1%, 37.1%);
+                --bigheads-color-hair: hsl(339, 100%, 66%);
                 /* avatar style */
                 --size: 15em;
                 width: var(--size, 15em);
                 height: var(--size, 15em);
                 border: 3px solid black;
+            }
+            .bigheads-hat-longhairs{
+                transform: scale(1.1) translate(-5%, -7.5%);
             }
         </style>
         <!--
@@ -37,14 +40,15 @@
             <use xlink:href="bigheads.svg#hat-beanie" />
         -->
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#hair-long-back" />
+            <use xlink:href="bigheads.svg#hair-long03-back" />
             <use xlink:href="bigheads.svg#base"/>
             <use xlink:href="bigheads.svg#hair-long-front" />
         </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#hair-long-back" />
+            <use xlink:href="bigheads.svg#hair-long03-back" />
             <use xlink:href="bigheads.svg#base"/>
-            <use xlink:href="bigheads.svg#hair-bob-front" />
+            <use xlink:href="bigheads.svg#hair-long-front" />
+            <use xlink:href="bigheads.svg#hat-beanie" class="bigheads-hat-longhairs" />
         </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
             <use xlink:href="bigheads.svg#base"/>
