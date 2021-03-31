@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <style>
         [contenteditable=""] {
+            --color: #44b644;
             display: block;
             font-family: "Lucida Console", Monaco, monospace;
             font-size: .75em;
@@ -12,8 +13,12 @@
             font-weight: bold;
             white-space: break-spaces;
             padding: 1rem;
-            margin-top: -.25rem;
-            border: .25rem dotted #97f497;
+            margin: -.25rem auto .5rem auto;
+            border: .25rem dotted var(--color);
+        }
+        [contenteditable=""]::before {
+            content: "Styles (editable)";
+            color: var(--color);
         }
     </style>
 </head>
@@ -21,16 +26,19 @@
     <article>
         <style contenteditable="">
             svg.wrapper {
-                /* avatar edit */
+                /* avatar colors */
                 --bigheads-color-skin: hsl(30, 75%, 75%);
                 --bigheads-color-hat: hsl(195, 75%, 75%);
-                --bigheads-color-hair: hsl(315, 75%, 75%);;
-                /* avatar style */
+                --bigheads-color-clothes: hsl(0, 75%, 75%);
+                --bigheads-color-hair: hsl(315, 75%, 75%);
+                /* avatar outer style */
                 --size: 15em;
                 width: var(--size, 15em);
                 height: var(--size, 15em);
                 border: 3px solid black;
+                border-radius: 100%;
             }
+            /* “big hairs”+hat test */
             .bigheads-hat-longhairs{
                 transform: scale(1.1) translate(-5%, -7.5%);
             }
@@ -39,6 +47,20 @@
             mask="var(--bigheads-mask-hairs)"
             <use xlink:href="bigheads.svg#hat-beanie" />
         -->
+        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
+            <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#hair-serious-front" />
+        </svg>
+        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
+            <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#hair-balding-front" />
+            <use xlink:href="bigheads.svg#hat-beanie" />
+        </svg>
+        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
+            <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#hair-bob-front" />
+            <use xlink:href="bigheads.svg#hat-turban" />
+        </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
             <use xlink:href="bigheads.svg#hair-bun-top" />
             <use xlink:href="bigheads.svg#base"/>
@@ -49,31 +71,21 @@
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
             <use xlink:href="bigheads.svg#hair-long01-back" />
             <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#clothes-dressshirt"/>
+            <use xlink:href="bigheads.svg#breasts"/>
             <use xlink:href="bigheads.svg#hair-long-front" />
             <use xlink:href="bigheads.svg#hat-beanie" class="bigheads-hat-longhairs" />
         </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
             <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#clothes-vneck"/>
             <use xlink:href="bigheads.svg#hair-simple-front" />
         </svg>
         <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
             <use xlink:href="bigheads.svg#hair-afro-top" />
             <use xlink:href="bigheads.svg#base"/>
+            <use xlink:href="bigheads.svg#clothes-tanktop"/>
             <use xlink:href="bigheads.svg#hair-afro-front" />
-        </svg>
-        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#base"/>
-            <use xlink:href="bigheads.svg#hair-serious-front" />
-        </svg>
-        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#base"/>
-            <use xlink:href="bigheads.svg#hair-bob-front" />
-            <use xlink:href="bigheads.svg#hat-beanie" />
-        </svg>
-        <svg class="wrapper" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 990">
-            <use xlink:href="bigheads.svg#base"/>
-            <use xlink:href="bigheads.svg#hair-bob-front" />
-            <use xlink:href="bigheads.svg#hat-turban" />
         </svg>
     </article>
 </body>
