@@ -17,7 +17,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 .replace(/<\/svg>/g, "</symbol>")
                 .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
                     if(!Reflect.has(colors, m2)) return idsClr(_);
-                    let out= m1.trim()+" "+m3.trim();
+                    let out= [ m1, m3 ].map(i=> i.trim()).filter(Boolean).join(" ");
                     const re= /style=(["'])/;
                     if(!out.match(re)) out+= " style=''";
                     out= idsClr(out).replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
