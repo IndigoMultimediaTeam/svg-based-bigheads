@@ -1,7 +1,11 @@
 /* jshint node: true, maxparams: 4 */
 module.exports= function({app, gulp, error, $g, $o, $run}){
     const colors= {
-        "#d96e27": "hair"
+        "#d96e27": "hair",
+        "#d67070": "clothes",
+        "#5bcaf0": "hat",
+        "#dd3e3e": "mouth",
+        "#fdd2b2": "skin"
     };
     const colors_keys= Object.keys(colors);
     /* jshint -W061 */
