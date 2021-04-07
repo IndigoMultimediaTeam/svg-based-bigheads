@@ -7,7 +7,6 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         "#dd3e3e": "mouth",
         "#fdd2b2": "skin"
     };
-    const colors_keys= Object.keys(colors);
     /* jshint -W061 */
     const gulp_place= $g.place({
         variable_eval: str=> eval(str),
@@ -16,18 +15,19 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 .replace(/<svg ([^>]*) xmlns="http:\/\/www.w3.org\/2000\/svg"([^>]*)>/g, "<symbol $1$2>")
                 .replace(/<\/svg>/g, "</symbol>")
                 .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
-                    if(colors_keys.indexOf(m2)===-1) return _.replace(/ id=["'][^"']*["']/ig, "");
+                    const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
+                    if(!Reflect.has(colors, m2)) return idsClr(_);
                     let out= m1.trim()+""+m3.trim();
                     const re= /style=(["'])/;
                     if(!out.match(re)) out+= " style=''";
-                    out= out.replace(/ id=["'][^"']*["']/ig, "").replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
+                    out= idsClr(out).replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
                     return `<${out}\/>`;
                 })
     });
     /* jshint +W061 */
     const { src, bin }= app.directories;
     return function(cb){
-        let data= {};
+        let data= { colors: Object.keys(colors).reduce((t, c)=> Reflect.set(t, colors[c], c) && t, {}) };
         gulp.src([ src+"**/*.sub.svg" ])
             .pipe($g.replace(/<svg([^>]*)>/i, function(_, match= ""){
                 const id= generateID(this.file);
