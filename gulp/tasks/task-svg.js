@@ -1,5 +1,9 @@
-/* jshint node: true */
+/* jshint node: true, maxparams: 4 */
 module.exports= function({app, gulp, error, $g, $o, $run}){
+    const colors= {
+        "#d96e27": "hair"
+    };
+    const colors_keys= Object.keys(colors);
     /* jshint -W061 */
     const gulp_place= $g.place({
         variable_eval: str=> eval(str),
@@ -7,6 +11,14 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
             content
                 .replace(/<svg ([^>]*) xmlns="http:\/\/www.w3.org\/2000\/svg"([^>]*)>/g, "<symbol $1$2>")
                 .replace(/<\/svg>/g, "</symbol>")
+                .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
+                    if(colors_keys.indexOf(m2)===-1) return _;
+                    let out= m1.trim()+""+m3.trim();
+                    const re= /style=(["'])/;
+                    if(!out.match(re)) out+= " style=''";
+                    out= out.replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
+                    return `<${out}\/>`;
+                })
     });
     /* jshint +W061 */
     const { src, bin }= app.directories;
@@ -30,14 +42,14 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         if(path.length===1) path= [ "base", path[0] ];
         const [ type, ...item ]= path;
         if(item.length===1) return getWithDefault(data, type, []).push(item[0]);
-        
+        /* mainly hairs?: [ "hair", "long", "back" ] → hair: { long: { back: true } } */
         const curr_type= getWithDefault(data, type, {});
         const [ item_name, item_type ]= item;
         const curr_item= getWithDefault(curr_type, item_name, {});
         Reflect.set(curr_item, item_type, true);
         const re= /[0-9]{2,}/g;
         if(!item_name.match(re)) return true;
-        
+        /* long: { front: true }, long01: { back: true }, … */
         Reflect.set(curr_item, "parent", item_name.replace(re, ""));
     }
     function getWithDefault(target, property, _default){
