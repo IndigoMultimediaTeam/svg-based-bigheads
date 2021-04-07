@@ -12,11 +12,11 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 .replace(/<svg ([^>]*) xmlns="http:\/\/www.w3.org\/2000\/svg"([^>]*)>/g, "<symbol $1$2>")
                 .replace(/<\/svg>/g, "</symbol>")
                 .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
-                    if(colors_keys.indexOf(m2)===-1) return _;
+                    if(colors_keys.indexOf(m2)===-1) return _.replace(/ id=["'][^"']*["']/ig, "");
                     let out= m1.trim()+""+m3.trim();
                     const re= /style=(["'])/;
                     if(!out.match(re)) out+= " style=''";
-                    out= out.replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
+                    out= out.replace(/ id=["'][^"']*["']/ig, "").replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
                     return `<${out}\/>`;
                 })
     });
