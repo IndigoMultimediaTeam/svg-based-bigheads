@@ -13,19 +13,17 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
     return function(cb){
         let data= {};
         gulp.src([ src+"**/*.sub.svg" ])
-            .pipe($g.replace(/<svg (id="[^"]*")?/, function(){
+            .pipe($g.replace(/<svg([^>]*)>/i, function(_, match= ""){
                 const id= generateID(this.file);
                 updateData(id.split("-"), data);
-                return `<svg id="${id}"`;
+                return `<svg id="${id}"${match.replace(/ id=["'][^"']*["']/ig, '')}>`;
             }))
             .pipe(gulp.dest(src))
             .on('end', function(){
                 gulp.src([ src+"*.svg", '!'+src+'*.sub.svg' ])
                     .pipe(gulp_place({ folder: src, string_wrapper: '' }))
                     .pipe(gulp.dest(bin))
-                    .on('end', function(){
-                        $o.fs.writeFile(src+"parts.json", JSON.stringify(data), cb);
-                    });
+                    .on('end', ()=> $o.fs.writeFile(src+"parts.json", JSON.stringify(data), cb));
             });
     };
     function updateData(path, data){
