@@ -41,6 +41,7 @@
         "gulp": "^4.0.2",
         "gulp-place": "^1.8.0",
         "gulp-replace": "^1.0.0",
+        "gulp-svgmin": "^3.0.0",
         "jshint": "^2.12.0"
     },
     "directories": {

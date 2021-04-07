@@ -17,7 +17,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
                     const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
                     if(!Reflect.has(colors, m2)) return idsClr(_);
-                    let out= m1.trim()+""+m3.trim();
+                    let out= m1.trim()+" "+m3.trim();
                     const re= /style=(["'])/;
                     if(!out.match(re)) out+= " style=''";
                     out= idsClr(out).replace(re, (_, q)=> `style=${q}fill:var(--bigheads-color-${colors[m2]}, ${m2});`);
@@ -29,6 +29,25 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
     return function(cb){
         let data= { colors: Object.keys(colors).reduce((t, c)=> Reflect.set(t, colors[c], c) && t, {}) };
         gulp.src([ src+"**/*.sub.svg" ])
+            .pipe($g.svgmin({
+                js2svg: {
+                    pretty: true
+                },
+                plugins: [{
+                    removeDoctype: false
+                }, {
+                    removeComments: false
+                }, {
+                    cleanupNumericValues: {
+                        floatPrecision: 2
+                    }
+                }, {
+                    convertColors: {
+                        names2hex: false,
+                        rgb2hex: false
+                    }
+                }]
+            }))
             .pipe($g.replace(/<svg([^>]*)>/i, function(_, match= ""){
                 const id= generateID(this.file);
                 updateData(id.split("-"), data);
