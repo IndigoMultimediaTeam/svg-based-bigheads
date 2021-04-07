@@ -7,6 +7,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         "#dd3e3e": "mouth",
         "#fdd2b2": "skin"
     };
+    const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
     /* jshint -W061 */
     const gulp_place= $g.place({
         variable_eval: str=> eval(str),
@@ -15,7 +16,6 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 .replace(/<svg ([^>]*) xmlns="http:\/\/www.w3.org\/2000\/svg"([^>]*)>/g, "<symbol $1$2>")
                 .replace(/<\/svg>/g, "</symbol>")
                 .replace(/<([^>]*)fill=["']([^"']*)["']([^>]*)\/>/gm, function(_, m1, m2, m3){
-                    const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
                     if(!Reflect.has(colors, m2)) return idsClr(_);
                     let out= m1.trim()+" "+m3.trim();
                     const re= /style=(["'])/;
@@ -51,7 +51,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
             .pipe($g.replace(/<svg([^>]*)>/i, function(_, match= ""){
                 const id= generateID(this.file);
                 updateData(id.split("-"), data);
-                return `<svg id="${id}"${match.replace(/ id=["'][^"']*["']/ig, '')}>`;
+                return `<svg id="${id}"${idsClr(match)}>`;
             }))
             .pipe(gulp.dest(src))
             .on('end', function(){
