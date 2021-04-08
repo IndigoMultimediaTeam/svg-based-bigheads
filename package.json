@@ -1,5 +1,6 @@
 {
     "name": "svg-based-bigheads",
+    "fullName": "SVGBigHeads",
     "version": "1.0.0",
     "description": "DEV – https://bigheads.io/ alternative based on pieces of SVGs for better non-technical cooperation",
     "main": "gulpfile.js",
@@ -19,9 +20,15 @@
         ]
     ],
     "sequence": [
-        "svg"
+        "svg",
+        "javascript"
     ],
     "scripts": {
+        "build": "npx gulp",
+        "check": "node ./jaaJBT.js check && npm outdated",
+        "update": "node ./jaaJBT.js update && npm install",
+        "jshint": "node ./node_modules/jshint/bin/jshint --verbose",
+        "jshint_full": "node ./node_modules/jshint/bin/jshint --verbose --show-non-errors",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -39,6 +46,7 @@
     "homepage": "https://github.com/IndigoMultimediaTeam/svg-based-bigheads#readme",
     "devDependencies": {
         "gulp": "^4.0.2",
+        "gulp-minify": "^3.1.0",
         "gulp-place": "^1.8.0",
         "gulp-replace": "^1.0.0",
         "gulp-svgmin": "^3.0.0",
@@ -56,6 +64,8 @@
         },
         "scripts": {
             "gulpfile": "~1.1.4",
+            "gulp_cleanJSHINT": "~0.1.3",
+            "gulp_task_javascript_lib": "~0.1.5",
             "gulp_task_default": "~1.0.1"
         },
         "resourses": [

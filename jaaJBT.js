@@ -1,13 +1,13 @@
 /* jshint esversion: 6,-W097, -W040, node: true, expr: true, undef: true */
 /* node has 5min cahce for requests!!! */
 const /* configs files paths */
-    version= "2.0.1",
+    version= "3.0.0",
     config_key_name= "jaaJBT",
     config_remote_name= "jaaJBT.json";
 const /* dependences */
     fs= require("fs"),
     https= require("https"),
-    colors= { e: "\x1b[31m", s: "\x1b[32m", w: "\x1b[33m", R: "\x1b[0m" };
+    colors= { e: "\x1b[38;2;252;76;76m", s: "\x1b[38;2;76;252;125m", w: "\x1b[33m", R: "\x1b[0m", y: "\x1b[38;2;200;190;90m", g: "\x1b[38;2;150;150;150m" };
 let spaces= "   ";
 toConsole(`${colors.w}${config_key_name}@v${version}`, "normal", "_info");
 
@@ -44,7 +44,16 @@ function check(){
     .then(function(data){
         const remote_jaaJBT= consolidateJSONObjects(data);
         let results= [];
-        if(isNewer(remote_jaaJBT.config.version)) return toConsole(`Update is not possible (new version ${remote_jaaJBT.config.version})`, "error", spaces.repeat(2)+"Your `jaaJBT.js` script must be up-to-date to proper comparing/updating!");
+        if(isNewer(remote_jaaJBT.config.version))
+            return toConsole(
+                colors.e+"Update is not possible!",
+                "error",
+                [ 
+                    "Your 'jaaJBT.js' script must be up-to-date to proper comparing/updating!",
+                    `Current version '${version}', required version ${remote_jaaJBT.config.version}.`,
+                    "For update, please visist: https://github.com/jaandrle/jaaJBT"
+                ].map(t=> spaces.repeat(2)+t).join("\n")
+            );
         Object.keys(local_jaaJBT.scripts||{}).forEach(function(key){
             const remote_k= remote_jaaJBT.scripts[key];
             let local_k= local_jaaJBT.scripts[key];
@@ -81,11 +90,12 @@ function overview_printPackagesWithDetails({ scripts, getKeys, no_scripts_text }
     return toConsole("Available scripts", "normal",
         getKeys(scripts)
             .map(key=> [
-                `${colors.w}${key}${colors.s}@v${scripts[key].version}${colors.R}`,
+                `${colors.y}${key}${colors.s}@v${scripts[key].version}${colors.R}`,
                 ...[
                     `target_path: "${scripts[key].target_path}"`,
-                    `description: "${scripts[key].description || "-"}"`
-                ].map(t=> spaces.repeat(2)+t)
+                    scripts[key].type ? `type: "${scripts[key].type!=='regular'?colors.e:''}${scripts[key].type}${colors.R}"` : "",
+                    `description: "${colors.g}${scripts[key].description || "-"}}${colors.R}"`
+                ].filter(Boolean).map(t=> spaces.repeat(2)+t)
             ].map(t=> spaces+t).join("\n"))
             .map(t=> spaces+t).join("\n") || no_scripts_text
     );
@@ -100,13 +110,19 @@ function update({ remote, results_all }){
     if(!results.length) return toConsole("Scripts to download", "normal", spaces.repeat(2)+"Nothing to download");
     arrayToConsole("Scripts to download", "normal", colors.w)(results);
 
-    return Promise.all(results.map(toObject).map(downloadNth))
+    return Promise.all(results.flatMap(toObjects).map(downloadNth))
     .then(UpdateConfig)
     .then(results=> results.map(({ target_full })=> target_full))
     .then(arrayToConsole("Download — successfull", "normal", colors.s))
     .catch(toConsole.bind(null, "Download — error", "error"));
 
-    function toObject(res){ const key= res.split("@v")[0]; return Object.assign({ key }, remote.scripts[key]); }
+    function toObjects(res){
+        const key= res.split("@v")[0];
+        const remote_item_obj= remote.scripts[key];
+        if(remote_item_obj.type==="meta")
+            return remote_item_obj.src.map(src=> Object.assign( { key }, remote_item_obj, { src } ));
+        return [ Object.assign({ key }, remote.scripts[key]) ];
+    }
 }
 
 
@@ -123,10 +139,10 @@ function UpdateConfig(results){
 }
 
 function getJSON(url){ return new Promise(function(resolve, reject){ 
-    https.get(url, function(response){
+    https.get(url, { headers: { 'Cache-Control': 'no-cache' } }, function(response){
         let data= "";
         response.on("data", chunk=> data+= chunk);
-        response.on("end", function(){ toConsole(url, "", "Connection estabisled"); try{ resolve(JSON.parse(data)); } catch(e){ reject(e); } });
+        response.on("end", function(){ toConsole(colors.g+url+colors.R, "", spaces.repeat(2)+"Connection estabisled"); try{ resolve(JSON.parse(data)); } catch(e){ reject(e); } });
     }).on("error", reject);
 });}
 function handleErrorJSON(error){
@@ -135,7 +151,7 @@ function handleErrorJSON(error){
 }
 function download(from, to, share){ return new Promise(function(resolve, reject){
     const file= fs.createWriteStream(to);
-    https.get(from, function(response) {
+    https.get(from, { headers: { 'Cache-Control': 'no-cache' } }, function(response) {
         response.pipe(file);
         file.on('finish', ()=> file.close(()=> resolve(Object.assign( { src_full: from, target_full: to }, share ))) /* close() is async, call cb after close completes. */);
     }).on('error', function(err) { // Handle errors
@@ -147,7 +163,7 @@ function download(from, to, share){ return new Promise(function(resolve, reject)
 function consolidateJSONObjects(data){
     return data.reduce(function(acc, curr){
         const { config: { version, root_url }= {}, scripts }= curr;
-        Object.keys(scripts).forEach(key=> scripts[key].src= root_url+scripts[key].src);
+        Object.keys(scripts).forEach(key=> scripts[key].src= Array.isArray(scripts[key].src) ? scripts[key].src.map(relative=> root_url+relative) : root_url+scripts[key].src);
         if(version&&isNewer(version, acc.config.version)) Object.assign(acc.config, { version });
         Object.assign(acc.scripts, scripts);
         return acc;

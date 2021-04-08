@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script src="bigheads-namespace.js"></script>
     <style>
         [contenteditable=""] {
             --color: #44b644;
@@ -20,12 +21,13 @@
             content: "Styles (editable)";
             color: var(--color);
         }
+        svg-bigheads { display: inline-block; overflow: hidden; }
     </style>
 </head>
 <body>
     <article>
         <style contenteditable="">
-            svg.wrapper {
+            svg.wrapper, svg-bigheads {
                 /* avatar colors */
                 --bigheads-color-skin: hsl(30, 75%, 75%);
                 --bigheads-color-hat: hsl(215, 75%, 75%);
@@ -46,7 +48,12 @@
                 transform: scale(1.1) translate(-5%, -7.5%);
             }
         </style>
+        <svg-bigheads href="bigheads.svg" gender="man"></svg-bigheads>
         <!--
+            <c-bigheads href="bigheads.svg" gender="man">
+                <c-bigheads-eyes value="simple"></c-bigheads-eyes>
+                <c-bigheads-hair value="long01"></c-bigheads-hair>
+            </c-bigheads>
             mask="var(--bigheads-mask-hairs)"
             <use xlink:href="bigheads.svg#hat-beanie" />
         -->
