@@ -9,7 +9,7 @@
  * @private
  * @global
  */
-const style= {
+const style_global= {
     /**
      * @property {style_options} options
      * @memberof style
