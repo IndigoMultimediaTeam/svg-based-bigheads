@@ -6,9 +6,19 @@
         "mouth": "#dd3e3e",
         "skin": "#fdd2b2"
     },
+    "layers": [
+        "base",
+        "eyes",
+        [ "eyebrow" ],
+        "mouth",
+        [ "nose" ],
+        "clothes",
+        [ "facialhair", "breasts", "accessory", "hat" ]
+    ],
     "parts": {
         "accessory": [ "none" ],
         "breasts": [ "none" ],
+        "eyebrow": [ "none" ],
         "facialhair": [ "none" ],
         "hair": { "none": { "front": true } },
         "hat": [ "none" ],

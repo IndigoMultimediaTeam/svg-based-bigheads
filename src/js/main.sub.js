@@ -1,5 +1,5 @@
-const { colors, parts }= JSON.parse(`gulp_place("parts.json", "file_once")`);
-gulp_place("./utils_private/*.sub.js", "files_once");/* global createSVG, createUSE, style_global, setHref, data, avatarPartHref */
+const { colors, layers, parts }= JSON.parse(`gulp_place("parts.json", "file_once")`);
+gulp_place("./utils_private/*.sub.js", "files_once");/* global createSVG, createUSE, style_global, setHref, data, avatarPartHref, insertAfter */
 
 class SVGBigHeads extends HTMLElement{
     constructor(){ super(); data.create(this); style_global.create(); }
@@ -13,10 +13,15 @@ class SVGBigHeads extends HTMLElement{
     connectedCallback(){
         this._svg= this.appendChild(createSVG());
         const d= data.get(this);
-        const { href, base }= d.attributes;
-        data.setElement(d, "base", this._svg.appendChild(createUSE(href+"#"+base)));
-        this.appendUSE(d, "eyes", href);
-        this.update("breasts");
+        const href= data.getAttribute(d, "href");
+        layers.forEach(v=> {
+            if(!Array.isArray(v))
+                return this.appendUSE(d, v, href);
+            v.forEach(v=> {
+                const type= data.getAttribute(d, v);
+                if(type!=="none") return this.appendUSE(d, v, href);
+            });
+        });
     }
     /**
      * Append `<use>` to internal `<svg>`.
@@ -30,33 +35,59 @@ class SVGBigHeads extends HTMLElement{
         data.setElement(d, name, this._svg.appendChild(use_el));
         return use_el;
     }
+    /**
+     * Insert `<use>` to internal `<svg>` before `el`.
+     * @param {Data} d
+     * @param {ElsKeys} name
+     * @param {string} href
+     * @param {SVGUseElement} el
+     * @returns {SVGUseElement}
+     */
+    insertAfterUSE(d, name, href, el){
+        const use_el= createUSE(avatarPartHref(d, href, name));
+        data.setElement(d, name, this._svg.insertBefore(use_el, el.nextElementSibling));
+        return use_el;
+    }
+    /** @param {ConfigKeys} type */
     update(type){
         if(!this._svg) return false;
         const d= data.get(this);
-        switch (type){
-            case "breasts":
-                return this.updateGender(d);
-            case "href":
-                Reflect.set(d, "els", {});
-                this._svg.remove();
-                return this.connectedCallback();
-            default:
-                return setHref(
-                    data.getElement(d, type),
-                    avatarPartHref(d, data.getAttribute(d, "href"), type)
-                );
+        if(type==="href"){
+            Reflect.set(d, "els", {});
+            this._svg.remove();
+            return this.connectedCallback();
         }
-    }
-    updateGender(d){
-        const
-            breasts_name= data.getAttribute(d, "breasts"),
-            href= data.getAttribute(d, "href")+"#"+breasts_name,
-            is_man= "none"===breasts_name,
-            breasts= data.getElement(d, "breasts");
-        if((breasts&&!is_man)||(!breasts&&is_man)) return breasts ? setHref(breasts, href) : false;
-        if(is_man) return data.deleteElement(d, "breasts");
-        return data.setElement(d, "breasts", this._svg.appendChild(createUSE(href)));
+        const value= data.getAttribute(d, type);
+        if(value==="none")
+            return data.deleteElement(d, type);
+        
+        const href= data.getAttribute(d, "href");
+        if(data.attributes_nullable.indexOf(type)!==-1)
+            return this.insertAfterUSE(d, type, href, findLayer(d, type));
+
+        return setHref(
+            data.getElement(d, type),
+            avatarPartHref(d, href, type, value)
+        );
     }
 }
 gulp_place("./SVGBigHeads/*.sub.js", "files_once");
 customElements.define("svg-bigheads", SVGBigHeads);
+
+/**
+ * @param {Data} d
+ * @param {ElsKeys} type
+ * @returns {SVGUseElement}
+ */
+function findLayer(d, type){
+    let out;
+    for(let i=0, j;( j= layers[i] ); i++){
+        if(!Array.isArray(j)){ out= j; continue; }
+        const sub_layer_index= j.indexOf(type);
+        if(sub_layer_index===-1) continue;
+        if(sub_layer_index!==0)
+            out= j[sub_layer_index-1];
+        break;
+    }
+    return data.getElement(d, out);
+}

@@ -1,13 +1,14 @@
+/* jshint maxdepth:3 */
 const SVGBigHeads= (function SVGBigHeads_iief(){
     "use strict";
-    const { colors, parts }= JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"parts":{"accessory":["none","glasses","pincenez","sunglasses"],"breasts":["none","breasts"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyebrow":["angry","neutral","smiling"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`);
+    const { colors, layers, parts }= JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"layers":["base","eyes",["eyebrow"],"mouth",["nose"],"clothes",["facialhair","breasts","accessory","hat"]],"parts":{"accessory":["none","glasses","pincenez","sunglasses"],"breasts":["none","breasts"],"eyebrow":["none","angry","neutral","smiling"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`);
     /**
      * @typedef ConfigKeys
      * @type {"href"|ElsKeys}
      */
     /**
      * @typedef ElsKeys
-     * @type {"base"|"breasts"|"eyes"}
+     * @type {"base"|"breasts"|"eyes"|"eyebrow"|"mouth"|"nose"|"hair"|"facialhair"|"accessory"|"clothes"}
      */
     /**
      * @typedef Data
@@ -27,6 +28,13 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
          * @property {string} [base]
          * @property {string} [breasts]
          * @property {string} [eyes]
+         * @property {string} [eyebrow]
+         * @property {string} [mouth]
+         * @property {string} [nose]
+         * @property {string} [hair]
+         * @property {string} [facialhair]
+         * @property {string} [accessory]
+         * @property {string} [clothes]
          */
         /**
          * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -34,6 +42,16 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
          * */
         attributes_default: { href: "" },
         get attributes_keys(){ return Object.keys(this.attributes_default); },
+        /**
+         * The names of parts with "none" (except “object-based” eg. hairs), see part labeled by comment: #parts.json
+         * @type {ElsKeys[]}
+         */
+        attributes_nullable: [],
+        /**
+         * The names of “object-based” parts (for now hairs), see part labeled by comment: #parts.json
+         * @type {ElsKeys[]}
+         */
+        attributes_objectbased: [],
         
         /** @type {WeakMap<SVGBigHeads, Data>} */
         storage: new WeakMap(),
@@ -84,17 +102,26 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     /* #parts.json */
     for(let i=0, keys= Object.keys(parts), key;( key= keys[i] ); i++){
         const val= Reflect.get(parts, key);
-        Reflect.set(data.attributes_default, key, Array.isArray(val) ? val[0] : Object.keys(val)[0]);
+        let parts_names;
+        if(Array.isArray(val)){
+            parts_names= val;
+            if(parts_names.indexOf("none")!==-1)
+                data.attributes_nullable.push(key);
+        } else {
+            parts_names= Object.keys(val);
+            data.attributes_objectbased.push(key);
+        }
+        Reflect.set(data.attributes_default, key, parts_names[0]);
     }
     /**
      * 
      * @param {Data} d 
      * @param {string} href 
      * @param {ConfigKeys} type 
+     * @param {string} [name] Defaults to value saved in `d`
      * @returns 
      */
-    function avatarPartHref(d, href, type){
-        const name= data.getAttribute(d, type);
+    function avatarPartHref(d, href, type, name= data.getAttribute(d, type)){
         return `${href}#${type}-${name}`;
     }
     /**
@@ -134,6 +161,13 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         return use;
     }
 
+    /**
+     * @param {HTMLElement} referenceNode 
+     * @param {HTMLElement} newNode 
+     */
+    function insertAfter(referenceNode, newNode) {
+        return referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
 
     /**
      * Contains options for generating default styles for `<svg-bigheads>`. Changes makes sence only before fisrt `<svg-bigheads>` is created. See {@link style.cerate}.
@@ -190,10 +224,17 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         connectedCallback(){
             this._svg= this.appendChild(createSVG());
             const d= data.get(this);
-            const { href, base }= d.attributes;
-            data.setElement(d, "base", this._svg.appendChild(createUSE(href+"#"+base)));
-            this.appendUSE(d, "eyes", href);
-            this.update("breasts");
+            const href= data.getAttribute(d, "href");
+            layers.forEach(v=> {
+                console.log(v); /* jshint devel: true *///gulp.keep.line
+                if(!Array.isArray(v))
+                    return this.appendUSE(d, v, href);
+                v.forEach(v=> {
+                    const type= data.getAttribute(d, v);
+                    if(type==="none") return;
+                    return this.appendUSE(d, v, href);
+                });
+            });
         }
         /**
          * Append `<use>` to internal `<svg>`.
@@ -207,32 +248,40 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             data.setElement(d, name, this._svg.appendChild(use_el));
             return use_el;
         }
+        /**
+         * Insert `<use>` to internal `<svg>` before `el`.
+         * @param {Data} d
+         * @param {ElsKeys} name
+         * @param {string} href
+         * @param {SVGUseElement} el
+         * @returns {SVGUseElement}
+         */
+        insertAfterUSE(d, name, href, el){
+            const use_el= createUSE(avatarPartHref(d, href, name));
+            data.setElement(d, name, this._svg.insertBefore(use_el, el.nextElementSibling));
+            return use_el;
+        }
+        /** @param {ConfigKeys} type */
         update(type){
             if(!this._svg) return false;
             const d= data.get(this);
-            switch (type){
-                case "breasts":
-                    return this.updateGender(d);
-                case "href":
-                    Reflect.set(d, "els", {});
-                    this._svg.remove();
-                    return this.connectedCallback();
-                default:
-                    return setHref(
-                        data.getElement(d, type),
-                        avatarPartHref(d, data.getAttribute(d, "href"), type)
-                    );
+            if(type==="href"){
+                Reflect.set(d, "els", {});
+                this._svg.remove();
+                return this.connectedCallback();
             }
-        }
-        updateGender(d){
-            const
-                breasts_name= data.getAttribute(d, "breasts"),
-                href= data.getAttribute(d, "href")+"#"+breasts_name,
-                is_man= "none"===breasts_name,
-                breasts= data.getElement(d, "breasts");
-            if((breasts&&!is_man)||(!breasts&&is_man)) return breasts ? setHref(breasts, href) : false;
-            if(is_man) return data.deleteElement(d, "breasts");
-            return data.setElement(d, "breasts", this._svg.appendChild(createUSE(href)));
+            const value= data.getAttribute(d, type);
+            if(value==="none")
+                return data.deleteElement(d, type);
+            
+            const href= data.getAttribute(d, "href");
+            if(data.attributes_nullable.indexOf(type)!==-1)
+                return this.insertAfterUSE(d, type, href, findLayer(d, type));
+    
+            return setHref(
+                data.getElement(d, type),
+                avatarPartHref(d, href, type, value)
+            );
         }
     }
 
@@ -242,5 +291,23 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         set(val){ return this.setAttribute(name, val); }
     }));
     customElements.define("svg-bigheads", SVGBigHeads);
+    
+    /**
+     * @param {Data} d
+     * @param {ElsKeys} type
+     * @returns {SVGUseElement}
+     */
+    function findLayer(d, type){
+        let out;
+        for(let i=0, j;( j= layers[i] ); i++){
+            if(!Array.isArray(j)){ out= j; continue; }
+            const sub_layer_index= j.indexOf(type);
+            if(sub_layer_index===-1) continue;
+            if(sub_layer_index!==0)
+                out= j[sub_layer_index-1];
+            break;
+        }
+        return data.getElement(d, out);
+    }
     return {  };
 })();

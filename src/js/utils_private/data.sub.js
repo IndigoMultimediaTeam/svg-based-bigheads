@@ -4,7 +4,7 @@
  */
 /**
  * @typedef ElsKeys
- * @type {"base"|"breasts"|"eyes"}
+ * @type {"base"|"breasts"|"eyes"|"eyebrow"|"mouth"|"nose"|"hair"|"facialhair"|"accessory"|"clothes"}
  */
 /**
  * @typedef Data
@@ -24,6 +24,13 @@ const data= {
      * @property {string} [base]
      * @property {string} [breasts]
      * @property {string} [eyes]
+     * @property {string} [eyebrow]
+     * @property {string} [mouth]
+     * @property {string} [nose]
+     * @property {string} [hair]
+     * @property {string} [facialhair]
+     * @property {string} [accessory]
+     * @property {string} [clothes]
      */
     /**
      * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -31,6 +38,16 @@ const data= {
      * */
     attributes_default: { href: "" },
     get attributes_keys(){ return Object.keys(this.attributes_default); },
+    /**
+     * The names of parts with "none" (except “object-based” eg. hairs), see part labeled by comment: #parts.json
+     * @type {ElsKeys[]}
+     */
+    attributes_nullable: [],
+    /**
+     * The names of “object-based” parts (for now hairs), see part labeled by comment: #parts.json
+     * @type {ElsKeys[]}
+     */
+    attributes_objectbased: [],
     
     /** @type {WeakMap<SVGBigHeads, Data>} */
     storage: new WeakMap(),
@@ -82,5 +99,14 @@ const data= {
 /* #parts.json */
 for(let i=0, keys= Object.keys(parts), key;( key= keys[i] ); i++){
     const val= Reflect.get(parts, key);
-    Reflect.set(data.attributes_default, key, Array.isArray(val) ? val[0] : Object.keys(val)[0]);
+    let parts_names;
+    if(Array.isArray(val)){
+        parts_names= val;
+        if(parts_names.indexOf("none")!==-1)
+            data.attributes_nullable.push(key);
+    } else {
+        parts_names= Object.keys(val);
+        data.attributes_objectbased.push(key);
+    }
+    Reflect.set(data.attributes_default, key, parts_names[0]);
 }

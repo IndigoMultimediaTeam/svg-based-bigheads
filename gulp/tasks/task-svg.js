@@ -77,9 +77,9 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         return Reflect.get(target, property);
     }
     function generateID({ basename, dirname }){
-        const part= dirname.split("bigheads-parts\\")[1];
+        let part= dirname.split("bigheads-parts\\")[1];
         const name= basename.split(".")[0];
-        if(!part) return name;
+        if(!part) part= name;
         return part+"-"+name;
     }
 };
