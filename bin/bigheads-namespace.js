@@ -1,5 +1,102 @@
 const SVGBigHeads= (function SVGBigHeads_iief(){
     "use strict";
+    const { colors, parts }= JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"parts":{"accessory":["none","glasses","pincenez","sunglasses"],"breasts":["none","breasts"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyebrow":["angry","neutral","smiling"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`);
+    /**
+     * @typedef ConfigKeys
+     * @type {"href"|ElsKeys}
+     */
+    /**
+     * @typedef ElsKeys
+     * @type {"base"|"breasts"|"eyes"}
+     */
+    /**
+     * @typedef Data
+     * @type {object}
+     * @property {Config} attributes
+     * @property {Object.<ElsKeys, SVGElement|SVGUseElement>} els
+     */
+    /**
+     * @namespace
+     * */
+    const data= {
+        /**
+         * For default values see {@link data.attributes_default}
+         * @typedef Config
+         * @type {object}
+         * @property {string} [href] Target of svg file
+         * @property {string} [base]
+         * @property {string} [breasts]
+         * @property {string} [eyes]
+         */
+        /**
+         * Another loaded from `parts`, see part labeled by comment: #parts.json
+         * @type {Config}
+         * */
+        attributes_default: { href: "" },
+        get attributes_keys(){ return Object.keys(this.attributes_default); },
+        
+        /** @type {WeakMap<SVGBigHeads, Data>} */
+        storage: new WeakMap(),
+        
+        /**
+         * @param {SVGBigHeads} target 
+         */
+        create(target){ const attributes= JSON.parse(JSON.stringify(this.attributes_default)); this.storage.set(target, { attributes, els: {} }); },
+        /**
+         * @param {SVGBigHeads} target 
+         * @returns {Data}
+         */
+        get(target){ return this.storage.get(target); },
+        
+        /**
+         * @param {Data} data 
+         * @param {ConfigKeys} name 
+         * @param {string|null} [value=null] 
+         */
+        setAttribute(data, name, value= null){ return Reflect.set(data.attributes, name, value===null ? this.attributes_default[name] : value); },
+        /**
+         * @param {Data} data 
+         * @param {ConfigKeys} name 
+         */
+        getAttribute({ attributes }, name){ return attributes[name]; },
+        /**
+         * @param {Data} data 
+         * @param {ElsKeys} name 
+         * @returns {SVGUseElement|undefined}
+         */
+        getElement(data, name){ return Reflect.get(data.els, name); },
+        /**
+         * @param {Data} data 
+         * @param {ElsKeys} name 
+         * @param {SVGUseElement} el 
+         */
+        setElement(data, name, el){ return Reflect.set(data.els, name, el); },
+        /**
+         * @param {Data} data 
+         * @param {ElsKeys} name 
+         */
+        deleteElement({ els }, name){
+            if(!Reflect.has(els, name)) return false;
+            Reflect.get(els, name).remove();
+            return Reflect.deleteProperty(els, name);
+        }
+    };
+    /* #parts.json */
+    for(let i=0, keys= Object.keys(parts), key;( key= keys[i] ); i++){
+        const val= Reflect.get(parts, key);
+        Reflect.set(data.attributes_default, key, Array.isArray(val) ? val[0] : Object.keys(val)[0]);
+    }
+    /**
+     * 
+     * @param {Data} d 
+     * @param {string} href 
+     * @param {ConfigKeys} type 
+     * @returns 
+     */
+    function avatarPartHref(d, href, type){
+        const name= data.getAttribute(d, type);
+        return `${href}#${type}-${name}`;
+    }
     /**
      * @callback __createElementNS
      * @returns {SVGElement|SVGUseElement}
@@ -36,82 +133,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         setHref(use, href);
         return use;
     }
-    /**
-     * @typedef config
-     * @type {object}
-     * @property {string} [href=""] Target of svg file
-     * @property {string} [gender="man"] Mainly show/hide breasts
-     * @property {string} [eyes="simple"] Mainly show/hide breasts
-     */
-    /**
-     * @typedef config_keys
-     * @type {"href"|"gender"}
-     */
-    /**
-     * @typedef els_keys
-     * @type {"base"|"breasts"}
-     */
-    /**
-     * @typedef Data
-     * @type {object}
-     * @property {config} attributes
-     * @property {Object.<els_keys, SVGElement|SVGUseElement>} els
-     */
-    const data= {
-        /** @type {config} */
-        attributes_default: {
-            href: "",
-            gender: "man",
-            eyes: "simple"
-        },
-        get attributes_keys(){ return Object.keys(this.attributes_default); },
-        
-        /** @type {WeakMap<SVGBigHeads, Data>} */
-        storage: new WeakMap(),
-        
-        /**
-         * @param {SVGBigHeads} target 
-         */
-        create(target){ const attributes= JSON.parse(JSON.stringify(this.attributes_default)); this.storage.set(target, { attributes, els: {} }); },
-        /**
-         * @param {SVGBigHeads} target 
-         * @returns {Data}
-         */
-        get(target){ return this.storage.get(target); },
-        
-        /**
-         * @param {Data} data 
-         * @param {config_keys} name 
-         * @param {string|null} [value=null] 
-         */
-        setAttribute(data, name, value= null){ return Reflect.set(data.attributes, name, value===null ? this.attributes_default[name] : value); },
-        /**
-         * @param {Data} data 
-         * @param {config_keys} name 
-         */
-        getAttribute({ attributes }, name){ return attributes[name]; },
-        /**
-         * @param {Data} data 
-         * @param {els_keys} name 
-         * @returns {SVGUseElement|undefined}
-         */
-        getElement(data, name){ return Reflect.get(data.els, name); },
-        /**
-         * @param {Data} data 
-         * @param {els_keys} name 
-         * @param {SVGUseElement} el 
-         */
-        setElement(data, name, el){ return Reflect.set(data.els, name, el); },
-        /**
-         * @param {Data} data 
-         * @param {els_keys} name 
-         */
-        deleteElement({ els }, name){
-            if(!Reflect.has(els, name)) return false;
-            Reflect.get(els, name).remove();
-            return Reflect.deleteProperty(els, name);
-        }
-    };
+
 
     /**
      * Contains options for generating default styles for `<svg-bigheads>`. Changes makes sence only before fisrt `<svg-bigheads>` is created. See {@link style.cerate}.
@@ -155,7 +177,6 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             this.is_created= true;
         }
     };
-    const svg_parts= JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"base":["base","breasts"],"accessory":["glasses","pincenez","sunglasses"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyebrow":["angry","neutral","smiling"],"eyes":["narrower","round","semiround","simple","thin"],"facialhair":["big","stubble"],"hair":{"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["beanie","turban"],"mouth":["lips","neutral","open","smile"],"nose":["big","normal","up"]}`);
     
     class SVGBigHeads extends HTMLElement{
         constructor(){ super(); data.create(this); style_global.create(); }
@@ -169,17 +190,20 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         connectedCallback(){
             this._svg= this.appendChild(createSVG());
             const d= data.get(this);
-            const href= data.getAttribute(d, "href");
-            data.setElement(d, "base", this._svg.appendChild(createUSE(href+"#base")));
+            const { href, base }= d.attributes;
+            data.setElement(d, "base", this._svg.appendChild(createUSE(href+"#"+base)));
             this.appendUSE(d, "eyes", href);
-            this.update("gender");
+            this.update("breasts");
         }
-        fullHref(d, href, type){
-            const name= data.getAttribute(d, type);
-            return `${href}#${type}-${name}`;
-        }
+        /**
+         * Append `<use>` to internal `<svg>`.
+         * @param {Data} d
+         * @param {ElsKeys} name
+         * @param {string} href
+         * @returns {SVGUseElement}
+         */
         appendUSE(d, name, href){
-            const use_el= createUSE(this.fullHref(d, href, name));
+            const use_el= createUSE(avatarPartHref(d, href, name));
             data.setElement(d, name, this._svg.appendChild(use_el));
             return use_el;
         }
@@ -187,25 +211,25 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             if(!this._svg) return false;
             const d= data.get(this);
             switch (type){
-                case "gender":
+                case "breasts":
                     return this.updateGender(d);
                 case "href":
                     Reflect.set(d, "els", {});
                     this._svg.remove();
                     return this.connectedCallback();
-                default :
+                default:
                     return setHref(
                         data.getElement(d, type),
-                        this.fullHref(d, data.getAttribute(d, "href"), type)
+                        avatarPartHref(d, data.getAttribute(d, "href"), type)
                     );
             }
         }
         updateGender(d){
             const
-                href= data.getAttribute(d, "href")+"#breasts",
-                is_man= "man"===data.getAttribute(d, "gender"),
+                breasts_name= data.getAttribute(d, "breasts"),
+                href= data.getAttribute(d, "href")+"#"+breasts_name,
+                is_man= "none"===breasts_name,
                 breasts= data.getElement(d, "breasts");
-                
             if((breasts&&!is_man)||(!breasts&&is_man)) return breasts ? setHref(breasts, href) : false;
             if(is_man) return data.deleteElement(d, "breasts");
             return data.setElement(d, "breasts", this._svg.appendChild(createUSE(href)));

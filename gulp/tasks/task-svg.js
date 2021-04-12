@@ -1,12 +1,9 @@
 /* jshint node: true, maxparams: 4 */
 module.exports= function({app, gulp, error, $g, $o, $run}){
-    const colors= {
-        "#d96e27": "hair",
-        "#d67070": "clothes",
-        "#5bcaf0": "hat",
-        "#dd3e3e": "mouth",
-        "#fdd2b2": "skin"
-    };
+    const /** looads initial data for `/src/parts.json` */
+        data= JSON.parse($o.fs.readFileSync(app.directories.src+"parts_initial.json")),
+        colors= Object.keys(data.colors).reduce((t, c)=> Reflect.set(t, data.colors[c], c) && t, {});
+    if(!Reflect.has(data, "parts")) Reflect.set(data, "parts", {});
     const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
     /* jshint -W061 */
     const gulp_place= $g.place({
@@ -27,7 +24,6 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
     /* jshint +W061 */
     const { src, bin }= app.directories;
     return function(cb){
-        let data= { colors: Object.keys(colors).reduce((t, c)=> Reflect.set(t, colors[c], c) && t, {}) };
         gulp.src([ src+"**/*.sub.svg" ])
             .pipe($g.svgmin({
                 js2svg: {
@@ -50,7 +46,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
             }))
             .pipe($g.replace(/<svg([^>]*)>/i, function(_, match= ""){
                 const id= generateID(this.file);
-                updateData(id.split("-"), data);
+                updateData(id.split("-"), data.parts);
                 return `<svg id="${id}"${idsClr(match)}>`;
             }))
             .pipe(gulp.dest(src))
@@ -61,12 +57,12 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                     .on('end', ()=> $o.fs.writeFile(src+"parts.json", JSON.stringify(data), cb));
             });
     };
-    function updateData(path, data){
-        if(path.length===1) path= [ "base", path[0] ];
+    function updateData(path, parts){
+        if(path.length===1) path= [ path[0], path[0] ];
         const [ type, ...item ]= path;
-        if(item.length===1) return getWithDefault(data, type, []).push(item[0]);
+        if(item.length===1) return getWithDefault(parts, type, []).push(item[0]);
         /* mainly hairs?: [ "hair", "long", "back" ] → hair: { long: { back: true } } */
-        const curr_type= getWithDefault(data, type, {});
+        const curr_type= getWithDefault(parts, type, {});
         const [ item_name, item_type ]= item;
         const curr_item= getWithDefault(curr_type, item_name, {});
         Reflect.set(curr_item, item_type, true);
