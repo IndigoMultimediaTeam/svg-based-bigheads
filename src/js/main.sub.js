@@ -1,6 +1,6 @@
 const { colors, safe_layers, parts }= getFromJSON();
 gulp_place("./singletons/*.sub.js", "files_once");/* global style_global, data */
-gulp_place("./elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE, setHref, insertAfter, createGroupedElement */
+gulp_place("./elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE, setHref, createGroupedElement */
 gulp_place("./avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, findSafeLayer, hairFullConfig */
 
 class SVGBigHeads extends HTMLElement{

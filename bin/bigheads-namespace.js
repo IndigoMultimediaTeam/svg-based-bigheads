@@ -206,13 +206,6 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         setHref(use, href);
         return use;
     }
-    /**
-     * @param {HTMLElement} referenceNode 
-     * @param {HTMLElement} newNode 
-     */
-    function insertAfter(referenceNode, newNode) {
-        return referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    }
 
 
     /**
