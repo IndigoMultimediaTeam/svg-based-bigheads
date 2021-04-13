@@ -1,5 +1,7 @@
 const { colors, safe_layers, parts }= getFromJSON();
-gulp_place("./utils_private/*.sub.js", "files_once");/* global createSVG, createUSE, style_global, setHref, data, avatarPartHref, insertAfter */
+gulp_place("./singletons/*.sub.js", "files_once");/* global style_global, data */
+gulp_place("./elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE, setHref, insertAfter, createGroupedElement */
+gulp_place("./avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, findSafeLayer, hairFullConfig */
 
 class SVGBigHeads extends HTMLElement{
     constructor(){ super(); data.create(this); style_global.create(); }
@@ -22,6 +24,7 @@ class SVGBigHeads extends HTMLElement{
                 if(type!=="none") return this.appendUSE(d, v, href);
             });
         });
+        this.updateHair(d, href);
     }
     /**
      * Append `<use>` to internal `<svg>`.
@@ -57,40 +60,45 @@ class SVGBigHeads extends HTMLElement{
             this._svg.remove();
             return this.connectedCallback();
         }
+        const href= data.getAttribute(d, "href");
+        if(type==="hair") return this.updateHair(d, href);
+        const gotoEnd= ()=> type==="hat"&&this.updateHair(d, href);
+        
         const value= data.getAttribute(d, type);
         if(value==="none")
-            return data.deleteElement(d, type);
+            return gotoEnd(data.deleteElement(d, type));
         
-        const href= data.getAttribute(d, "href");
         if(data.attributes_nullable.indexOf(type)!==-1)
-            return this.insertAfterUSE(d, type, href, findLayer(d, type));
+            return gotoEnd(this.insertAfterUSE(d, type, href, findSafeLayer(d, type)));
 
-        return setHref(
-            data.getElement(d, type),
-            avatarPartHref(d, href, type, value)
-        );
+        return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, href, type, value)));
+    }
+    /**
+     * @param {Data} d 
+     * @param {string} href 
+     */
+    updateHair(d, href){
+        const type= data.getAttribute(d, "hair");
+        data.deleteElement(d, "hair");
+        const has_hat= data.getAttribute(d, "hat")!=="none";
+        const gotoEnd= is_big_hat=> has_hat&&data.getElement(d, "hat").classList.toggle(style_global.options.big_hat, is_big_hat);
+        if(type==="none") return gotoEnd(0);
+        const config= hairFullConfig(type);
+        const els= Object.keys(config).reduce(function(els, curr){
+            if(curr!=="parent"&&config[curr]&&(curr!=="top"||!has_hat))
+                Reflect.set(els, curr, createUSE(avatarPartHref(d, href, "hair", (config.parent&&curr==="front" ? config.parent : type)+"-"+curr)));
+            return els;
+        }, {});
+        Object.keys(els).forEach(name=> name==="front" ? 
+            this._svg.insertBefore(els[name], findSafeLayer(d, "accessory")) :
+            this._svg.insertBefore(els[name], data.getElement(d, "base")));
+        data.setElement(d, "hair", createGroupedElement(els));
+        return gotoEnd(Reflect.has(els, "back"));
     }
 }
 gulp_place("./SVGBigHeads/*.sub.js", "files_once");
 customElements.define("svg-bigheads", SVGBigHeads);
 
-/**
- * @param {Data} d
- * @param {_JSON_parts_keys} type
- * @returns {SVGUseElement}
- */
-function findLayer(d, type){
-    let out;
-    for(let i=0, j;( j= safe_layers[i] ); i++){
-        if(!Array.isArray(j)){ out= j; continue; }
-        const sub_layer_index= j.indexOf(type);
-        if(sub_layer_index===-1) continue;
-        if(sub_layer_index!==0)
-            out= j[sub_layer_index-1];
-        break;
-    }
-    return data.getElement(d, out);
-}
 gulp_place("parts.types.sub.js", "file_once");
 /**
  * @typedef json

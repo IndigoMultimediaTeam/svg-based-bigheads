@@ -69,13 +69,19 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         /**
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
-         * @returns {SVGUseElement|undefined}
+         * @returns {boolean}
+         */
+        hasElement(data, name){ return Reflect.has(data.els, name); },
+        /**
+         * @param {Data} data 
+         * @param {_JSON_parts_keys} name 
+         * @returns {SVGUseElement|GroupedElement|undefined}
          */
         getElement(data, name){ return Reflect.get(data.els, name); },
         /**
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
-         * @param {SVGUseElement} el 
+         * @param {SVGUseElement|GroupedElement} el 
          */
         setElement(data, name, el){ return Reflect.set(data.els, name, el); },
         /**
@@ -103,16 +109,48 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         Reflect.set(data.attributes_default, key, parts_names[0]);
     }
     /**
-     * 
-     * @param {Data} d 
-     * @param {string} href 
-     * @param {ConfigKeys} type 
-     * @param {string} [name] Defaults to value saved in `d`
-     * @returns 
+     * Contains options for generating default styles for `<svg-bigheads>`. Changes makes sence only before fisrt `<svg-bigheads>` is created. See {@link style.cerate}.
+     * @typedef {Object} style_options
+     * @property {boolean} [allow=true] Allow creating global default styles
+     * @property {string} [fit=contain] CSS `fit` property of `<svg>` inside `<svg-bigheads>`
+     * @property {string} [big_hat=bigheads-hat-longhairs] Class name for making hat bigger when long hair
      */
-    function avatarPartHref(d, href, type, name= data.getAttribute(d, type)){
-        return `${href}#${type}-${name}`;
-    }
+    /**
+     * @namespace
+     * @private
+     * @global
+     */
+    const style_global= {
+        /**
+         * @property {style_options} options
+         * @memberof style
+         * @public
+         */
+        options: { allow: true, fit: "contain", big_hat: "bigheads-hat-longhairs" },
+        /**
+         * Keeping information the global style was created – see {@link style.cerate}
+         * @property {boolean} [is_created=false]
+         * @memberof style
+         * @private
+         */
+        is_created: false,
+        /**
+         * Creates new `<style>` inside `<head>` with default styling of `<svg-bigheads>` (displays block and size)
+         * @method
+         * @memberof style
+         * @public
+         */
+        create(){
+            if(!this.options.allow||this.is_created) return false;
+            const style_el= document.createElement("style");
+            const { fit, big_hat }= this.options;
+            style_el.innerHTML=
+                `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
+                `svg-bigheads .${big_hat} { transform: scale(1.1) translate(-5%, -7.5%); }`;
+            document.head.appendChild(style_el);
+            this.is_created= true;
+        }
+    };
     /**
      * @callback __createElementNS
      * @returns {SVGElement|SVGUseElement}
@@ -124,6 +162,25 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
      * @global
      */
     const createElement= document.createElementNS.bind(document, "http://www.w3.org/2000/svg");
+    /**
+     * @typedef GroupedElement
+     * @type {Object}
+     * @property {SVGUseElement} [front] 
+     * @property {SVGUseElement} [top] 
+     * @property {SVGUseElement} [back] 
+     * @property {function} remove Removes all elements
+     */
+    /**
+     * @param {object} els_object 
+     * @param {SVGUseElement} [els_object.front] 
+     * @param {SVGUseElement} [els_object.top] 
+     * @param {SVGUseElement} [els_object.back] 
+     * @returns {GroupedElement}
+     */
+    function createGroupedElement(els_object){
+        const keys= Object.keys(els_object);
+        return Object.assign({ remove(){ keys.forEach(el=> this[el].remove()); } }, els_object);
+    }
 
     /** @returns {SVGElement} */
     function createSVG(){
@@ -149,7 +206,6 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         setHref(use, href);
         return use;
     }
-
     /**
      * @param {HTMLElement} referenceNode 
      * @param {HTMLElement} newNode 
@@ -158,48 +214,51 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         return referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
     }
 
+
     /**
-     * Contains options for generating default styles for `<svg-bigheads>`. Changes makes sence only before fisrt `<svg-bigheads>` is created. See {@link style.cerate}.
-     * @typedef {Object} style_options
-     * @property {boolean} [allow=true] Allow creating global default styles
-     * @property {string} [fit=contain] CSS `fit` property of `<svg>` inside `<svg-bigheads>`
+     * 
+     * @param {Data} d 
+     * @param {string} href 
+     * @param {ConfigKeys} type 
+     * @param {string} [name] Defaults to value saved in `d`
+     * @returns 
      */
+    function avatarPartHref(d, href, type, name= data.getAttribute(d, type)){
+        return `${href}#${type}-${name}`;
+    }
+
     /**
-     * @namespace
-     * @private
-     * @global
+     * @param {Data} d
+     * @param {_JSON_parts_keys} type
+     * @returns {SVGUseElement}
      */
-    const style_global= {
-        /**
-         * @property {style_options} options
-         * @memberof style
-         * @public
-         */
-        options: { allow: true, fit: "contain" },
-        /**
-         * Keeping information the global style was created – see {@link style.cerate}
-         * @property {boolean} [is_created=false]
-         * @memberof style
-         * @private
-         */
-        is_created: false,
-        /**
-         * Creates new `<style>` inside `<head>` with default styling of `<svg-bigheads>` (displays block and size)
-         * @method
-         * @memberof style
-         * @public
-         */
-        create(){
-            if(!this.options.allow||this.is_created) return false;
-            const style_el= document.createElement("style");
-            const { fit }= this.options;
-            style_el.innerHTML=
-                `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
-                `svg-bigheads .bigheads-hat-longhairs { transform: scale(1.1) translate(-5%, -7.5%); }`;
-            document.head.appendChild(style_el);
-            this.is_created= true;
+    function findSafeLayer(d, type){
+        for(let i=0, layer_main, layer_nth;( layer_nth= safe_layers[i] ); i++){
+            if(!Array.isArray(layer_nth)){ layer_main= layer_nth; continue; }
+            const sub_layer_index= layer_nth.indexOf(type);
+            if(sub_layer_index===-1) continue;
+            
+            return data.getElement(d, trySubLayer(layer_nth, sub_layer_index) || layer_main);
         }
-    };
+        
+        function trySubLayer(layer_main, sub_layer_index){
+            if(sub_layer_index===0) return false;
+            for(let j= sub_layer_index-1, layer_sub; j>=0; j--){
+                layer_sub= layer_main[j];
+                if(!data.hasElement(d, layer_sub)) continue;
+                return layer_sub;
+            }
+            return false;
+        }
+    }
+    /**
+     * @param {string} type 
+     * @returns {_JSON_Tobject}
+     */
+    function hairFullConfig(type){
+        const config= parts.hair[type];
+        return Object.assign({}, config, config.parent ? parts.hair[config.parent] : null);
+    }
     
     class SVGBigHeads extends HTMLElement{
         constructor(){ super(); data.create(this); style_global.create(); }
@@ -222,6 +281,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
                     if(type!=="none") return this.appendUSE(d, v, href);
                 });
             });
+            this.updateHair(d, href);
         }
         /**
          * Append `<use>` to internal `<svg>`.
@@ -257,18 +317,40 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
                 this._svg.remove();
                 return this.connectedCallback();
             }
+            const href= data.getAttribute(d, "href");
+            if(type==="hair") return this.updateHair(d, href);
+            const gotoEnd= ()=> type==="hat"&&this.updateHair(d, href);
+            
             const value= data.getAttribute(d, type);
             if(value==="none")
-                return data.deleteElement(d, type);
+                return gotoEnd(data.deleteElement(d, type));
             
-            const href= data.getAttribute(d, "href");
             if(data.attributes_nullable.indexOf(type)!==-1)
-                return this.insertAfterUSE(d, type, href, findLayer(d, type));
+                return gotoEnd(this.insertAfterUSE(d, type, href, findSafeLayer(d, type)));
     
-            return setHref(
-                data.getElement(d, type),
-                avatarPartHref(d, href, type, value)
-            );
+            return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, href, type, value)));
+        }
+        /**
+         * @param {Data} d 
+         * @param {string} href 
+         */
+        updateHair(d, href){
+            const type= data.getAttribute(d, "hair");
+            data.deleteElement(d, "hair");
+            const has_hat= data.getAttribute(d, "hat")!=="none";
+            const gotoEnd= is_big_hat=> has_hat&&data.getElement(d, "hat").classList.toggle(style_global.options.big_hat, is_big_hat);
+            if(type==="none") return gotoEnd(0);
+            const config= hairFullConfig(type);
+            const els= Object.keys(config).reduce(function(els, curr){
+                if(curr!=="parent"&&config[curr]&&(curr!=="top"||!has_hat))
+                    Reflect.set(els, curr, createUSE(avatarPartHref(d, href, "hair", (config.parent&&curr==="front" ? config.parent : type)+"-"+curr)));
+                return els;
+            }, {});
+            Object.keys(els).forEach(name=> name==="front" ? 
+                this._svg.insertBefore(els[name], findSafeLayer(d, "accessory")) :
+                this._svg.insertBefore(els[name], data.getElement(d, "base")));
+            data.setElement(d, "hair", createGroupedElement(els));
+            return gotoEnd(Reflect.has(els, "back"));
         }
     }
 
@@ -279,23 +361,6 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     }));
     customElements.define("svg-bigheads", SVGBigHeads);
     
-    /**
-     * @param {Data} d
-     * @param {_JSON_parts_keys} type
-     * @returns {SVGUseElement}
-     */
-    function findLayer(d, type){
-        let out;
-        for(let i=0, j;( j= safe_layers[i] ); i++){
-            if(!Array.isArray(j)){ out= j; continue; }
-            const sub_layer_index= j.indexOf(type);
-            if(sub_layer_index===-1) continue;
-            if(sub_layer_index!==0)
-                out= j[sub_layer_index-1];
-            break;
-        }
-        return data.getElement(d, out);
-    }
     /* Automaticaly created from svg file strucutre */
     /**
      * Final usage of colors are: `--bigheads-color-__color_name__`
@@ -321,6 +386,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
      * @property {boolean} [front] 
      * @property {boolean} [back] 
      * @property {boolean} [top] 
+     * @property {string} [[parent]=The name of hair to be also used] 
      */
     /**
      * @typedef _JSON_colors

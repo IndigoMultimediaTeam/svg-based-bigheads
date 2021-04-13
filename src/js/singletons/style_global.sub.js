@@ -3,6 +3,7 @@
  * @typedef {Object} style_options
  * @property {boolean} [allow=true] Allow creating global default styles
  * @property {string} [fit=contain] CSS `fit` property of `<svg>` inside `<svg-bigheads>`
+ * @property {string} [big_hat=bigheads-hat-longhairs] Class name for making hat bigger when long hair
  */
 /**
  * @namespace
@@ -15,7 +16,7 @@ const style_global= {
      * @memberof style
      * @public
      */
-    options: { allow: true, fit: "contain" },
+    options: { allow: true, fit: "contain", big_hat: "bigheads-hat-longhairs" },
     /**
      * Keeping information the global style was created – see {@link style.cerate}
      * @property {boolean} [is_created=false]
@@ -32,10 +33,10 @@ const style_global= {
     create(){
         if(!this.options.allow||this.is_created) return false;
         const style_el= document.createElement("style");
-        const { fit }= this.options;
+        const { fit, big_hat }= this.options;
         style_el.innerHTML=
             `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
-            `svg-bigheads .bigheads-hat-longhairs { transform: scale(1.1) translate(-5%, -7.5%); }`;
+            `svg-bigheads .${big_hat} { transform: scale(1.1) translate(-5%, -7.5%); }`;
         document.head.appendChild(style_el);
         this.is_created= true;
     }

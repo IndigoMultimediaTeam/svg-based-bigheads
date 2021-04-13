@@ -65,13 +65,19 @@ const data= {
     /**
      * @param {Data} data 
      * @param {_JSON_parts_keys} name 
-     * @returns {SVGUseElement|undefined}
+     * @returns {boolean}
+     */
+    hasElement(data, name){ return Reflect.has(data.els, name); },
+    /**
+     * @param {Data} data 
+     * @param {_JSON_parts_keys} name 
+     * @returns {SVGUseElement|GroupedElement|undefined}
      */
     getElement(data, name){ return Reflect.get(data.els, name); },
     /**
      * @param {Data} data 
      * @param {_JSON_parts_keys} name 
-     * @param {SVGUseElement} el 
+     * @param {SVGUseElement|GroupedElement} el 
      */
     setElement(data, name, el){ return Reflect.set(data.els, name, el); },
     /**

@@ -1,4 +1,4 @@
-gulp_place("./data.sub.js", "file_once");/* global data */
+gulp_place("../singletons/data.sub.js", "file_once");/* global data */
 /**
  * 
  * @param {Data} d 

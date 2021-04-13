@@ -1,4 +1,4 @@
-gulp_place("../utils_private/data.sub.js", "file_once");/* global data */
+gulp_place("../singletons/data.sub.js", "file_once");/* global data */
 /* global SVGBigHeads */
 /* set/get attributes */
 data.attributes_keys.forEach(name=> Reflect.defineProperty(SVGBigHeads.prototype, name, { 
