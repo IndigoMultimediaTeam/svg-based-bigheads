@@ -1,4 +1,4 @@
-const { colors, layers, parts }= JSON.parse(`gulp_place("parts.json", "file_once")`);
+const { colors, safe_layers, parts }= getFromJSON();
 gulp_place("./utils_private/*.sub.js", "files_once");/* global createSVG, createUSE, style_global, setHref, data, avatarPartHref, insertAfter */
 
 class SVGBigHeads extends HTMLElement{
@@ -14,7 +14,7 @@ class SVGBigHeads extends HTMLElement{
         this._svg= this.appendChild(createSVG());
         const d= data.get(this);
         const href= data.getAttribute(d, "href");
-        layers.forEach(v=> {
+        safe_layers.forEach(v=> {
             if(!Array.isArray(v))
                 return this.appendUSE(d, v, href);
             v.forEach(v=> {
@@ -26,7 +26,7 @@ class SVGBigHeads extends HTMLElement{
     /**
      * Append `<use>` to internal `<svg>`.
      * @param {Data} d
-     * @param {ElsKeys} name
+     * @param {_JSON_parts_keys} name
      * @param {string} href
      * @returns {SVGUseElement}
      */
@@ -38,7 +38,7 @@ class SVGBigHeads extends HTMLElement{
     /**
      * Insert `<use>` to internal `<svg>` before `el`.
      * @param {Data} d
-     * @param {ElsKeys} name
+     * @param {_JSON_parts_keys} name
      * @param {string} href
      * @param {SVGUseElement} el
      * @returns {SVGUseElement}
@@ -76,12 +76,12 @@ customElements.define("svg-bigheads", SVGBigHeads);
 
 /**
  * @param {Data} d
- * @param {ElsKeys} type
+ * @param {_JSON_parts_keys} type
  * @returns {SVGUseElement}
  */
 function findLayer(d, type){
     let out;
-    for(let i=0, j;( j= layers[i] ); i++){
+    for(let i=0, j;( j= safe_layers[i] ); i++){
         if(!Array.isArray(j)){ out= j; continue; }
         const sub_layer_index= j.indexOf(type);
         if(sub_layer_index===-1) continue;
@@ -91,3 +91,13 @@ function findLayer(d, type){
     }
     return data.getElement(d, out);
 }
+gulp_place("parts.types.sub.js", "file_once");
+/**
+ * @typedef json
+ * @type {object}
+ * @property {_JSON_colors} colors
+ * @property {_JSON_parts} parts
+ * @property {_JSON_safe_layers} safe_layers
+ */
+/** @returns {json} */
+function getFromJSON(){ return JSON.parse(`gulp_place("parts.json", "file_once")`); }

@@ -54,7 +54,11 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 gulp.src([ src+"*.svg", '!'+src+'*.sub.svg' ])
                     .pipe(gulp_place({ folder: src, string_wrapper: '' }))
                     .pipe(gulp.dest(bin))
-                    .on('end', ()=> $o.fs.writeFile(src+"parts.json", JSON.stringify(data), cb));
+                    .on('end', function(){
+                        $o.fs.writeFileSync(src+"parts.json", JSON.stringify(data));
+                        $o.fs.writeFileSync(src+"parts.types.sub.js", generateJSDoc(data));
+                        cb();
+                    });
             });
     };
     function updateData(path, parts){
@@ -81,5 +85,50 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         const name= basename.split(".")[0];
         if(!part) part= name;
         return part+"-"+name;
+    }
+    function generateJSDoc(data){
+        const keys= [ "colors", "parts" ];
+        const descs_keys= [ "Final usage of colors are: `--bigheads-color-__color_name__`", "All svg files options" ];
+        let out= "/* Automaticaly created from svg file strucutre */\n";
+        out+= keys.map((k, i)=> jsdocTypedef({
+            name: "_JSON_"+k+"_keys",
+            desc: descs_keys[i],
+            type: '"'+(Array.isArray(data[k]) ? data[k] : Object.keys(data[k])).join('"|"')+'"'
+        })).join("\n")+"\n";
+        const bht_json_Ts= [ "string", "array", "object" ].map(t=> "_JSON_T"+t);
+        out+= jsdocTypedef({ name: bht_json_Ts[0], type: "string" })+"\n";
+        out+= jsdocTypedef({ name: bht_json_Ts[1], type: "string[]" })+"\n";
+        out+= jsdocTypedefProps({ name: bht_json_Ts[2], type: "object" }, [ "front", "back", "top" ].map(n=> [ `[${n}]`, "boolean" ]))+"\n";
+        out+= keys.map(k=> jsdocTypedefProps({
+            name: "_JSON_"+k,
+            type: "object"
+        }, Object.keys(data[k]).map(name=>
+            ([ name, bht_json_Ts.join("|") ]))
+        )).join("\n")+"\n";
+        out+= keys.map(k=> jsdocTypedefProps({
+            name: "_JSON_config_"+k,
+            type: "object"
+        }, Object.keys(data[k]).map(name=>
+            ([ name, "string", (dkn=> typeof dkn==="string" ? dkn : ( Array.isArray(dkn) ? dkn[0] : Object.keys(dkn)[0] ) )(data[k][name]) ]))
+        )).join("\n")+"\n";
+        out+= jsdocTypedef({ name: "_JSON_safe_layers_nth", type: "_JSON_parts_keys[]" })+"\n";
+        out+= jsdocTypedef({ name: "_JSON_safe_layers", type: "_JSON_safe_layers_nth & _JSON_safe_layers_nth[]" })+"\n";
+        return out;
+    }
+    function jsdocTypedef({ name, type, desc }, close= true){
+        const main= "/**"+
+            (desc ? "\n * "+desc : "")+
+            [
+                " @typedef "+name,
+                ` @type {${type}}`
+            ].map(l=> "\n *"+l).join("");
+        return main+(close?"\n */":"");
+    }
+    function jsdocTypedefProps(typedef, props){
+        return jsdocTypedef(typedef, false)+
+            props.map(([ name, type, initial, desc= "" ])=> typeof initial==="undefined" ?
+                `@property {${type}} ${name} ${desc}` :
+                `@property {${type}} [${name}=${initial}] ${desc}`
+            ).map(l=> "\n * "+l).join("")+"\n */";
     }
 };

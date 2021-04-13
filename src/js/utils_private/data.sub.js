@@ -1,36 +1,25 @@
 /**
  * @typedef ConfigKeys
- * @type {"href"|ElsKeys}
+ * @type {"href"|_JSON_parts_keys}
  */
 /**
- * @typedef ElsKeys
- * @type {"base"|"breasts"|"eyes"|"eyebrow"|"mouth"|"nose"|"hair"|"facialhair"|"accessory"|"clothes"}
+ * @typedef _PreConfig
+ * @type {object}
+ * @property {string} [href] Target of svg file
  */
 /**
  * @typedef Data
  * @type {object}
  * @property {Config} attributes
- * @property {Object.<ElsKeys, SVGElement|SVGUseElement>} els
+ * @property {Object.<_JSON_parts_keys, SVGElement|SVGUseElement>} els
  */
 /**
  * @namespace
  * */
 const data= {
     /**
-     * For default values see {@link data.attributes_default}
      * @typedef Config
-     * @type {object}
-     * @property {string} [href] Target of svg file
-     * @property {string} [base]
-     * @property {string} [breasts]
-     * @property {string} [eyes]
-     * @property {string} [eyebrow]
-     * @property {string} [mouth]
-     * @property {string} [nose]
-     * @property {string} [hair]
-     * @property {string} [facialhair]
-     * @property {string} [accessory]
-     * @property {string} [clothes]
+     * @type {_PreConfig & _JSON_config_parts}
      */
     /**
      * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -40,12 +29,12 @@ const data= {
     get attributes_keys(){ return Object.keys(this.attributes_default); },
     /**
      * The names of parts with "none" (except “object-based” eg. hairs), see part labeled by comment: #parts.json
-     * @type {ElsKeys[]}
+     * @type {_JSON_parts_keys[]}
      */
     attributes_nullable: [],
     /**
      * The names of “object-based” parts (for now hairs), see part labeled by comment: #parts.json
-     * @type {ElsKeys[]}
+     * @type {_JSON_parts_keys[]}
      */
     attributes_objectbased: [],
     
@@ -75,19 +64,19 @@ const data= {
     getAttribute({ attributes }, name){ return attributes[name]; },
     /**
      * @param {Data} data 
-     * @param {ElsKeys} name 
+     * @param {_JSON_parts_keys} name 
      * @returns {SVGUseElement|undefined}
      */
     getElement(data, name){ return Reflect.get(data.els, name); },
     /**
      * @param {Data} data 
-     * @param {ElsKeys} name 
+     * @param {_JSON_parts_keys} name 
      * @param {SVGUseElement} el 
      */
     setElement(data, name, el){ return Reflect.set(data.els, name, el); },
     /**
      * @param {Data} data 
-     * @param {ElsKeys} name 
+     * @param {_JSON_parts_keys} name 
      */
     deleteElement({ els }, name){
         if(!Reflect.has(els, name)) return false;

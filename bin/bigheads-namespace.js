@@ -1,40 +1,29 @@
 /* jshint maxdepth:3 */
 const SVGBigHeads= (function SVGBigHeads_iief(){
     "use strict";
-    const { colors, layers, parts }= JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"layers":["base","eyes",["eyebrow"],"mouth",["nose"],"clothes",["facialhair","breasts","accessory","hat"]],"parts":{"accessory":["none","glasses","pincenez","sunglasses"],"breasts":["none","breasts"],"eyebrow":["none","angry","neutral","smiling"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`);
+    const { colors, safe_layers, parts }= getFromJSON();
     /**
      * @typedef ConfigKeys
-     * @type {"href"|ElsKeys}
+     * @type {"href"|_JSON_parts_keys}
      */
     /**
-     * @typedef ElsKeys
-     * @type {"base"|"breasts"|"eyes"|"eyebrow"|"mouth"|"nose"|"hair"|"facialhair"|"accessory"|"clothes"}
+     * @typedef _PreConfig
+     * @type {object}
+     * @property {string} [href] Target of svg file
      */
     /**
      * @typedef Data
      * @type {object}
      * @property {Config} attributes
-     * @property {Object.<ElsKeys, SVGElement|SVGUseElement>} els
+     * @property {Object.<_JSON_parts_keys, SVGElement|SVGUseElement>} els
      */
     /**
      * @namespace
      * */
     const data= {
         /**
-         * For default values see {@link data.attributes_default}
          * @typedef Config
-         * @type {object}
-         * @property {string} [href] Target of svg file
-         * @property {string} [base]
-         * @property {string} [breasts]
-         * @property {string} [eyes]
-         * @property {string} [eyebrow]
-         * @property {string} [mouth]
-         * @property {string} [nose]
-         * @property {string} [hair]
-         * @property {string} [facialhair]
-         * @property {string} [accessory]
-         * @property {string} [clothes]
+         * @type {_PreConfig & _JSON_config_parts}
          */
         /**
          * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -44,12 +33,12 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         get attributes_keys(){ return Object.keys(this.attributes_default); },
         /**
          * The names of parts with "none" (except “object-based” eg. hairs), see part labeled by comment: #parts.json
-         * @type {ElsKeys[]}
+         * @type {_JSON_parts_keys[]}
          */
         attributes_nullable: [],
         /**
          * The names of “object-based” parts (for now hairs), see part labeled by comment: #parts.json
-         * @type {ElsKeys[]}
+         * @type {_JSON_parts_keys[]}
          */
         attributes_objectbased: [],
         
@@ -79,19 +68,19 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         getAttribute({ attributes }, name){ return attributes[name]; },
         /**
          * @param {Data} data 
-         * @param {ElsKeys} name 
+         * @param {_JSON_parts_keys} name 
          * @returns {SVGUseElement|undefined}
          */
         getElement(data, name){ return Reflect.get(data.els, name); },
         /**
          * @param {Data} data 
-         * @param {ElsKeys} name 
+         * @param {_JSON_parts_keys} name 
          * @param {SVGUseElement} el 
          */
         setElement(data, name, el){ return Reflect.set(data.els, name, el); },
         /**
          * @param {Data} data 
-         * @param {ElsKeys} name 
+         * @param {_JSON_parts_keys} name 
          */
         deleteElement({ els }, name){
             if(!Reflect.has(els, name)) return false;
@@ -205,8 +194,8 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             const style_el= document.createElement("style");
             const { fit }= this.options;
             style_el.innerHTML=
-                `svg-bigheads svg-bigheads-part { display: none; }` +
-                `svg-bigheads svg { width: 100%; height: 100%; object-fit: ${fit}; }`;
+                `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
+                `svg-bigheads .bigheads-hat-longhairs { transform: scale(1.1) translate(-5%, -7.5%); }`;
             document.head.appendChild(style_el);
             this.is_created= true;
         }
@@ -225,21 +214,19 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             this._svg= this.appendChild(createSVG());
             const d= data.get(this);
             const href= data.getAttribute(d, "href");
-            layers.forEach(v=> {
-                console.log(v); /* jshint devel: true *///gulp.keep.line
+            safe_layers.forEach(v=> {
                 if(!Array.isArray(v))
                     return this.appendUSE(d, v, href);
                 v.forEach(v=> {
                     const type= data.getAttribute(d, v);
-                    if(type==="none") return;
-                    return this.appendUSE(d, v, href);
+                    if(type!=="none") return this.appendUSE(d, v, href);
                 });
             });
         }
         /**
          * Append `<use>` to internal `<svg>`.
          * @param {Data} d
-         * @param {ElsKeys} name
+         * @param {_JSON_parts_keys} name
          * @param {string} href
          * @returns {SVGUseElement}
          */
@@ -251,7 +238,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         /**
          * Insert `<use>` to internal `<svg>` before `el`.
          * @param {Data} d
-         * @param {ElsKeys} name
+         * @param {_JSON_parts_keys} name
          * @param {string} href
          * @param {SVGUseElement} el
          * @returns {SVGUseElement}
@@ -294,12 +281,12 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     
     /**
      * @param {Data} d
-     * @param {ElsKeys} type
+     * @param {_JSON_parts_keys} type
      * @returns {SVGUseElement}
      */
     function findLayer(d, type){
         let out;
-        for(let i=0, j;( j= layers[i] ); i++){
+        for(let i=0, j;( j= safe_layers[i] ); i++){
             if(!Array.isArray(j)){ out= j; continue; }
             const sub_layer_index= j.indexOf(type);
             if(sub_layer_index===-1) continue;
@@ -309,5 +296,97 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         }
         return data.getElement(d, out);
     }
+    /* Automaticaly created from svg file strucutre */
+    /**
+     * Final usage of colors are: `--bigheads-color-__color_name__`
+     * @typedef _JSON_colors_keys
+     * @type {"hair"|"clothes"|"hat"|"mouth"|"skin"}
+     */
+    /**
+     * All svg files options
+     * @typedef _JSON_parts_keys
+     * @type {"accessory"|"breasts"|"eyebrow"|"facialhair"|"hair"|"hat"|"nose"|"base"|"clothes"|"eyes"|"mouth"}
+     */
+    /**
+     * @typedef _JSON_Tstring
+     * @type {string}
+     */
+    /**
+     * @typedef _JSON_Tarray
+     * @type {string[]}
+     */
+    /**
+     * @typedef _JSON_Tobject
+     * @type {object}
+     * @property {boolean} [front] 
+     * @property {boolean} [back] 
+     * @property {boolean} [top] 
+     */
+    /**
+     * @typedef _JSON_colors
+     * @type {object}
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} hair 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} clothes 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} hat 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} mouth 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} skin 
+     */
+    /**
+     * @typedef _JSON_parts
+     * @type {object}
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} accessory 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} breasts 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} eyebrow 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} facialhair 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} hair 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} hat 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} nose 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} base 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} clothes 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} eyes 
+     * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} mouth 
+     */
+    /**
+     * @typedef _JSON_config_colors
+     * @type {object}
+     * @property {string} [hair=#d96e27] 
+     * @property {string} [clothes=#d67070] 
+     * @property {string} [hat=#5bcaf0] 
+     * @property {string} [mouth=#dd3e3e] 
+     * @property {string} [skin=#fdd2b2] 
+     */
+    /**
+     * @typedef _JSON_config_parts
+     * @type {object}
+     * @property {string} [accessory=none] 
+     * @property {string} [breasts=none] 
+     * @property {string} [eyebrow=none] 
+     * @property {string} [facialhair=none] 
+     * @property {string} [hair=none] 
+     * @property {string} [hat=none] 
+     * @property {string} [nose=none] 
+     * @property {string} [base=base] 
+     * @property {string} [clothes=dressshirt] 
+     * @property {string} [eyes=narrower] 
+     * @property {string} [mouth=lips] 
+     */
+    /**
+     * @typedef _JSON_safe_layers_nth
+     * @type {_JSON_parts_keys[]}
+     */
+    /**
+     * @typedef _JSON_safe_layers
+     * @type {_JSON_safe_layers_nth & _JSON_safe_layers_nth[]}
+     */
+    
+    /**
+     * @typedef json
+     * @type {object}
+     * @property {_JSON_colors} colors
+     * @property {_JSON_parts} parts
+     * @property {_JSON_safe_layers} safe_layers
+     */
+    /** @returns {json} */
+    function getFromJSON(){ return JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"safe_layers":["base","eyes","clothes",["facialhair","eyebrow"],"mouth",["nose","breasts","accessory","hat"]],"parts":{"accessory":["none","glasses","pincenez","sunglasses"],"breasts":["none","breasts"],"eyebrow":["none","angry","neutral","smiling"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`); }
     return {  };
 })();

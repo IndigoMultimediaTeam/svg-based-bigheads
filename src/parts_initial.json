@@ -6,14 +6,13 @@
         "mouth": "#dd3e3e",
         "skin": "#fdd2b2"
     },
-    "layers": [
+    "safe_layers": [
         "base",
         "eyes",
-        [ "eyebrow" ],
-        "mouth",
-        [ "nose" ],
         "clothes",
-        [ "facialhair", "breasts", "accessory", "hat" ]
+        [ "facialhair", "eyebrow" ],
+        "mouth",
+        [ "nose" , "breasts", "accessory", "hat" ]
     ],
     "parts": {
         "accessory": [ "none" ],

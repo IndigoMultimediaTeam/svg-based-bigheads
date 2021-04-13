@@ -34,8 +34,8 @@ const style_global= {
         const style_el= document.createElement("style");
         const { fit }= this.options;
         style_el.innerHTML=
-            `svg-bigheads svg-bigheads-part { display: none; }` +
-            `svg-bigheads svg { width: 100%; height: 100%; object-fit: ${fit}; }`;
+            `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
+            `svg-bigheads .bigheads-hat-longhairs { transform: scale(1.1) translate(-5%, -7.5%); }`;
         document.head.appendChild(style_el);
         this.is_created= true;
     }
