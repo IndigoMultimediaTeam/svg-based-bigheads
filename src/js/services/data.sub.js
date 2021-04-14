@@ -24,24 +24,38 @@ const data= (function(){
     const { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased }= attributesInit();
     /** @type {WeakMap<SVGBigHeads, Data>} */
     const storage= new WeakMap();
+    /** @param {_JSON_parts_keys} name */
+    function isFromMultiplePieces(name){ return attributes_objectbased.indexOf(name)!==-1; }
     return {
-         attributes_default, attributes_keys, attributes_nullable, attributes_objectbased,
-        /**
-         * @param {SVGBigHeads} target 
-         */
-        create(target){ const attributes= JSON.parse(JSON.stringify(attributes_default)); storage.set(target, { attributes, els: {} }); },
+         attributes_default, attributes_keys,
+         /** @param {_JSON_parts_keys} name */
+         isNullable(name){ return attributes_nullable.indexOf(name)!==-1; },
+         isFromMultiplePieces,
+         /**
+          * 
+          * @param {_JSON_parts_keys} part_name 
+          * @param {string} current_name 
+          * @param {number} [shift=1] 
+          * @returns {string}
+          */
+         getNextPartName(part_name, current_name, shift= 1){
+            const values= Reflect.get(parts, part_name);
+            const names= isFromMultiplePieces(part_name) ? Object.keys(values).filter(n=> n!=="long") : values;
+            return names[ arrayIndex( names.indexOf(current_name), shift, names.length ) ];
+         },
+        
         /**
          * @param {SVGBigHeads} target 
          * @returns {Data}
          */
-        get(target){ return storage.get(target); },
+        get(target){ return storage.has(target) ? storage.get(target) : create(target); },
         
         /**
          * @param {Data} data 
          * @param {ConfigKeys} name 
          * @param {string|null} [value=null] 
          */
-        setAttribute(data, name, value= null){ return Reflect.set(data.attributes, name, value===null ? attributes_default[name] : value); },
+        setAttribute({ attributes }, name, value= null){ return Reflect.set(attributes, name, !value ? attributes_default[name] : value); },
         /**
          * @param {Data} data 
          * @param {ConfigKeys} name 
@@ -75,6 +89,12 @@ const data= (function(){
             return Reflect.deleteProperty(els, name);
         }
     };
+    
+    function create(target){
+        const attributes= JSON.parse(JSON.stringify(attributes_default));
+        storage.set(target, { attributes, els: {} });
+        return storage.get(target);
+    }
     function attributesInit(){
         /**
          * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -107,4 +127,5 @@ const data= (function(){
         const attributes_keys= Object.keys(attributes_default);
         return { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased };
     }
+    function arrayIndex(i,s,l){ return (l+i+(s%l))%l; }
 })();

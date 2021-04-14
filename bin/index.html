@@ -21,34 +21,38 @@
             content: "Styles (editable)";
             color: var(--color);
         }
-        svg-bigheads { display: inline-block; overflow: hidden; }
+        svg-bigheads, svg-bigheads-part { display: inline-block; overflow: hidden; }
+        article{ display: flex; flex-flow: row nowrap; justify-content: space-evenly; align-items: center; }
     </style>
 </head>
 <body>
+    <style contenteditable="">
+        svg-bigheads, svg-bigheads-part {
+            /* avatar colors */
+            --bigheads-color-skin: hsl(30, 75%, 75%);
+            --bigheads-color-hat: hsl(215, 75%, 75%);
+            --bigheads-color-clothes: hsl(335, 75%, 75%);
+            --bigheads-color-hair: hsl(0, 75%, 75%);
+            --bigheads-color-mouth: hsl(349, 81%, 73%);
+            /* avatar toggles */
+            --bigheads-show-lashes: 0;
+            /* avatar outer style */
+            --size: 15em;
+            width: var(--size, 15em);
+            height: var(--size, 15em);
+            border: 3px solid black;
+            border-radius: 100%;
+        }
+        svg-bigheads-part{ --size: 7.5em; }
+    </style>
     <article>
-        <style contenteditable="">
-            svg-bigheads {
-                /* avatar colors */
-                --bigheads-color-skin: hsl(30, 75%, 75%);
-                --bigheads-color-hat: hsl(215, 75%, 75%);
-                --bigheads-color-clothes: hsl(335, 75%, 75%);
-                --bigheads-color-hair: hsl(0, 75%, 75%);
-                --bigheads-color-mouth: hsl(349, 81%, 73%);
-                /* avatar toggles */
-                --bigheads-show-lashes: 0;
-                /* avatar outer style */
-                --size: 15em;
-                width: var(--size, 15em);
-                height: var(--size, 15em);
-                border: 3px solid black;
-                border-radius: 100%;
-            }
-        </style>
-        <svg-bigheads
+        <svg-bigheads-part
             href="bigheads.svg"
-            breasts="none"
-            eyes="simple"
-        ></svg-bigheads>
+            type="hair"
+            value="mohawk"
+            onclick="changeAvatar(this)"
+        ></svg-bigheads-part>
+        
         <svg-bigheads
             href="bigheads.svg"
             eyes="simple"
@@ -58,84 +62,24 @@
             mouth="open"
             glasses="sun"
         ></svg-bigheads>
-        <svg-bigheads
+        
+        <svg-bigheads-part
             href="bigheads.svg"
-            eyes="thin"
-            hair="balding"
-            eyebrow="neutral"
-            clothes="tshirt"
-            mouth="neutral"
-            nose="big"
-            glasses="big"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            eyes="narrower"
-            hair="bob"
-            eyebrow="angry"
-            clothes="vneck"
-            mouth="smile"
-            hat="turban"
-            glasses="pincenez"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            eyes="semiround"
-            hair="bun"
-            eyebrow="neutral"
-            clothes="tshirt"
-            mouth="lips"
-            nose="up"
-            breasts="breasts"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            hair="long01"
-            eyes="round"
-            eyebrow="smiling"
-            clothes="dressshirt"
-            mouth="smile"
-            breasts="breasts"
-            hat="beanie"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            clothes="vneck"
-            eyes="round"
-            hair="simple"
-            eyebrow="smiling"
-            facialhair="big"
-            mouth="lips"
-            glasses="big"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            eyes="thin"
-            hair="afro"
-            eyebrow="neutral"
-            mouth="neutral"
-            clothes="tanktop"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            eyes="simple"
-            hair="serious"
-            eyebrow="angry"
-            facialhair="stubble"
-            mouth="open"
-            clothes="dressshirt"
-        ></svg-bigheads>
-        <svg-bigheads
-            href="bigheads.svg"
-            hair="long02"
-            eyes="semiround"
-            hair="long"
-            eyebrow="angry"
-            mouth="smile"
-            nose="normal"
-            clothes="tshirt"
-            hat="beanie"
-        ></svg-bigheads>
+            type="hair"
+            value="short"
+            onclick="changeAvatar(this)"
+        ></svg-bigheads-part>
+
+        <script>
+            const parts= Array.from(document.getElementsByTagName("svg-bigheads-part"));
+            const [ avatar ]= document.getElementsByTagName("svg-bigheads");
+            function changeAvatar(part){
+                const [ type, value ]= [ "type", "value" ].map(n=> part.getAttribute(n));
+                avatar.setAttribute(type, value);
+                const shift= parts.indexOf(part) ? 1 : -1;
+                parts.forEach(el=> el.nextValue(shift));
+            }
+        </script>
     </article>
 </body>
 </html>

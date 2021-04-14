@@ -23,7 +23,7 @@
  * @property {boolean} [front] 
  * @property {boolean} [back] 
  * @property {boolean} [top] 
- * @property {string} [[parent]=The name of hair to be also used] 
+ * @property {string} [parent] The name of hair to be also used
  */
 /**
  * @typedef _JSON_colors

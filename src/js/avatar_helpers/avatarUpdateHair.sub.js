@@ -13,8 +13,8 @@ function avatarUpdateHair(svg, d){
     if(type==="none") return gotoEnd(0);
     const config= hairFullConfig(type);
     const els= Object.keys(config).reduce(function(els, curr){
-        if(curr!=="parent"&&config[curr]&&(curr!=="top"||!has_hat))
-            Reflect.set(els, curr, createUSE(avatarPartHref(d, "hair", (config.parent&&curr==="front" ? config.parent : type)+"-"+curr)));
+        if(curr!=="top"||!has_hat)
+            Reflect.set(els, curr, createUSE(avatarPartHref(d, "hair", config[curr])));
         return els;
     }, {});
     Object.keys(els).forEach(name=> name==="front" ? 

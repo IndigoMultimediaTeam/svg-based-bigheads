@@ -100,7 +100,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         out+= jsdocTypedef({ name: bht_json_Ts[1], type: "string[]" })+"\n";
         out+= jsdocTypedefProps(
             { name: bht_json_Ts[2], type: "object" },
-            [ "front", "back", "top" ].map(n=> [ `[${n}]`, "boolean" ]).concat([ [ "[parent]", "string", "The name of hair to be also used" ] ])
+            [ "front", "back", "top" ].map(n=> [ `[${n}]`, "boolean" ]).concat([ [ "[parent]", "string", undefined, "The name of hair to be also used" ] ])
         )+"\n";
         out+= keys.map(k=> jsdocTypedefProps({
             name: "_JSON_"+k,

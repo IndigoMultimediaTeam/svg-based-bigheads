@@ -1,14 +1,13 @@
 /* global safe_layers */
 gulp_place("../services/*.sub.js", "files_once");/* global style_global, data, avatar_svg */
-gulp_place("../elements_helpers/avatarUpdateHair.sub.js", "files_once");/* global avatarUpdateHair */
-gulp_place("../elements_helpers/setHref.sub.js", "files_once");/* global setHref */
-gulp_place("../avatar_helpers/avatarPartHref.sub.js", "files_once");/* global avatarPartHref */
-gulp_place("../avatar_helpers/findSafeLayer.sub.js", "files_once");/* global findSafeLayer */
+gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, avatarUpdateHair, findSafeLayer */
+gulp_place("../elements_helpers/setHref.sub.js", "file_once");/* global setHref */
 class SVGBigHeads extends HTMLElement{
-    constructor(){ super(); data.create(this); style_global.create(); }
+    constructor(){ super(); style_global.create(); }
     static get observedAttributes() { return data.attributes_keys; }
     /* for set/get see comment label below: #SVGBigHeads-attributes */
     attributeChangedCallback(name, value_old, value_new){
+        console.log({ name, value_new, value_old }); /* jshint devel: true *///gulp.keep.line
         if(value_new===value_old) return false;
         data.setAttribute(data.get(this), name, value_new);
         this.update(name);
@@ -18,7 +17,7 @@ class SVGBigHeads extends HTMLElement{
         const d= data.get(this);
         const appendUSE= avatar_svg.appendUSE.bind(null, svg, d);
         safe_layers.forEach(v=> {
-            if(!Array.isArray(v))
+            if(!Array.isArray(v))//is nullable (data.isNullable)
                 return appendUSE(v);
             v.forEach(v=> {
                 const type= data.getAttribute(d, v);
@@ -37,14 +36,14 @@ class SVGBigHeads extends HTMLElement{
             avatar_svg.remove(this);
             return this.connectedCallback();
         }
-        if(type==="hair") return avatarUpdateHair(svg, d);
+        if(data.isFromMultiplePieces(type)) return avatarUpdateHair(svg, d);
         const gotoEnd= ()=> type==="hat"&&avatarUpdateHair(svg, d);
         
         const value= data.getAttribute(d, type);
         if(value==="none")
             return gotoEnd(data.deleteElement(d, type));
         
-        if(data.attributes_nullable.indexOf(type)!==-1)
+        if(data.isNullable(type))
             return gotoEnd(avatar_svg.insertAfterUSE(svg, d, type, findSafeLayer(d, type)));
 
         return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, type, value)));

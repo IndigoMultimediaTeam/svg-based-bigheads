@@ -35,7 +35,7 @@ const style_global= {
         const style_el= document.createElement("style");
         const { fit, big_hat }= this.options;
         style_el.innerHTML=
-            `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
+            `svg-bigheads svg, svg-bigheads-part svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
             `svg-bigheads .${big_hat} { transform: scale(1.1) translate(-5%, -7.5%); }`;
         document.head.appendChild(style_el);
         this.is_created= true;

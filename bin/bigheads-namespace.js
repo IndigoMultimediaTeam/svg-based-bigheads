@@ -82,24 +82,38 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         const { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased }= attributesInit();
         /** @type {WeakMap<SVGBigHeads, Data>} */
         const storage= new WeakMap();
+        /** @param {_JSON_parts_keys} name */
+        function isFromMultiplePieces(name){ return attributes_objectbased.indexOf(name)!==-1; }
         return {
-             attributes_default, attributes_keys, attributes_nullable, attributes_objectbased,
-            /**
-             * @param {SVGBigHeads} target 
-             */
-            create(target){ const attributes= JSON.parse(JSON.stringify(attributes_default)); storage.set(target, { attributes, els: {} }); },
+             attributes_default, attributes_keys,
+             /** @param {_JSON_parts_keys} name */
+             isNullable(name){ return attributes_nullable.indexOf(name)!==-1; },
+             isFromMultiplePieces,
+             /**
+              * 
+              * @param {_JSON_parts_keys} part_name 
+              * @param {string} current_name 
+              * @param {number} [shift=1] 
+              * @returns {string}
+              */
+             getNextPartName(part_name, current_name, shift= 1){
+                const values= Reflect.get(parts, part_name);
+                const names= isFromMultiplePieces(part_name) ? Object.keys(values).filter(n=> n!=="long") : values;
+                return names[ arrayIndex( names.indexOf(current_name), shift, names.length ) ];
+             },
+            
             /**
              * @param {SVGBigHeads} target 
              * @returns {Data}
              */
-            get(target){ return storage.get(target); },
+            get(target){ return storage.has(target) ? storage.get(target) : create(target); },
             
             /**
              * @param {Data} data 
              * @param {ConfigKeys} name 
              * @param {string|null} [value=null] 
              */
-            setAttribute(data, name, value= null){ return Reflect.set(data.attributes, name, value===null ? attributes_default[name] : value); },
+            setAttribute({ attributes }, name, value= null){ return Reflect.set(attributes, name, !value ? attributes_default[name] : value); },
             /**
              * @param {Data} data 
              * @param {ConfigKeys} name 
@@ -133,6 +147,12 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
                 return Reflect.deleteProperty(els, name);
             }
         };
+        
+        function create(target){
+            const attributes= JSON.parse(JSON.stringify(attributes_default));
+            storage.set(target, { attributes, els: {} });
+            return storage.get(target);
+        }
         function attributesInit(){
             /**
              * Another loaded from `parts`, see part labeled by comment: #parts.json
@@ -165,6 +185,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             const attributes_keys= Object.keys(attributes_default);
             return { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased };
         }
+        function arrayIndex(i,s,l){ return (l+i+(s%l))%l; }
     })();
     /**
      * @param {Data} d 
@@ -203,12 +224,23 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         }
     }
     /**
-     * @param {string} type 
-     * @returns {_JSON_Tobject}
+     * @typedef HairPartsNames
+     * @type {object}
+     * @property {string} [front]
+     * @property {string} [top]
+     * @property {string} [back]
      */
-    function hairFullConfig(type){
-        const config= parts.hair[type];
-        return Object.assign({}, config, config.parent ? parts.hair[config.parent] : null);
+    /**
+     * Returns filtered non-false parts and with full name as values (eg. `long01-back`).
+     * @param {string} name 
+     * @returns {HairPartsNames}
+     */
+    function hairFullConfig(name){
+        const config= parts.hair[name];
+        const partsNames= (config, name, init= {})=> Object.keys(config).filter(k=> k!=="parent"&&Boolean(config[k])).reduce((o, k)=> Reflect.set(o, k, name+"-"+k)&&o, init);
+        let parts_names= partsNames(config, name);
+        if(config.parent) parts_names= partsNames(parts.hair[config.parent], config.parent, parts_names);
+        return parts_names;
     }
 
 
@@ -249,7 +281,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             const style_el= document.createElement("style");
             const { fit, big_hat }= this.options;
             style_el.innerHTML=
-                `svg-bigheads svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
+                `svg-bigheads svg, svg-bigheads-part svg { all: unset; width: 100%; height: 100%; object-fit: ${fit}; }` +
                 `svg-bigheads .${big_hat} { transform: scale(1.1) translate(-5%, -7.5%); }`;
             document.head.appendChild(style_el);
             this.is_created= true;
@@ -272,8 +304,8 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         if(type==="none") return gotoEnd(0);
         const config= hairFullConfig(type);
         const els= Object.keys(config).reduce(function(els, curr){
-            if(curr!=="parent"&&config[curr]&&(curr!=="top"||!has_hat))
-                Reflect.set(els, curr, createUSE(avatarPartHref(d, "hair", (config.parent&&curr==="front" ? config.parent : type)+"-"+curr)));
+            if(curr!=="top"||!has_hat)
+                Reflect.set(els, curr, createUSE(avatarPartHref(d, "hair", config[curr])));
             return els;
         }, {});
         Object.keys(els).forEach(name=> name==="front" ? 
@@ -344,11 +376,13 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
 
+
     class SVGBigHeads extends HTMLElement{
-        constructor(){ super(); data.create(this); style_global.create(); }
+        constructor(){ super(); style_global.create(); }
         static get observedAttributes() { return data.attributes_keys; }
         /* for set/get see comment label below: #SVGBigHeads-attributes */
         attributeChangedCallback(name, value_old, value_new){
+            console.log({ name, value_new, value_old }); /* jshint devel: true *///gulp.keep.line
             if(value_new===value_old) return false;
             data.setAttribute(data.get(this), name, value_new);
             this.update(name);
@@ -358,7 +392,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             const d= data.get(this);
             const appendUSE= avatar_svg.appendUSE.bind(null, svg, d);
             safe_layers.forEach(v=> {
-                if(!Array.isArray(v))
+                if(!Array.isArray(v))//is nullable (data.isNullable)
                     return appendUSE(v);
                 v.forEach(v=> {
                     const type= data.getAttribute(d, v);
@@ -377,14 +411,14 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
                 avatar_svg.remove(this);
                 return this.connectedCallback();
             }
-            if(type==="hair") return avatarUpdateHair(svg, d);
+            if(data.isFromMultiplePieces(type)) return avatarUpdateHair(svg, d);
             const gotoEnd= ()=> type==="hat"&&avatarUpdateHair(svg, d);
             
             const value= data.getAttribute(d, type);
             if(value==="none")
                 return gotoEnd(data.deleteElement(d, type));
             
-            if(data.attributes_nullable.indexOf(type)!==-1)
+            if(data.isNullable(type))
                 return gotoEnd(avatar_svg.insertAfterUSE(svg, d, type, findSafeLayer(d, type)));
     
             return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, type, value)));
@@ -396,6 +430,34 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         set(val){ return this.setAttribute(name, val); }
     }));
     customElements.define("svg-bigheads", SVGBigHeads);
+
+
+
+
+
+    class SVGBigHeadsPart extends HTMLElement{
+        constructor(){ super(); style_global.create(); }
+        connectedCallback(){
+            this._svg= this.appendChild(createSVG());
+            const [ href, type, value ]= [ "href", "type", "value" ].map(n=> this.getAttribute(n));
+            if(value==="none") return false;
+            
+            if(!data.isFromMultiplePieces(type))
+                return this._svg.appendChild(createUSE(`${href}#${type}-${value}`));
+            const config= hairFullConfig(value);
+            [ "back", "top", "front" ].forEach(part=> this._svg.appendChild(createUSE(`${href}#${type}-${config[part]}`)));
+        }
+        nextValue(shift= 1){
+            this._svg.remove();
+            this.setAttribute("value", data.getNextPartName(
+                this.getAttribute("type"),
+                this.getAttribute("value"),
+                shift
+            ));
+            return this.connectedCallback();
+        }
+    }
+    customElements.define("svg-bigheads-part", SVGBigHeadsPart);
     /* Automaticaly created from svg file strucutre */
     /**
      * Final usage of colors are: `--bigheads-color-__color_name__`
@@ -421,7 +483,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
      * @property {boolean} [front] 
      * @property {boolean} [back] 
      * @property {boolean} [top] 
-     * @property {string} [[parent]=The name of hair to be also used] 
+     * @property {string} [parent] The name of hair to be also used
      */
     /**
      * @typedef _JSON_colors
