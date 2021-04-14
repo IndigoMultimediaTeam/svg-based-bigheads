@@ -7,7 +7,7 @@
 /**
  * All svg files options
  * @typedef _JSON_parts_keys
- * @type {"accessory"|"breasts"|"eyebrow"|"facialhair"|"hair"|"hat"|"nose"|"base"|"clothes"|"eyes"|"mouth"}
+ * @type {"glasses"|"breasts"|"eyebrow"|"facialhair"|"hair"|"hat"|"nose"|"base"|"clothes"|"eyes"|"mouth"}
  */
 /**
  * @typedef _JSON_Tstring
@@ -37,7 +37,7 @@
 /**
  * @typedef _JSON_parts
  * @type {object}
- * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} accessory 
+ * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} glasses 
  * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} breasts 
  * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} eyebrow 
  * @property {_JSON_Tstring|_JSON_Tarray|_JSON_Tobject} facialhair 
@@ -61,7 +61,7 @@
 /**
  * @typedef _JSON_config_parts
  * @type {object}
- * @property {string} [accessory=none] 
+ * @property {string} [glasses=none] 
  * @property {string} [breasts=none] 
  * @property {string} [eyebrow=none] 
  * @property {string} [facialhair=none] 

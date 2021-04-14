@@ -12,10 +12,10 @@
         "clothes",
         [ "facialhair", "eyebrow" ],
         "mouth",
-        [ "nose" , "breasts", "accessory", "hat" ]
+        [ "nose" , "breasts", "hat", "glasses" ]
     ],
     "parts": {
-        "accessory": [ "none" ],
+        "glasses": [ "none" ],
         "breasts": [ "none" ],
         "eyebrow": [ "none" ],
         "facialhair": [ "none" ],
