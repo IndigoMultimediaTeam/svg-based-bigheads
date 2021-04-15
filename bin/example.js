@@ -1,6 +1,6 @@
 (function main(){
     if(document.readyState==="loading") return document.addEventListener("DOMContentLoaded", main);
-    const [ wrapper_buttons, wrapper_avatar ]= document.getElementsByTagName("article")[0].getElementsByTagName("div");
+    const [ wrapper_buttons, wrapper_avatar, wrapper_below ]= document.getElementsByTagName("article")[0].getElementsByTagName("div");
     let config= {
         href: "bigheads.svg",
         eyes: "simple",
@@ -8,7 +8,8 @@
         eyebrow: "angry",
         clothes: "dressshirt",
         mouth: "open",
-        glasses: "sun",
+        glasses: "none",
+        hat: "none",
         nose: "none"
     };
     /** @type {HTMLElement[]} */
@@ -23,6 +24,14 @@
     Object.keys(config).filter(n=> n!=="href").forEach(value=> wrapper_buttons.appendChild(createElement("button", {
         value, onclick: updatePartsTypes, textContent: value.charAt(0).toUpperCase()+value.slice(1)
     })));
+    wrapper_below.appendChild(createElement("button", {
+        textContent: "Change gender",
+        onclick: function(){
+            const value= config.breasts&&config.breasts==="breasts" ? "none" : "breasts";
+            config.breasts= value;
+            avatar_el.breasts= value;
+        }
+    }));
 
     function changeAvatar(){
         const [ type, value ]= this.config;
