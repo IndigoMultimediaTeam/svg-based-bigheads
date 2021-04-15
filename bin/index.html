@@ -22,64 +22,35 @@
             color: var(--color);
         }
         svg-bigheads, svg-bigheads-part { display: inline-block; overflow: hidden; }
-        article{ display: flex; flex-flow: row nowrap; justify-content: space-evenly; align-items: center; }
+        article{ width: fit-content; margin: auto; }
+        div{ display: flex; flex-flow: row nowrap; justify-content: space-evenly; align-items: center; min-width: fit-content; width: 40rem; margin: auto; }
+        div+div{ margin-top: 1rem; }
     </style>
 </head>
 <body>
-    <style contenteditable="">
-        svg-bigheads, svg-bigheads-part {
-            /* avatar colors */
-            --bigheads-color-skin: hsl(30, 75%, 75%);
-            --bigheads-color-hat: hsl(215, 75%, 75%);
-            --bigheads-color-clothes: hsl(335, 75%, 75%);
-            --bigheads-color-hair: hsl(0, 75%, 75%);
-            --bigheads-color-mouth: hsl(349, 81%, 73%);
-            /* avatar toggles */
-            --bigheads-show-lashes: 0;
-            /* avatar outer style */
-            --size: 15em;
-            width: var(--size, 15em);
-            height: var(--size, 15em);
-            border: 3px solid black;
-            border-radius: 100%;
-        }
-        svg-bigheads-part{ --size: 7.5em; }
-    </style>
     <article>
-        <svg-bigheads-part
-            href="bigheads.svg"
-            type="hair"
-            value="mohawk"
-            onclick="changeAvatar(this)"
-        ></svg-bigheads-part>
-        
-        <svg-bigheads
-            href="bigheads.svg"
-            eyes="simple"
-            hair="serious"
-            eyebrow="angry"
-            clothes="dressshirt"
-            mouth="open"
-            glasses="sun"
-        ></svg-bigheads>
-        
-        <svg-bigheads-part
-            href="bigheads.svg"
-            type="hair"
-            value="short"
-            onclick="changeAvatar(this)"
-        ></svg-bigheads-part>
-
-        <script>
-            const parts= Array.from(document.getElementsByTagName("svg-bigheads-part"));
-            const [ avatar ]= document.getElementsByTagName("svg-bigheads");
-            function changeAvatar(part){
-                const [ type, value ]= [ "type", "value" ].map(n=> part.getAttribute(n));
-                avatar.setAttribute(type, value);
-                const shift= parts.indexOf(part) ? 1 : -1;
-                parts.forEach(el=> el.nextValue(shift));
+        <style contenteditable="">
+            svg-bigheads, svg-bigheads-part {
+                /* avatar colors */
+                --bigheads-color-skin: hsl(30, 75%, 75%);
+                --bigheads-color-hat: hsl(215, 75%, 75%);
+                --bigheads-color-clothes: hsl(335, 75%, 75%);
+                --bigheads-color-hair: hsl(0, 75%, 75%);
+                --bigheads-color-mouth: hsl(349, 81%, 73%);
+                /* avatar toggles */
+                --bigheads-show-lashes: 0;
+                /* avatar outer style */
+                --size: 15em;
+                width: var(--size, 15em);
+                height: var(--size, 15em);
+                border: 3px solid black;
+                border-radius: 100%;
             }
-        </script>
+            svg-bigheads-part{ --size: 7.5em; }
+        </style>
+        <div></div>
+        <div></div>
+        <script src="example.js"></script>
     </article>
 </body>
 </html>

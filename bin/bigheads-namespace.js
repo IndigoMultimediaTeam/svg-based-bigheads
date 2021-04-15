@@ -57,6 +57,20 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         setHref(use, href);
         return use;
     }
+    /**
+     * Helper for registering `observedAttributes` and getters/setters
+     * @param {HTMLElement} BaseClass 
+     * @param {string[]} attributes_names 
+     * @returns {HTMLElement}
+     */
+    function mixinObservedAttributes(BaseClass, attributes_names){
+        class c extends BaseClass{ static get observedAttributes() { return attributes_names; } }
+        attributes_names.forEach(name=> Reflect.defineProperty(c.prototype, name, { 
+            get(){ return this.getAttribute(name); },
+            set(val){ return this.setAttribute(name, val); }
+        }));
+        return c;
+    }
 
     /**
      * @typedef ConfigKeys
@@ -292,6 +306,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
 
+
     /**
      * @param {SVGElement} svg
      * @param {Data} d
@@ -377,15 +392,16 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
 
-    class SVGBigHeads extends HTMLElement{
+
+    /** @extends {HTMLElement} */
+    class SVGBigHeads extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
+        static get tag_name(){ return "svg-bigheads"; }
         constructor(){ super(); style_global.create(); }
-        static get observedAttributes() { return data.attributes_keys; }
-        /* for set/get see comment label below: #SVGBigHeads-attributes */
         attributeChangedCallback(name, value_old, value_new){
-            console.log({ name, value_new, value_old }); /* jshint devel: true *///gulp.keep.line
             if(value_new===value_old) return false;
             data.setAttribute(data.get(this), name, value_new);
             this.update(name);
+            return true;
         }
         connectedCallback(){
             const svg= avatar_svg.create(this);
@@ -418,46 +434,53 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             if(value==="none")
                 return gotoEnd(data.deleteElement(d, type));
             
-            if(data.isNullable(type))
+            if(data.isNullable(type)&&!data.hasElement(d, type))
                 return gotoEnd(avatar_svg.insertAfterUSE(svg, d, type, findSafeLayer(d, type)));
     
             return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, type, value)));
         }
     }
-    /* #SVGBigHeads-attributes */
-    data.attributes_keys.forEach(name=> Reflect.defineProperty(SVGBigHeads.prototype, name, { 
-        get(){ return this.getAttribute(name); },
-        set(val){ return this.setAttribute(name, val); }
-    }));
-    customElements.define("svg-bigheads", SVGBigHeads);
+    customElements.define(SVGBigHeads.tag_name, SVGBigHeads);
 
 
 
 
 
-    class SVGBigHeadsPart extends HTMLElement{
+
+    /** @extends {HTMLElement} */
+    class SVGBigHeadsPart extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
+        static get tag_name(){ return SVGBigHeads.tag_name+"-part"; }
         constructor(){ super(); style_global.create(); }
+        attributeChangedCallback(name, value_old, value_new){
+            if(name==="type") return false;
+            if(!this._svg||value_new===value_old) return false;
+            return this.connectedCallback();
+        }
         connectedCallback(){
+            const [ type, value, href ]= this.config;
+            if(this._svg) this._svg.remove();
             this._svg= this.appendChild(createSVG());
-            const [ href, type, value ]= [ "href", "type", "value" ].map(n=> this.getAttribute(n));
-            if(value==="none") return false;
+            if(!type||value==="none") return false;
             
+            const appendUSE= name=> this._svg.appendChild(createUSE(`${href}#${type}-${name}`));
             if(!data.isFromMultiplePieces(type))
-                return this._svg.appendChild(createUSE(`${href}#${type}-${value}`));
+                return appendUSE(value);
             const config= hairFullConfig(value);
-            [ "back", "top", "front" ].forEach(part=> this._svg.appendChild(createUSE(`${href}#${type}-${config[part]}`)));
+            [ "back", "top", "front" ].forEach(part=> appendUSE(config[part]));
+        }
+        get config(){
+            const [ href, type, value ]= this.constructor.observedAttributes.map(n=> this.getAttribute(n));
+            return [ type, value, href ];
         }
         nextValue(shift= 1){
-            this._svg.remove();
-            this.setAttribute("value", data.getNextPartName(
+            return this.setAttribute("value", data.getNextPartName(
                 this.getAttribute("type"),
                 this.getAttribute("value"),
                 shift
             ));
-            return this.connectedCallback();
         }
     }
-    customElements.define("svg-bigheads-part", SVGBigHeadsPart);
+    customElements.define(SVGBigHeadsPart.tag_name, SVGBigHeadsPart);
     /* Automaticaly created from svg file strucutre */
     /**
      * Final usage of colors are: `--bigheads-color-__color_name__`

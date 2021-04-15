@@ -2,15 +2,16 @@
 gulp_place("../services/*.sub.js", "files_once");/* global style_global, data, avatar_svg */
 gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, avatarUpdateHair, findSafeLayer */
 gulp_place("../elements_helpers/setHref.sub.js", "file_once");/* global setHref */
-class SVGBigHeads extends HTMLElement{
+gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
+/** @extends {HTMLElement} */
+class SVGBigHeads extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
+    static get tag_name(){ return "svg-bigheads"; }
     constructor(){ super(); style_global.create(); }
-    static get observedAttributes() { return data.attributes_keys; }
-    /* for set/get see comment label below: #SVGBigHeads-attributes */
     attributeChangedCallback(name, value_old, value_new){
-        console.log({ name, value_new, value_old }); /* jshint devel: true *///gulp.keep.line
         if(value_new===value_old) return false;
         data.setAttribute(data.get(this), name, value_new);
         this.update(name);
+        return true;
     }
     connectedCallback(){
         const svg= avatar_svg.create(this);
@@ -43,15 +44,10 @@ class SVGBigHeads extends HTMLElement{
         if(value==="none")
             return gotoEnd(data.deleteElement(d, type));
         
-        if(data.isNullable(type))
+        if(data.isNullable(type)&&!data.hasElement(d, type))
             return gotoEnd(avatar_svg.insertAfterUSE(svg, d, type, findSafeLayer(d, type)));
 
         return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, type, value)));
     }
 }
-/* #SVGBigHeads-attributes */
-data.attributes_keys.forEach(name=> Reflect.defineProperty(SVGBigHeads.prototype, name, { 
-    get(){ return this.getAttribute(name); },
-    set(val){ return this.setAttribute(name, val); }
-}));
-customElements.define("svg-bigheads", SVGBigHeads);
+customElements.define(SVGBigHeads.tag_name, SVGBigHeads);
