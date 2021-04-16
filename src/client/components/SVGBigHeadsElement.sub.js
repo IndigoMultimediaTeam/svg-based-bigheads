@@ -4,7 +4,7 @@ gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref,
 gulp_place("../elements_helpers/setHref.sub.js", "file_once");/* global setHref */
 gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
 /** @extends {HTMLElement} */
-class SVGBigHeads extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
+export class SVGBigHeadsElement extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
     static get tag_name(){ return "svg-bigheads"; }
     constructor(){ super(); style_global.create(); }
     attributeChangedCallback(name, value_old, value_new){
@@ -50,4 +50,4 @@ class SVGBigHeads extends mixinObservedAttributes(HTMLElement, data.attributes_k
         return gotoEnd(setHref(data.getElement(d, type), avatarPartHref(d, type, value)));
     }
 }
-customElements.define(SVGBigHeads.tag_name, SVGBigHeads);
+customElements.define(SVGBigHeadsElement.tag_name, SVGBigHeadsElement);

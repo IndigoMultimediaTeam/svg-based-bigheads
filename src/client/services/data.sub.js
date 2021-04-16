@@ -22,7 +22,7 @@
 /** @namespace * */
 const data= (function(){
     const { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased }= attributesInit();
-    /** @type {WeakMap<SVGBigHeads, Data>} */
+    /** @type {WeakMap<SVGBigHeadsElement, Data>} */
     const storage= new WeakMap();
     /** @param {_JSON_parts_keys} name */
     function isFromMultiplePieces(name){ return attributes_objectbased.indexOf(name)!==-1; }
@@ -45,7 +45,7 @@ const data= (function(){
          },
         
         /**
-         * @param {SVGBigHeads} target 
+         * @param {SVGBigHeadsElement} target 
          * @returns {Data}
          */
         get(target){ return storage.has(target) ? storage.get(target) : create(target); },

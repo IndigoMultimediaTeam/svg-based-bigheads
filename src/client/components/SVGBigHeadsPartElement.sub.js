@@ -4,10 +4,10 @@ gulp_place("../avatar_helpers/hairFullConfig.sub.js", "file_once");/* global hai
 gulp_place("../elements_helpers/createSVG.sub.js", "file_once");/* global createSVG */
 gulp_place("../elements_helpers/createUSE.sub.js", "file_once");/* global createUSE */
 gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
-/* this folder *//* global SVGBigHeads */
+gulp_place("./SVGBigHeadsElement.sub.js", "file_once");/* global SVGBigHeadsElement */
 /** @extends {HTMLElement} */
-class SVGBigHeadsPart extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
-    static get tag_name(){ return SVGBigHeads.tag_name+"-part"; }
+export class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
+    static get tag_name(){ return SVGBigHeadsElement.tag_name+"-part"; }
     constructor(){ super(); style_global.create(); }
     attributeChangedCallback(name, value_old, value_new){
         if(name==="type") return false;
@@ -38,4 +38,4 @@ class SVGBigHeadsPart extends mixinObservedAttributes(HTMLElement, [ "href", "ty
         ));
     }
 }
-customElements.define(SVGBigHeadsPart.tag_name, SVGBigHeadsPart);
+customElements.define(SVGBigHeadsPartElement.tag_name, SVGBigHeadsPartElement);
