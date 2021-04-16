@@ -2,12 +2,9 @@
     "include": [
         "src/**/*",
         "src/*",
-        "types-for-ide/*"
+        "node_modules/gulp-place/jsdoc/*.js"
     ],
     "compilerOptions": {
         "target": "ES6"
-    },
-    "exclude": [
-        "node_modules"
-    ]
+    }
 }
