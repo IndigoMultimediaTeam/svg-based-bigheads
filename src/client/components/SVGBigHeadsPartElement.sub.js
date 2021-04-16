@@ -6,7 +6,7 @@ gulp_place("../elements_helpers/createUSE.sub.js", "file_once");/* global create
 gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
 gulp_place("./SVGBigHeadsElement.sub.js", "file_once");/* global SVGBigHeadsElement */
 /** @extends {HTMLElement} */
-export class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
+class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
     static get tag_name(){ return SVGBigHeadsElement.tag_name+"-part"; }
     constructor(){ super(); style_global.create(); }
     attributeChangedCallback(name, value_old, value_new){

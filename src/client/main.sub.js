@@ -1,5 +1,6 @@
 const { colors, safe_layers, parts }= getFromJSON();
-gulp_place("./components/*.sub.js", "files_once");
+gulp_place("./components/*.sub.js", "files_once");/* global SVGBigHeadsElement, SVGBigHeadsPartElement */
+export { SVGBigHeadsElement, SVGBigHeadsPartElement };
 gulp_place("../svgs/parts.types.sub.js", "file_once");
 /**
  * @typedef json
