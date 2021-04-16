@@ -54,7 +54,7 @@ function mapDependencies(dependencies, $o_default){//nahradit (?): https://githu
     let out= {$g: {} /* for "gulp-" */ , $o: $o_default /* for others */};
 
     dependencies_keys.forEach(cmd=>{
-        if(cmd==="gulp") return false;
+        if(cmd==="gulp"||cmd.indexOf("-cli")!==-1) return false;
         let out_key= "$o";
         const name= rename_keys.indexOf(cmd)!==-1 ? rename[cmd].replace(pre, setTo$g) : cmd.replace(pre, setTo$g);
         out[out_key][name]= require(cmd);
