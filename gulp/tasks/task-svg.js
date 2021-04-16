@@ -1,7 +1,10 @@
 /* jshint node: true, maxparams: 4 */
 module.exports= function({app, gulp, error, $g, $o, $run}){
+    const src= [ "src", "_svgs" ].map(n=> app.directories[n]).join("");
+    const bin= [ "bin", "_client" ].map(n=> app.directories[n]).join("");
+    
     const /** looads initial data for `/src/parts.json` */
-        data= JSON.parse($o.fs.readFileSync(app.directories.src+"parts_initial.json")),
+        data= JSON.parse($o.fs.readFileSync(src+"parts_initial.json")),
         colors= Object.keys(data.colors).reduce((t, c)=> Reflect.set(t, data.colors[c], c) && t, {});
     if(!Reflect.has(data, "parts")) Reflect.set(data, "parts", {});
     const idsClr= _in=> _in.replace(/ id=["'][^"']*["']/ig, "");
@@ -22,7 +25,6 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
                 })
     });
     /* jshint +W061 */
-    const { src, bin }= app.directories;
     return function(cb){
         gulp.src([ src+"**/*.sub.svg" ])
             .pipe($g.svgmin({

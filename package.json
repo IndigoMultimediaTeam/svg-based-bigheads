@@ -58,7 +58,10 @@
     "directories": {
         "gulp": "gulp/",
         "src": "src/",
-        "bin": "bin/"
+        "bin": "dist/",
+        "_svgs": "svgs/",
+        "_client": "client/",
+        "_server": "server/"
     },
     "jaaJBT": {
         "config": {
