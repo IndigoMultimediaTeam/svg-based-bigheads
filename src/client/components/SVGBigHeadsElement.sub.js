@@ -1,8 +1,7 @@
 /* global safe_layers */
 gulp_place("../services/*.sub.js", "files_once");/* global style_global, data, avatar_svg */
 gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, avatarUpdateHair, findSafeLayer */
-gulp_place("../elements_helpers/setHref.sub.js", "file_once");/* global setHref */
-gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
+gulp_place("../elements_helpers/*.sub.js", "files_once");/* global setHref, mixinObservedAttributes */
 /** @extends {HTMLElement} */
 class SVGBigHeadsElement extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
     static get tag_name(){ return "svg-bigheads"; }

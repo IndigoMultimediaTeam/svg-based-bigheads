@@ -1,4 +1,4 @@
-gulp_place("../services/data.sub.js", "file_once");/* global data */
+gulp_place("../services/*.sub.js", "files_once");/* global data */
 /**
  * @param {Data} d 
  * @param {ConfigKeys} type 

@@ -1,9 +1,6 @@
-gulp_place("../services/style_global.sub.js", "file_once");/* global style_global */
-gulp_place("../services/data.sub.js", "file_once");/* global data */
+gulp_place("../services/*.sub.js", "files_once");/* global style_global, data */
 gulp_place("../avatar_helpers/hairFullConfig.sub.js", "file_once");/* global hairFullConfig */
-gulp_place("../elements_helpers/createSVG.sub.js", "file_once");/* global createSVG */
-gulp_place("../elements_helpers/createUSE.sub.js", "file_once");/* global createUSE */
-gulp_place("../elements_helpers/mixinObservedAttributes.sub.js", "file_once");/* global mixinObservedAttributes */
+gulp_place("../elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE, mixinObservedAttributes */
 gulp_place("./SVGBigHeadsElement.sub.js", "file_once");/* global SVGBigHeadsElement */
 /** @extends {HTMLElement} */
 class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){

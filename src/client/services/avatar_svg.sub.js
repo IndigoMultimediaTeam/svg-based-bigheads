@@ -1,6 +1,6 @@
 gulp_place("../elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE */
 gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref */
-gulp_place("./data.sub.js", "files_once");/* global data */
+gulp_place("./data.sub.js", "file_once");/* global data */
 const avatar_svg= (function(){
     /** @type {WeakMap<SVGBigHeadsElement, SVGElement>} */
     const storage= new WeakMap();
