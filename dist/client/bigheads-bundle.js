@@ -695,7 +695,10 @@
      * @property {_JSON_parts} parts
      * @property {_JSON_safe_layers} safe_layers
      */
-    /** @returns {json} */
+    /**
+     * @private
+     * @returns {json}
+     * */
     function getFromJSON(){ return JSON.parse(`{"colors":{"hair":"#d96e27","clothes":"#d67070","hat":"#5bcaf0","mouth":"#dd3e3e","skin":"#fdd2b2"},"safe_layers":["base","eyes","clothes",["facialhair","eyebrow"],"mouth",["nose","breasts","hat","glasses"]],"parts":{"glasses":["none","big","pincenez","sun"],"breasts":["none","breasts"],"eyebrow":["none","angry","neutral","smiling"],"facialhair":["none","big","stubble"],"hair":{"none":{"front":true},"afro":{"front":true,"top":true},"balding":{"front":true},"bob":{"front":true},"bold":{"front":true},"bun":{"front":true,"top":true},"buzz":{"front":true},"long":{"front":true},"long01":{"back":true,"parent":"long"},"long02":{"back":true,"parent":"long"},"long03":{"back":true,"parent":"long"},"mohawk":{"top":true},"serious":{"front":true},"short":{"front":true},"simple":{"front":true},"stubble":{"front":true}},"hat":["none","beanie","turban"],"nose":["none","big","normal","up"],"base":["base"],"clothes":["dressshirt","tanktop","tshirt","vneck"],"eyes":["narrower","round","semiround","simple","thin"],"mouth":["lips","neutral","open","smile"]}}`); }
     
     return { parts_dictionary, isNotGenderType, nextPartName, colors, SVGBigHeadsElement, SVGBigHeadsPartElement };

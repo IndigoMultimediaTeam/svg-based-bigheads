@@ -71,7 +71,7 @@
 <dd></dd>
 <dt><a href="#nextPartName">nextPartName(part_name, current_name, [shift])</a> ⇒ <code>string</code></dt>
 <dd></dd>
-<dt><a href="#getFromJSON">getFromJSON()</a> ⇒ <code><a href="#json">json</a></code></dt>
+<dt><a href="#getFromJSON">getFromJSON()</a> ⇒ <code><a href="#json">json</a></code> ℗</dt>
 <dd></dd>
 </dl>
 
@@ -687,8 +687,9 @@
 
 <a name="getFromJSON"></a>
 
-## getFromJSON() ⇒ [<code>json</code>](#json)
-**Kind**: global function <a name="getFromJSON" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L678"><small>(defined@678)</small></a>  
+## getFromJSON() ⇒ [<code>json</code>](#json) ℗
+**Kind**: global function <a name="getFromJSON" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L681"><small>(defined@681)</small></a>  
+**Access**: private  
 
 * * *
 

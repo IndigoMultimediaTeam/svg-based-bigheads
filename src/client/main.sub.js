@@ -45,5 +45,8 @@ gulp_place("../svgs/parts.types.sub.js", "file_once");
  * @property {_JSON_parts} parts
  * @property {_JSON_safe_layers} safe_layers
  */
-/** @returns {json} */
+/**
+ * @private
+ * @returns {json}
+ * */
 function getFromJSON(){ return JSON.parse(`gulp_place("../svgs/parts.json", "file_once")`); }
