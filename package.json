@@ -23,7 +23,7 @@
         ]
     ],
     "sequence": [
-        "svg",
+        "!svg",
         "javascript",
         "doc"
     ],

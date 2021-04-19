@@ -1,39 +1,61 @@
 /* jshint maxdepth: 4 */
 const SVGBigHeads= (function SVGBigHeads_iief(){
     "use strict";
-    const { colors, safe_layers, parts }= getFromJSON();
+    const {
+        /**
+         * Dictionary of all editable colors (in the form `--bigheads-color-${name}`) with default values
+         * @property {object} colors
+         */
+        colors,
+        safe_layers, parts }= getFromJSON();
     /**
      * @typedef ConfigKeys
+     * @private
      * @type {"href"|_JSON_parts_keys}
      */
     /**
      * @typedef _PreConfig
+     * @private
      * @type {object}
      * @property {string} [href] Target of svg file
      */
     /**
      * @typedef Data
+     * @private
      * @type {object}
      * @property {Config} attributes
      * @property {Object.<_JSON_parts_keys, SVGElement|SVGUseElement>} els
      */
     /**
      * @typedef Config
+     * @private
      * @type {_PreConfig & _JSON_config_parts}
      */
-    /** @namespace * */
+    /**
+     * @namespace
+     * @private
+     * */
     const data= (function(){
         const { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased }= attributesInit();
         /** @type {WeakMap<SVGBigHeadsElement, Data>} */
         const storage= new WeakMap();
-        /** @param {_JSON_parts_keys} name */
+        /**
+         * @memberof data
+         * @param {_JSON_parts_keys} name
+         * @returns {boolean}
+         * */
         function isFromMultiplePieces(name){ return attributes_objectbased.indexOf(name)!==-1; }
         return {
              attributes_default, attributes_keys,
-             /** @param {_JSON_parts_keys} name */
+             /**
+              * @memberof data
+              * @param {_JSON_parts_keys} name
+              * @returns {boolean}
+              * */
              isNullable(name){ return attributes_nullable.indexOf(name)!==-1; },
              isFromMultiplePieces,
              /**
+              * @memberof data
               * @param {_JSON_parts_keys} part_name 
               * @param {string} current_name 
               * @param {number} [shift=1] 
@@ -46,41 +68,48 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
              },
             
             /**
+             * @memberof data
              * @param {SVGBigHeadsElement} target 
              * @returns {Data}
              */
             get(target){ return storage.has(target) ? storage.get(target) : create(target); },
             
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {ConfigKeys} name 
              * @param {string|null} [value=null] 
              */
             setAttribute({ attributes }, name, value= null){ return Reflect.set(attributes, name, !value ? attributes_default[name] : value); },
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {ConfigKeys} name 
              */
             getAttribute({ attributes }, name){ return attributes[name]; },
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {_JSON_parts_keys} name 
              * @returns {boolean}
              */
             hasElement(data, name){ return Reflect.has(data.els, name); },
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {_JSON_parts_keys} name 
              * @returns {SVGUseElement|GroupedElement|undefined}
              */
             getElement(data, name){ return Reflect.get(data.els, name); },
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {_JSON_parts_keys} name 
              * @param {SVGUseElement|GroupedElement} el 
              */
             setElement(data, name, el){ return Reflect.set(data.els, name, el); },
             /**
+             * @memberof data
              * @param {Data} data 
              * @param {_JSON_parts_keys} name 
              */
@@ -145,7 +174,10 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             return out;
         }, {});
     
-    /** @param {_JSON_parts_keys} candidate */
+    /**
+     * @param {_JSON_parts_keys} candidate
+     * @returns {boolean}
+     * */
     function isNotGenderType(candidate){ return candidate!=="breasts"; }
     /**
      * @callback __createElementNS
@@ -167,6 +199,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
      * @property {function} remove Removes all elements
      */
     /**
+     * @private
      * @param {object} els_object 
      * @param {SVGUseElement} [els_object.front] 
      * @param {SVGUseElement} [els_object.top] 
@@ -178,7 +211,10 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         return Object.assign({ remove(){ keys.forEach(el=> this[el].remove()); } }, els_object);
     }
 
-    /** @returns {SVGElement} */
+    /**
+     * @private
+     * @returns {SVGElement}
+     * */
     function createSVG(){
         const svg= createElement("svg");
         svg.setAttribute("viewBox", "0 0 1000 990");
@@ -188,12 +224,12 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     /**
      * Sets 'xlink:href' for given element
      * @private
-     * @global
      * @param {SVGUseElement} element
      * @param {String} value
      */
     const setHref= (element, value)=> element.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", value);
     /**
+     * @private
      * @param {string} href 
      * @returns {SVGUseElement}
      */
@@ -204,6 +240,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     }
     /**
      * Helper for registering `observedAttributes` and getters/setters
+     * @private
      * @param {HTMLElement} BaseClass 
      * @param {string[]} attributes_names 
      * @returns {HTMLElement}
@@ -234,21 +271,21 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     const style_global= {
         /**
          * @property {style_options} options
-         * @memberof style
+         * @memberof style_global
          * @public
          */
         options: { allow: true, fit: "contain", big_hat: "bigheads-hat-longhairs" },
         /**
          * Keeping information the global style was created – see {@link style.cerate}
          * @property {boolean} [is_created=false]
-         * @memberof style
+         * @memberof style_global
          * @private
          */
         is_created: false,
         /**
          * Creates new `<style>` inside `<head>` with default styling of `<svg-bigheads>` (displays block and size)
          * @method
-         * @memberof style
+         * @memberof style_global
          * @public
          */
         create(){
@@ -263,10 +300,11 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
         }
     };
     /**
+     * @private
      * @param {Data} d 
      * @param {ConfigKeys} type 
      * @param {string} [name] Defaults to value saved in `d`
-     * @returns 
+     * @returns {string}
      */
     function avatarPartHref(d, type, name= data.getAttribute(d, type)){
         return `${data.getAttribute(d, "href")}#${type}-${name}`;
@@ -277,6 +315,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
     /**
+     * @private
      * @param {Data} d
      * @param {_JSON_parts_keys} type
      * @returns {SVGUseElement}
@@ -309,6 +348,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
      */
     /**
      * Returns filtered non-false parts and with full name as values (eg. `long01-back`).
+     * @private
      * @param {string} name 
      * @returns {HairPartsNames}
      */
@@ -329,6 +369,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
     /**
+     * @private
      * @param {SVGElement} svg
      * @param {Data} d
      * */
@@ -390,15 +431,6 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
                 data.setElement(d, name, svg.insertBefore(use_el, el.nextElementSibling));
                 return use_el;
             },
-            /**
-             * @param {Data} d 
-             * @param {ConfigKeys} type 
-             * @param {string} [name] Defaults to value saved in `d`
-             * @returns 
-             */
-            avatarPartHref(d, type, name= data.getAttribute(d, type)){
-                return `${data.getAttribute(d, "href")}#${type}-${name}`;
-            },
             /** @param {SVGBigHeadsElement} big_heads */
             remove(big_heads){
                 storage.get(big_heads).remove();
@@ -418,8 +450,17 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
 
-    /** @extends {HTMLElement} */
+    /**
+     * Represents html tag `<svg-bigheads …>`, for all possibilities (the '…' part) see {@link ConfigKeys} and {@link parts_dictionary}.
+     * @class SVGBigHeadsElement
+     * @extends {HTMLElement}
+     * */
     class SVGBigHeadsElement extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
+        /**
+         * Returns html name represantion
+         * @getter
+         * @static
+         */
         static get tag_name(){ return "svg-bigheads"; }
         constructor(){ super(); style_global.create(); }
         attributeChangedCallback(name, value_old, value_new){
@@ -477,7 +518,11 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
 
 
 
-    /** @extends {HTMLElement} */
+    /**
+     * Represents html tag `<svg-bigheads-part href="…" type="…" name="…">`.
+     * @class SVGBigHeadsPartElement
+     * @extends {HTMLElement}
+     * */
     class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
         static get tag_name(){ return SVGBigHeadsElement.tag_name+"-part"; }
         constructor(){ super(); style_global.create(); }
@@ -502,6 +547,10 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
             const [ href, type, value ]= this.constructor.observedAttributes.map(n=> this.getAttribute(n));
             return [ type, value, href ];
         }
+        /**
+         * Regenrate html elememnt with the next svg part in {@link parts_dictionary}.
+         * @param {numbet} shift 
+         */
         nextValue(shift= 1){
             return this.setAttribute("value", data.getNextPartName(
                 this.getAttribute("type"),
@@ -604,6 +653,7 @@ const SVGBigHeads= (function SVGBigHeads_iief(){
     
     /**
      * @typedef json
+     * @private
      * @type {object}
      * @property {_JSON_colors} colors
      * @property {_JSON_parts} parts

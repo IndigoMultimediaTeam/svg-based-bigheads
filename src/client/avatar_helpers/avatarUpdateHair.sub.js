@@ -2,6 +2,7 @@ gulp_place("./*.sub.js", "files_once");/* global avatarPartHref, findSafeLayer, 
 gulp_place("../services/*.sub.js", "files_once");/* global style_global, data */
 gulp_place("../elements_helpers/*.sub.js", "files_once");/* global createUSE, createGroupedElement */
 /**
+ * @private
  * @param {SVGElement} svg
  * @param {Data} d
  * */

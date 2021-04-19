@@ -13,21 +13,21 @@
 const style_global= {
     /**
      * @property {style_options} options
-     * @memberof style
+     * @memberof style_global
      * @public
      */
     options: { allow: true, fit: "contain", big_hat: "bigheads-hat-longhairs" },
     /**
      * Keeping information the global style was created – see {@link style.cerate}
      * @property {boolean} [is_created=false]
-     * @memberof style
+     * @memberof style_global
      * @private
      */
     is_created: false,
     /**
      * Creates new `<style>` inside `<head>` with default styling of `<svg-bigheads>` (displays block and size)
      * @method
-     * @memberof style
+     * @memberof style_global
      * @public
      */
     create(){

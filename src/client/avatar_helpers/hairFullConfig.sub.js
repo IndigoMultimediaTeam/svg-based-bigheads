@@ -8,6 +8,7 @@
  */
 /**
  * Returns filtered non-false parts and with full name as values (eg. `long01-back`).
+ * @private
  * @param {string} name 
  * @returns {HairPartsNames}
  */

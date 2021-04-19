@@ -2,7 +2,11 @@ gulp_place("../services/*.sub.js", "files_once");/* global style_global, data */
 gulp_place("../avatar_helpers/hairFullConfig.sub.js", "file_once");/* global hairFullConfig */
 gulp_place("../elements_helpers/*.sub.js", "files_once");/* global createSVG, createUSE, mixinObservedAttributes */
 gulp_place("./SVGBigHeadsElement.sub.js", "file_once");/* global SVGBigHeadsElement */
-/** @extends {HTMLElement} */
+/**
+ * Represents html tag `<svg-bigheads-part href="…" type="…" name="…">`.
+ * @class SVGBigHeadsPartElement
+ * @extends {HTMLElement}
+ * */
 class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "href", "type", "value" ]){
     static get tag_name(){ return SVGBigHeadsElement.tag_name+"-part"; }
     constructor(){ super(); style_global.create(); }
@@ -27,6 +31,10 @@ class SVGBigHeadsPartElement extends mixinObservedAttributes(HTMLElement, [ "hre
         const [ href, type, value ]= this.constructor.observedAttributes.map(n=> this.getAttribute(n));
         return [ type, value, href ];
     }
+    /**
+     * Regenrate html elememnt with the next svg part in {@link parts_dictionary}.
+     * @param {numbet} shift 
+     */
     nextValue(shift= 1){
         return this.setAttribute("value", data.getNextPartName(
             this.getAttribute("type"),

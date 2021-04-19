@@ -7,6 +7,7 @@
  * @property {function} remove Removes all elements
  */
 /**
+ * @private
  * @param {object} els_object 
  * @param {SVGUseElement} [els_object.front] 
  * @param {SVGUseElement} [els_object.top] 

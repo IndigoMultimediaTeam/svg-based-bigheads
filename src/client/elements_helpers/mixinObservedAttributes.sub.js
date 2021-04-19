@@ -1,5 +1,6 @@
 /**
  * Helper for registering `observedAttributes` and getters/setters
+ * @private
  * @param {HTMLElement} BaseClass 
  * @param {string[]} attributes_names 
  * @returns {HTMLElement}

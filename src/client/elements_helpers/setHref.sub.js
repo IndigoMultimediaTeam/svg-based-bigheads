@@ -1,7 +1,6 @@
 /**
  * Sets 'xlink:href' for given element
  * @private
- * @global
  * @param {SVGUseElement} element
  * @param {String} value
  */

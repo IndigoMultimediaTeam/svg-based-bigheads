@@ -1,6 +1,7 @@
 gulp_place("../services/*.sub.js", "files_once");/* global data */
 /* global safe_layers */
 /**
+ * @private
  * @param {Data} d
  * @param {_JSON_parts_keys} type
  * @returns {SVGUseElement}

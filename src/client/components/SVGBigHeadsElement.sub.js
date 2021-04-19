@@ -2,8 +2,17 @@
 gulp_place("../services/*.sub.js", "files_once");/* global style_global, data, avatar_svg */
 gulp_place("../avatar_helpers/*.sub.js", "files_once");/* global avatarPartHref, avatarUpdateHair, findSafeLayer */
 gulp_place("../elements_helpers/*.sub.js", "files_once");/* global setHref, mixinObservedAttributes */
-/** @extends {HTMLElement} */
+/**
+ * Represents html tag `<svg-bigheads …>`, for all possibilities (the '…' part) see {@link ConfigKeys} and {@link parts_dictionary}.
+ * @class SVGBigHeadsElement
+ * @extends {HTMLElement}
+ * */
 class SVGBigHeadsElement extends mixinObservedAttributes(HTMLElement, data.attributes_keys){
+    /**
+     * Returns html name represantion
+     * @getter
+     * @static
+     */
     static get tag_name(){ return "svg-bigheads"; }
     constructor(){ super(); style_global.create(); }
     attributeChangedCallback(name, value_old, value_new){

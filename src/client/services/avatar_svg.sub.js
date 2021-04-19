@@ -38,15 +38,6 @@ const avatar_svg= (function(){
             data.setElement(d, name, svg.insertBefore(use_el, el.nextElementSibling));
             return use_el;
         },
-        /**
-         * @param {Data} d 
-         * @param {ConfigKeys} type 
-         * @param {string} [name] Defaults to value saved in `d`
-         * @returns 
-         */
-        avatarPartHref(d, type, name= data.getAttribute(d, type)){
-            return `${data.getAttribute(d, "href")}#${type}-${name}`;
-        },
         /** @param {SVGBigHeadsElement} big_heads */
         remove(big_heads){
             storage.get(big_heads).remove();

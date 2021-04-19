@@ -1,4 +1,10 @@
-const { colors, safe_layers, parts }= getFromJSON();
+const {
+    /**
+     * Dictionary of all editable colors (in the form `--bigheads-color-${name}`) with default values
+     * @property {object} colors
+     */
+    colors,
+    safe_layers, parts }= getFromJSON();
 export { colors };
 gulp_place("./services/data.sub.js", "file_once");/* global data */
 /**
@@ -16,7 +22,10 @@ export const parts_dictionary= Object.keys(parts)
         return out;
     }, {});
 
-/** @param {_JSON_parts_keys} candidate */
+/**
+ * @param {_JSON_parts_keys} candidate
+ * @returns {boolean}
+ * */
 export function isNotGenderType(candidate){ return candidate!=="breasts"; }
 gulp_place("./components/*.sub.js", "files_once");/* global SVGBigHeadsElement, SVGBigHeadsPartElement */
 export { SVGBigHeadsElement, SVGBigHeadsPartElement };
@@ -30,6 +39,7 @@ export function nextPartName(part_name, current_name, shift= 1){ return data.get
 gulp_place("../svgs/parts.types.sub.js", "file_once");
 /**
  * @typedef json
+ * @private
  * @type {object}
  * @property {_JSON_colors} colors
  * @property {_JSON_parts} parts

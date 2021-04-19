@@ -2,36 +2,52 @@
 /* global parts */
 /**
  * @typedef ConfigKeys
+ * @private
  * @type {"href"|_JSON_parts_keys}
  */
 /**
  * @typedef _PreConfig
+ * @private
  * @type {object}
  * @property {string} [href] Target of svg file
  */
 /**
  * @typedef Data
+ * @private
  * @type {object}
  * @property {Config} attributes
  * @property {Object.<_JSON_parts_keys, SVGElement|SVGUseElement>} els
  */
 /**
  * @typedef Config
+ * @private
  * @type {_PreConfig & _JSON_config_parts}
  */
-/** @namespace * */
+/**
+ * @namespace
+ * @private
+ * */
 const data= (function(){
     const { attributes_default, attributes_keys, attributes_nullable, attributes_objectbased }= attributesInit();
     /** @type {WeakMap<SVGBigHeadsElement, Data>} */
     const storage= new WeakMap();
-    /** @param {_JSON_parts_keys} name */
+    /**
+     * @memberof data
+     * @param {_JSON_parts_keys} name
+     * @returns {boolean}
+     * */
     function isFromMultiplePieces(name){ return attributes_objectbased.indexOf(name)!==-1; }
     return {
          attributes_default, attributes_keys,
-         /** @param {_JSON_parts_keys} name */
+         /**
+          * @memberof data
+          * @param {_JSON_parts_keys} name
+          * @returns {boolean}
+          * */
          isNullable(name){ return attributes_nullable.indexOf(name)!==-1; },
          isFromMultiplePieces,
          /**
+          * @memberof data
           * @param {_JSON_parts_keys} part_name 
           * @param {string} current_name 
           * @param {number} [shift=1] 
@@ -44,41 +60,48 @@ const data= (function(){
          },
         
         /**
+         * @memberof data
          * @param {SVGBigHeadsElement} target 
          * @returns {Data}
          */
         get(target){ return storage.has(target) ? storage.get(target) : create(target); },
         
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {ConfigKeys} name 
          * @param {string|null} [value=null] 
          */
         setAttribute({ attributes }, name, value= null){ return Reflect.set(attributes, name, !value ? attributes_default[name] : value); },
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {ConfigKeys} name 
          */
         getAttribute({ attributes }, name){ return attributes[name]; },
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
          * @returns {boolean}
          */
         hasElement(data, name){ return Reflect.has(data.els, name); },
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
          * @returns {SVGUseElement|GroupedElement|undefined}
          */
         getElement(data, name){ return Reflect.get(data.els, name); },
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
          * @param {SVGUseElement|GroupedElement} el 
          */
         setElement(data, name, el){ return Reflect.set(data.els, name, el); },
         /**
+         * @memberof data
          * @param {Data} data 
          * @param {_JSON_parts_keys} name 
          */
