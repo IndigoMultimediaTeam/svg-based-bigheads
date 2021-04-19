@@ -5,7 +5,16 @@ gulp_place("./services/data.sub.js", "file_once");/* global data */
  * All values are {@link _JSON_Tarray}
  * @type {_JSON_parts}
  */
-export const parts_dictionary= Object.keys(parts).reduce((o, name)=> (Reflect.set(o, name, data.isFromMultiplePieces(name) ? Object.keys(parts[name]) : parts[name]), o), Object.create(null));
+export const parts_dictionary= Object.keys(parts)
+    .reduce(function toKeyArrayDictionary(out, type){
+        const value_candidate= parts[type];
+        const value= data.isFromMultiplePieces(type) /* for now hairs! */ ?
+            Object.keys(value_candidate).filter(v=> v!=="long") :
+            value_candidate;
+        Reflect.set(out, type, value);
+        return out;
+    }, {});
+
 /** @param {_JSON_parts_keys} candidate */
 export function isNotGenderType(candidate){ return candidate!=="breasts"; }
 gulp_place("./components/*.sub.js", "files_once");/* global SVGBigHeadsElement, SVGBigHeadsPartElement */
