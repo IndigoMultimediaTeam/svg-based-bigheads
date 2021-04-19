@@ -2,7 +2,6 @@
 /* global gulp_place */
 module.exports= {
     pathHelper: function(path){
-        const folder_part= path.split(/SVGBigHeads(?:\\|\/)/g)[1];
-        return "https://github.com/IndigoMultimediaTeam/svg-based-bigheads"+"/blob/main/"+folder_part+"/";
+        return "https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js";
     }
 };

@@ -7,7 +7,7 @@ module.exports= function({app, $gulp_folder, gulp, error, $g, $o, $run}){
         }))({ file_name: "bigheads-module" }),
         docs_modifications= "docs/modifications/",
         global_options= { private: true, separators: true, partial: docs_modifications+"*.hbs", helper: docs_modifications+"helpers.js" };
-        const /* used in gulp_place */ root_folder_name= app.name;
+        const /* used in gulp_place */ docs_file= docs_locations.from_full_path;
     const /* documentation functions */
         jsdoc2md= require('jsdoc-to-markdown'),
         generateDoc= source=> jsdoc2md.render(Object.assign({ source }, global_options)),

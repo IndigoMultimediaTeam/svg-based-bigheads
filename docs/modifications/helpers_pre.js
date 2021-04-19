@@ -2,7 +2,6 @@
 /* global gulp_place */
 module.exports= {
     pathHelper: function(path){
-        const folder_part= path.split(/gulp_place("root_folder_name", "variable")(?:\\|\/)/g)[1];
-        return "gulp_place('app.homepage.replace(`#readme`, ``)', 'variable')"+"/blob/main/"+folder_part+"/";
+        return "gulp_place('app.homepage.replace(`#readme`, ``)', 'variable')/blob/main/gulp_place('docs_file', 'variable')";
     }
 };
