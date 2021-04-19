@@ -12,6 +12,7 @@ export const parts_dictionary= Object.keys(parts)
             Object.keys(value_candidate).filter(v=> v!=="long") :
             value_candidate;
         Reflect.set(out, type, value);
+        /* test */
         return out;
     }, {});
 
