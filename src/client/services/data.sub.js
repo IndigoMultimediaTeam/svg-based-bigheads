@@ -32,7 +32,6 @@ const data= (function(){
          isNullable(name){ return attributes_nullable.indexOf(name)!==-1; },
          isFromMultiplePieces,
          /**
-          * 
           * @param {_JSON_parts_keys} part_name 
           * @param {string} current_name 
           * @param {number} [shift=1] 
