@@ -17,7 +17,7 @@ Přibude ještě serverová část složená z kombinace PHP a JS. Tedy JS čá
 
 ## Plánované verze
 - [x] *1.0*: Publikace použitelné knihovny
-- [ ] *1.1*: Dodělávky (první verze textů dokumentace/nápověd a příkladů)
+- [x] *1.1*: Dodělávky (první verze textů dokumentace/nápověd a příkladů)
 - [ ] *1.5*: Ideálně dodělání dokumentace/příkladů apod. Náčrt serverové části (sjednocení API na klientovi)
 - [ ] *2.0*: LTS verze (dokončení *1.5* + EN texty)
 
