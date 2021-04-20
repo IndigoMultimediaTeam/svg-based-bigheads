@@ -17,17 +17,17 @@ wrapper_avatar.appendChild(parts_els[1]);
 updatePartsValues();
 
 Object.keys(config)
-.filter(isNotGenderType)
-.filter(n=> parts_dictionary[n].length>1)
-.forEach(value=> wrapper_buttons.appendChild(createElement("button", { value, onclick: updatePartsTypes, textContent: buttonName(value) })));
-wrapper_below.appendChild(createElement("button", {
-    textContent: "Change gender",
-    onclick: function(){
-        const value= config.breasts&&config.breasts==="breasts" ? "none" : "breasts";
-        config.breasts= value;
-        avatar_el.breasts= value;
-    }
-}));
+    .filter(isNotGenderType)
+    .filter(n=> parts_dictionary[n].length>1)
+    .forEach(value=> wrapper_buttons.appendChild(createElement("button", { value, onclick: updatePartsTypes, textContent: buttonName(value) })));
+    wrapper_below.appendChild(createElement("button", {
+        textContent: "Change gender",
+        onclick: function(){
+            const value= config.breasts&&config.breasts==="breasts" ? "none" : "breasts";
+            config.breasts= value;
+            avatar_el.breasts= value;
+        }
+    }));
 colors.skin.values.map((color, value)=> wrapper_below.appendChild(createElement("button", {
         className: "colorButton", onclick: updateColor, value, style: `background-color: ${color};`, color_type: "skin"
     })))
