@@ -1,0 +1,105 @@
+{
+    "name": "svg-based-bigheads",
+    "fullName": "SVGBigHeads",
+    "version": "1.0.0",
+    "description": "DEV – https://bigheads.io/ alternative based on pieces of SVGs for better non-technical cooperation",
+    "main": "gulpfile.js",
+    "app_keys_map": [
+        [
+            "name",
+            "fullName"
+        ],
+        [
+            "version"
+        ],
+        [
+            "homepage"
+        ],
+        [
+            "directories"
+        ],
+        [
+            "sequence"
+        ]
+    ],
+    "sequence": [
+        "!svg",
+        "javascript",
+        "doc"
+    ],
+    "scripts": {
+        "build": "npx gulp",
+        "check": "npm run-script jaaJBT check && echo. && echo ^> npm outdated && npm outdated",
+        "update": "npm run-script jaaJBT update && npm install",
+        "jshint": "node ./node_modules/jshint/bin/jshint --verbose",
+        "jshint:full": "node ./node_modules/jshint/bin/jshint --verbose --show-non-errors",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "jaaJBT": "node ./node_modules/jaajbt-cli/jaaJBT"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/IndigoMultimediaTeam/svg-based-bigheads.git"
+    },
+    "keywords": [
+        "svg"
+    ],
+    "author": "Jan Andrle <jan.andrle@indigo.cz>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/IndigoMultimediaTeam/svg-based-bigheads/issues"
+    },
+    "homepage": "https://github.com/IndigoMultimediaTeam/svg-based-bigheads#readme",
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-minify": "^3.1.0",
+        "gulp-place": "^1.8.2",
+        "gulp-rename": "^2.0.0",
+        "gulp-replace": "^1.0.0",
+        "gulp-svgmin": "^3.0.0",
+        "gulp-util": "^3.0.8",
+        "jaajbt-cli": "^3.0.0",
+        "jsdoc-to-markdown": "^7.0.1",
+        "jshint": "^2.12.0"
+    },
+    "directories": {
+        "gulp": "gulp/",
+        "src": "src/",
+        "bin": "dist/",
+        "_svgs": "svgs/",
+        "_client": "client/",
+        "_server": "server/"
+    },
+    "jaaJBT": {
+        "config": {
+            "gulp_path": "gulp/",
+            "gulp_tasks": "gulp/tasks/",
+            "jsdoc2md_modifications_path": "docs/modifications/"
+        },
+        "scripts": {
+            "gulpfile": "~1.1.4",
+            "gulp_cleanJSHINT": "~0.1.3",
+            "gulp_task_javascript_lib": "~0.1.5",
+            "gulp_task_default": "~1.0.1",
+            "jsdoc2md__libs_gulp_task": "~1.0.0",
+            "jsdoc2md__libs_modifications": "~1.0.0"
+        },
+        "resourses": [
+            "https://raw.githubusercontent.com/jaandrle/jaaJBT/master/",
+            "https://raw.githubusercontent.com/jaandrle/jsdoc2md-jsonDoc--partial-helpers/main/"
+        ],
+        "rename": {}
+    },
+    "jshintConfig": {
+        "esversion": 6,
+        "browser": "true",
+        "undef": "true",
+        "latedef": "true",
+        "maxparams": 4,
+        "maxdepth": 2,
+        "maxcomplexity": 10,
+        "globals": {
+            "gulp_place": false,
+            "customElements": false
+        }
+    }
+}

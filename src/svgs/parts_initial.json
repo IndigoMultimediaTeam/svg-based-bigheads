@@ -1,0 +1,26 @@
+{
+    "colors": { 
+        "hair": "#d96e27",
+        "clothes": "#d67070",
+        "hat": "#5bcaf0",
+        "mouth": "#dd3e3e",
+        "skin": "#fdd2b2"
+    },
+    "safe_layers": [
+        "base",
+        "eyes",
+        "clothes",
+        [ "facialhair", "eyebrow" ],
+        "mouth",
+        [ "nose" , "breasts", "hat", "glasses" ]
+    ],
+    "parts": {
+        "glasses": [ "none" ],
+        "breasts": [ "none" ],
+        "eyebrow": [ "none" ],
+        "facialhair": [ "none" ],
+        "hair": { "none": { "front": true } },
+        "hat": [ "none" ],
+        "nose": [ "none" ]
+    }
+}

@@ -1,0 +1,23 @@
+<svg id="hair-stubble-front" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+    <path opacity=".15" d="M675.448 307.024c21 19.95 35.55 38.084 52.5 66.5 17 28.5 24.056 60.403 23.997 60.5-.06.099-41.37-87.035-100.81-86.762-75.028.303-59.531 21.187-149.967 21.187-80.062 0-67.348-11.62-142.73-15.782-40.959-2.262-100.49 76.857-110.938 81.358 7.448-26.501 14.448-45.501 28.713-68.654s8.235-12.847 8.235-12.847c13.5-20 25.5-31.5 32.5-38.5 4.248-4.544 9.957-9.298 14.5-13.5 5.5-4.5 10.222-8 15.5-12 5.094-3.86 10.086-8.249 15.652-11.66 21.348-11.727 43.348-21.84 70.848-29.34 6.382-1.398 14.295-3.562 20.5-4.5 54.5-8.24 108.5-4.5 168 26.5 21.5 11.201 43.5 28 53.5 37.5z"/>
+    <ellipse rx="4.11" ry="4.08" transform="scale(1 -1)" fill="#592d3d" cx="318.62" cy="-326.6"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="345.17" cy="-322.52"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="406.67" cy="-278.87"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="480.2" cy="-306.89"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="521.31" cy="-282.27"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="595.74" cy="-307.64"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="556.41" cy="-297.87"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="544.61" cy="-254.87"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="542.6" cy="-339.3"/>
+    <ellipse rx="5.28" ry="5.25" transform="scale(1 -1)" fill="#592d3d" cx="407.3" cy="-315.29"/>
+    <ellipse rx="2.06" ry="2.04" transform="scale(1 -1)" fill="#592d3d" cx="602.74" cy="-279.39"/>
+    <ellipse rx="4.11" ry="4.08" transform="scale(1 -1)" fill="#592d3d" cx="644.55" cy="-290.5"/>
+    <ellipse rx="4.11" ry="4.08" transform="scale(1 -1)" fill="#592d3d" cx="467.15" cy="-263.18"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="644.55" cy="-322.62"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="467.55" cy="-351.93"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="506.88" cy="-330.43"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="443.95" cy="-342.16"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="306.28" cy="-361.71"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="692.73" cy="-342.16"/>
+    <ellipse rx="2.91" ry="2.89" transform="scale(1 -1)" fill="#592d3d" cx="655.45" cy="-313"/>
+</svg>
