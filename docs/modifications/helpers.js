@@ -2,6 +2,6 @@
 /* global gulp_place */
 module.exports= {
     pathHelper: function(path){
-        return "https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js";
+        return "https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js";
     }
 };

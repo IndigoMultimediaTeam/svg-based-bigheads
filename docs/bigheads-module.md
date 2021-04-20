@@ -135,7 +135,7 @@
 <a name="SVGBigHeadsElement"></a>
 
 ## SVGBigHeadsElement ⇐ <code>HTMLElement</code>
-**Kind**: global class <a name="SVGBigHeadsElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L467"><small>(defined@467)</small></a>  
+**Kind**: global class <a name="SVGBigHeadsElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L467"><small>(defined@467)</small></a>  
 **Extends**: <code>HTMLElement</code>  
 
 * [SVGBigHeadsElement](#SVGBigHeadsElement) ⇐ <code>HTMLElement</code>
@@ -159,7 +159,7 @@
 <a name="SVGBigHeadsElement+update"></a>
 
 ### svgBigHeadsElement.update(type)
-**Kind**: instance method of [<code>SVGBigHeadsElement</code>](#SVGBigHeadsElement) <a name="SVGBigHeadsElement+update" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L501"><small>(defined@501)</small></a>  
+**Kind**: instance method of [<code>SVGBigHeadsElement</code>](#SVGBigHeadsElement) <a name="SVGBigHeadsElement+update" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L501"><small>(defined@501)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -173,7 +173,7 @@
 ### SVGBigHeadsElement.tag\_name
 >Returns html name represantion
 
-**Kind**: static property of [<code>SVGBigHeadsElement</code>](#SVGBigHeadsElement) <a name="SVGBigHeadsElement.tag_name" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L478"><small>(defined@478)</small></a>  
+**Kind**: static property of [<code>SVGBigHeadsElement</code>](#SVGBigHeadsElement) <a name="SVGBigHeadsElement.tag_name" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L478"><small>(defined@478)</small></a>  
 **Getter**:   
 
 * * *
@@ -181,7 +181,7 @@
 <a name="SVGBigHeadsPartElement"></a>
 
 ## SVGBigHeadsPartElement ⇐ <code>HTMLElement</code>
-**Kind**: global class <a name="SVGBigHeadsPartElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L535"><small>(defined@535)</small></a>  
+**Kind**: global class <a name="SVGBigHeadsPartElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L535"><small>(defined@535)</small></a>  
 **Extends**: <code>HTMLElement</code>  
 
 * [SVGBigHeadsPartElement](#SVGBigHeadsPartElement) ⇐ <code>HTMLElement</code>
@@ -204,7 +204,7 @@
 ### svgBigHeadsPartElement.nextValue(shift)
 >Regenrate html elememnt with the next svg part in [parts_dictionary](#parts_dictionary).
 
-**Kind**: instance method of [<code>SVGBigHeadsPartElement</code>](#SVGBigHeadsPartElement) <a name="SVGBigHeadsPartElement+nextValue" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L568"><small>(defined@568)</small></a>  
+**Kind**: instance method of [<code>SVGBigHeadsPartElement</code>](#SVGBigHeadsPartElement) <a name="SVGBigHeadsPartElement+nextValue" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L568"><small>(defined@568)</small></a>  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -218,7 +218,7 @@
 ## colors
 >Dictionary of all editable colors (in the form `--bigheads-color-${name}`) with default values
 
-**Kind**: global variable <a name="colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L7"><small>(defined@7)</small></a>  
+**Kind**: global variable <a name="colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L7"><small>(defined@7)</small></a>  
 **Properties**
 
 | Name | Type |
@@ -231,7 +231,7 @@
 <a name="data"></a>
 
 ## data : <code>object</code> ℗
-**Kind**: global namespace <a name="data" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L37"><small>(defined@37)</small></a>  
+**Kind**: global namespace <a name="data" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L37"><small>(defined@37)</small></a>  
 **Access**: private  
 
 * [data](#data) : <code>object</code> ℗
@@ -252,7 +252,7 @@
 <a name="data.isFromMultiplePieces"></a>
 
 ### data.isFromMultiplePieces(name) ⇒ <code>boolean</code>
-**Kind**: static method of [<code>data</code>](#data) <a name="data.isFromMultiplePieces" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L46"><small>(defined@46)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.isFromMultiplePieces" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L46"><small>(defined@46)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -264,7 +264,7 @@
 <a name="data.isNullable"></a>
 
 ### data.isNullable(name) ⇒ <code>boolean</code>
-**Kind**: static method of [<code>data</code>](#data) <a name="data.isNullable" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L54"><small>(defined@54)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.isNullable" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L54"><small>(defined@54)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -276,7 +276,7 @@
 <a name="data.getNextPartName"></a>
 
 ### data.getNextPartName(part_name, current_name, [shift]) ⇒ <code>string</code>
-**Kind**: static method of [<code>data</code>](#data) <a name="data.getNextPartName" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L63"><small>(defined@63)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.getNextPartName" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L63"><small>(defined@63)</small></a>  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -290,7 +290,7 @@
 <a name="data.get"></a>
 
 ### data.get(target) ⇒ [<code>Data</code>](#Data)
-**Kind**: static method of [<code>data</code>](#data) <a name="data.get" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L74"><small>(defined@74)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.get" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L74"><small>(defined@74)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -302,7 +302,7 @@
 <a name="data.setAttribute"></a>
 
 ### data.setAttribute(data, name, [value])
-**Kind**: static method of [<code>data</code>](#data) <a name="data.setAttribute" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L82"><small>(defined@82)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.setAttribute" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L82"><small>(defined@82)</small></a>  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -316,7 +316,7 @@
 <a name="data.getAttribute"></a>
 
 ### data.getAttribute(data, name)
-**Kind**: static method of [<code>data</code>](#data) <a name="data.getAttribute" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L88"><small>(defined@88)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.getAttribute" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L88"><small>(defined@88)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -329,7 +329,7 @@
 <a name="data.hasElement"></a>
 
 ### data.hasElement(data, name) ⇒ <code>boolean</code>
-**Kind**: static method of [<code>data</code>](#data) <a name="data.hasElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L95"><small>(defined@95)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.hasElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L95"><small>(defined@95)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -342,7 +342,7 @@
 <a name="data.getElement"></a>
 
 ### data.getElement(data, name) ⇒ <code>SVGUseElement</code> \| [<code>GroupedElement</code>](#GroupedElement) \| <code>undefined</code>
-**Kind**: static method of [<code>data</code>](#data) <a name="data.getElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L102"><small>(defined@102)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.getElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L102"><small>(defined@102)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -355,7 +355,7 @@
 <a name="data.setElement"></a>
 
 ### data.setElement(data, name, el)
-**Kind**: static method of [<code>data</code>](#data) <a name="data.setElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L109"><small>(defined@109)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.setElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L109"><small>(defined@109)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -369,7 +369,7 @@
 <a name="data.deleteElement"></a>
 
 ### data.deleteElement(data, name)
-**Kind**: static method of [<code>data</code>](#data) <a name="data.deleteElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L115"><small>(defined@115)</small></a>  
+**Kind**: static method of [<code>data</code>](#data) <a name="data.deleteElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L115"><small>(defined@115)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -382,7 +382,7 @@
 <a name="style_global"></a>
 
 ## style\_global : <code>object</code> ℗
-**Kind**: global namespace <a name="style_global" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L270"><small>(defined@270)</small></a>  
+**Kind**: global namespace <a name="style_global" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L270"><small>(defined@270)</small></a>  
 **Access**: private  
 
 * [style_global](#style_global) : <code>object</code> ℗
@@ -396,7 +396,7 @@
 <a name="style_global.options"></a>
 
 ### style_global.options
-**Kind**: static property of [<code>style\_global</code>](#style_global) <a name="style_global.options" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L276"><small>(defined@276)</small></a>  
+**Kind**: static property of [<code>style\_global</code>](#style_global) <a name="style_global.options" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L276"><small>(defined@276)</small></a>  
 **Access**: public  
 **Properties**
 
@@ -412,7 +412,7 @@
 ### style_global.is\_created ℗
 >Keeping information the global style was created – see [style.cerate](style.cerate)
 
-**Kind**: static property of [<code>style\_global</code>](#style_global) <a name="style_global.is_created" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L283"><small>(defined@283)</small></a>  
+**Kind**: static property of [<code>style\_global</code>](#style_global) <a name="style_global.is_created" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L283"><small>(defined@283)</small></a>  
 **Access**: private  
 **Properties**
 
@@ -428,7 +428,7 @@
 ### style_global.create()
 >Creates new `<style>` inside `<head>` with default styling of `<svg-bigheads>` (displays block and size)
 
-**Kind**: static method of [<code>style\_global</code>](#style_global) <a name="style_global.create" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L290"><small>(defined@290)</small></a>  
+**Kind**: static method of [<code>style\_global</code>](#style_global) <a name="style_global.create" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L290"><small>(defined@290)</small></a>  
 **Access**: public  
 
 * * *
@@ -436,7 +436,7 @@
 <a name="avatar_svg"></a>
 
 ## avatar\_svg : <code>object</code> ℗
-**Kind**: global namespace <a name="avatar_svg" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L400"><small>(defined@400)</small></a>  
+**Kind**: global namespace <a name="avatar_svg" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L400"><small>(defined@400)</small></a>  
 **Access**: private  
 
 * [avatar_svg](#avatar_svg) : <code>object</code> ℗
@@ -452,7 +452,7 @@
 <a name="avatar_svg.create"></a>
 
 ### avatar_svg.create(big_heads)
-**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.create" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L408"><small>(defined@408)</small></a>  
+**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.create" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L408"><small>(defined@408)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -464,7 +464,7 @@
 <a name="avatar_svg.get"></a>
 
 ### avatar_svg.get(big_heads)
-**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.get" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L417"><small>(defined@417)</small></a>  
+**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.get" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L417"><small>(defined@417)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -478,7 +478,7 @@
 ### avatar_svg.appendUSE(svg, d, name) ⇒ <code>SVGUseElement</code>
 >Append `<use>` to internal `<svg>`.
 
-**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.appendUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L426"><small>(defined@426)</small></a>  
+**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.appendUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L426"><small>(defined@426)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -494,7 +494,7 @@
 ### avatar_svg.insertAfterUSE(svg, d, name, el) ⇒ <code>SVGUseElement</code>
 >Insert `<use>` to `<svg>` before `el`.
 
-**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.insertAfterUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L440"><small>(defined@440)</small></a>  
+**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.insertAfterUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L440"><small>(defined@440)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -509,7 +509,7 @@
 <a name="avatar_svg.remove"></a>
 
 ### avatar_svg.remove(big_heads)
-**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.remove" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L449"><small>(defined@449)</small></a>  
+**Kind**: static method of [<code>avatar\_svg</code>](#avatar_svg) <a name="avatar_svg.remove" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L449"><small>(defined@449)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -523,7 +523,7 @@
 ## parts\_dictionary : [<code>\_JSON\_parts</code>](#_JSON_parts)
 >All values are [_JSON_Tarray](#_JSON_Tarray)
 
-**Kind**: global constant <a name="parts_dictionary" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L165"><small>(defined@165)</small></a>  
+**Kind**: global constant <a name="parts_dictionary" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L165"><small>(defined@165)</small></a>  
 
 * * *
 
@@ -532,7 +532,7 @@
 ## createElement : [<code>\_\_createElementNS</code>](#__createElementNS) ℗
 >Creates elemnet in *svg* namespace
 
-**Kind**: global constant <a name="createElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L191"><small>(defined@191)</small></a>  
+**Kind**: global constant <a name="createElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L191"><small>(defined@191)</small></a>  
 **Access**: private  
 
 * * *
@@ -542,21 +542,21 @@
 ## version : <code>string</code>
 >Library version
 
-**Kind**: global constant <a name="version" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L687"><small>(defined@687)</small></a>  
+**Kind**: global constant <a name="version" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L687"><small>(defined@687)</small></a>  
 
 * * *
 
 <a name="type"></a>
 
 ## type : <code>&quot;client&quot;</code> \| <code>&quot;server&quot;</code>
-**Kind**: global constant <a name="type" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L691"><small>(defined@691)</small></a>  
+**Kind**: global constant <a name="type" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L691"><small>(defined@691)</small></a>  
 
 * * *
 
 <a name="isNotGenderType"></a>
 
 ## isNotGenderType(candidate) ⇒ <code>boolean</code>
-**Kind**: global function <a name="isNotGenderType" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L180"><small>(defined@180)</small></a>  
+**Kind**: global function <a name="isNotGenderType" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L180"><small>(defined@180)</small></a>  
 
 | Param | Type |
 | --- | --- |
@@ -568,7 +568,7 @@
 <a name="createGroupedElement"></a>
 
 ## createGroupedElement(els_object) ⇒ [<code>GroupedElement</code>](#GroupedElement) ℗
-**Kind**: global function <a name="createGroupedElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L208"><small>(defined@208)</small></a>  
+**Kind**: global function <a name="createGroupedElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L208"><small>(defined@208)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -584,7 +584,7 @@
 <a name="createSVG"></a>
 
 ## createSVG() ⇒ <code>SVGElement</code> ℗
-**Kind**: global function <a name="createSVG" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L217"><small>(defined@217)</small></a>  
+**Kind**: global function <a name="createSVG" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L217"><small>(defined@217)</small></a>  
 **Access**: private  
 
 * * *
@@ -594,7 +594,7 @@
 ## setHref(element, value) ℗
 >Sets 'xlink:href' for given element
 
-**Kind**: global function <a name="setHref" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L229"><small>(defined@229)</small></a>  
+**Kind**: global function <a name="setHref" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L229"><small>(defined@229)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -608,7 +608,7 @@
 <a name="createUSE"></a>
 
 ## createUSE(href) ⇒ <code>SVGUseElement</code> ℗
-**Kind**: global function <a name="createUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L235"><small>(defined@235)</small></a>  
+**Kind**: global function <a name="createUSE" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L235"><small>(defined@235)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -623,7 +623,7 @@
 ## mixinObservedAttributes(BaseClass, attributes_names) ⇒ <code>HTMLElement</code> ℗
 >Helper for registering `observedAttributes` and getters/setters
 
-**Kind**: global function <a name="mixinObservedAttributes" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L247"><small>(defined@247)</small></a>  
+**Kind**: global function <a name="mixinObservedAttributes" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L247"><small>(defined@247)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -637,7 +637,7 @@
 <a name="avatarPartHref"></a>
 
 ## avatarPartHref(d, type, [name]) ⇒ <code>string</code> ℗
-**Kind**: global function <a name="avatarPartHref" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L308"><small>(defined@308)</small></a>  
+**Kind**: global function <a name="avatarPartHref" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L308"><small>(defined@308)</small></a>  
 **Access**: private  
 
 | Param | Type | Description |
@@ -652,7 +652,7 @@
 <a name="findSafeLayer"></a>
 
 ## findSafeLayer(d, type) ⇒ <code>SVGUseElement</code> ℗
-**Kind**: global function <a name="findSafeLayer" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L322"><small>(defined@322)</small></a>  
+**Kind**: global function <a name="findSafeLayer" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L322"><small>(defined@322)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -668,7 +668,7 @@
 ## hairFullConfig(name) ⇒ [<code>HairPartsNames</code>](#HairPartsNames) ℗
 >Returns filtered non-false parts and with full name as values (eg. `long01-back`).
 
-**Kind**: global function <a name="hairFullConfig" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L354"><small>(defined@354)</small></a>  
+**Kind**: global function <a name="hairFullConfig" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L354"><small>(defined@354)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -681,7 +681,7 @@
 <a name="avatarUpdateHair"></a>
 
 ## avatarUpdateHair(svg, d) ℗
-**Kind**: global function <a name="avatarUpdateHair" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L375"><small>(defined@375)</small></a>  
+**Kind**: global function <a name="avatarUpdateHair" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L375"><small>(defined@375)</small></a>  
 **Access**: private  
 
 | Param | Type |
@@ -695,7 +695,7 @@
 <a name="nextPartName"></a>
 
 ## nextPartName(part_name, current_name, [shift]) ⇒ <code>string</code>
-**Kind**: global function <a name="nextPartName" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L584"><small>(defined@584)</small></a>  
+**Kind**: global function <a name="nextPartName" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L584"><small>(defined@584)</small></a>  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -709,7 +709,7 @@
 <a name="getFromJSON"></a>
 
 ## getFromJSON() ⇒ [<code>json</code>](#json) ℗
-**Kind**: global function <a name="getFromJSON" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L681"><small>(defined@681)</small></a>  
+**Kind**: global function <a name="getFromJSON" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L681"><small>(defined@681)</small></a>  
 **Access**: private  
 
 * * *
@@ -717,7 +717,7 @@
 <a name="ConfigKeys"></a>
 
 ## ConfigKeys : <code>&quot;href&quot;</code> \| [<code>\_JSON\_parts\_keys</code>](#_JSON_parts_keys) ℗
-**Kind**: global typedef <a name="ConfigKeys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L10"><small>(defined@10)</small></a>  
+**Kind**: global typedef <a name="ConfigKeys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L10"><small>(defined@10)</small></a>  
 **Access**: private  
 
 * * *
@@ -725,7 +725,7 @@
 <a name="_PreConfig"></a>
 
 ## \_PreConfig : <code>object</code> ℗
-**Kind**: global typedef <a name="_PreConfig" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L15"><small>(defined@15)</small></a>  
+**Kind**: global typedef <a name="_PreConfig" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L15"><small>(defined@15)</small></a>  
 **Access**: private  
 **Properties**
 
@@ -739,7 +739,7 @@
 <a name="Data"></a>
 
 ## Data : <code>object</code> ℗
-**Kind**: global typedef <a name="Data" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L21"><small>(defined@21)</small></a>  
+**Kind**: global typedef <a name="Data" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L21"><small>(defined@21)</small></a>  
 **Access**: private  
 **Properties**
 
@@ -754,7 +754,7 @@
 <a name="Config"></a>
 
 ## Config : [<code>\_PreConfig</code>](#_PreConfig) \| [<code>\_JSON\_config\_parts</code>](#_JSON_config_parts) ℗
-**Kind**: global typedef <a name="Config" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L28"><small>(defined@28)</small></a>  
+**Kind**: global typedef <a name="Config" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L28"><small>(defined@28)</small></a>  
 **Access**: private  
 
 * * *
@@ -762,14 +762,14 @@
 <a name="__createElementNS"></a>
 
 ## \_\_createElementNS ⇒ <code>SVGElement</code> \| <code>SVGUseElement</code>
-**Kind**: global typedef <a name="__createElementNS" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L181"><small>(defined@181)</small></a>  
+**Kind**: global typedef <a name="__createElementNS" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L181"><small>(defined@181)</small></a>  
 
 * * *
 
 <a name="GroupedElement"></a>
 
 ## GroupedElement : <code>Object</code>
-**Kind**: global typedef <a name="GroupedElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L192"><small>(defined@192)</small></a>  
+**Kind**: global typedef <a name="GroupedElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L192"><small>(defined@192)</small></a>  
 **Properties**
 
 | Name | Type | Description |
@@ -787,7 +787,7 @@
 ## style\_options : <code>Object</code>
 >Contains options for generating default styles for `<svg-bigheads>`. Changes makes sence only before fisrt `<svg-bigheads>` is created. See [style.cerate](style.cerate).
 
-**Kind**: global typedef <a name="style_options" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L258"><small>(defined@258)</small></a>  
+**Kind**: global typedef <a name="style_options" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L258"><small>(defined@258)</small></a>  
 **Properties**
 
 | Name | Type | Default | Description |
@@ -802,7 +802,7 @@
 <a name="HairPartsNames"></a>
 
 ## HairPartsNames : <code>object</code>
-**Kind**: global typedef <a name="HairPartsNames" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L341"><small>(defined@341)</small></a>  
+**Kind**: global typedef <a name="HairPartsNames" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L341"><small>(defined@341)</small></a>  
 **Properties**
 
 | Name | Type |
@@ -819,7 +819,7 @@
 ## \_JSON\_colors\_keys : <code>&quot;hair&quot;</code> \| <code>&quot;clothes&quot;</code> \| <code>&quot;hat&quot;</code> \| <code>&quot;mouth&quot;</code> \| <code>&quot;skin&quot;</code>
 >Final usage of colors are: `--bigheads-color-__color_name__`
 
-**Kind**: global typedef <a name="_JSON_colors_keys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L586"><small>(defined@586)</small></a>  
+**Kind**: global typedef <a name="_JSON_colors_keys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L586"><small>(defined@586)</small></a>  
 
 * * *
 
@@ -828,28 +828,28 @@
 ## \_JSON\_parts\_keys : <code>&quot;glasses&quot;</code> \| <code>&quot;breasts&quot;</code> \| <code>&quot;eyebrow&quot;</code> \| <code>&quot;facialhair&quot;</code> \| <code>&quot;hair&quot;</code> \| <code>&quot;hat&quot;</code> \| <code>&quot;nose&quot;</code> \| <code>&quot;base&quot;</code> \| <code>&quot;clothes&quot;</code> \| <code>&quot;eyes&quot;</code> \| <code>&quot;mouth&quot;</code>
 >All svg files options
 
-**Kind**: global typedef <a name="_JSON_parts_keys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L591"><small>(defined@591)</small></a>  
+**Kind**: global typedef <a name="_JSON_parts_keys" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L591"><small>(defined@591)</small></a>  
 
 * * *
 
 <a name="_JSON_Tstring"></a>
 
 ## \_JSON\_Tstring : <code>string</code>
-**Kind**: global typedef <a name="_JSON_Tstring" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L596"><small>(defined@596)</small></a>  
+**Kind**: global typedef <a name="_JSON_Tstring" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L596"><small>(defined@596)</small></a>  
 
 * * *
 
 <a name="_JSON_Tarray"></a>
 
 ## \_JSON\_Tarray : <code>Array.&lt;string&gt;</code>
-**Kind**: global typedef <a name="_JSON_Tarray" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L600"><small>(defined@600)</small></a>  
+**Kind**: global typedef <a name="_JSON_Tarray" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L600"><small>(defined@600)</small></a>  
 
 * * *
 
 <a name="_JSON_Tobject"></a>
 
 ## \_JSON\_Tobject : <code>object</code>
-**Kind**: global typedef <a name="_JSON_Tobject" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L604"><small>(defined@604)</small></a>  
+**Kind**: global typedef <a name="_JSON_Tobject" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L604"><small>(defined@604)</small></a>  
 **Properties**
 
 | Name | Type | Description |
@@ -865,7 +865,7 @@
 <a name="_JSON_colors"></a>
 
 ## \_JSON\_colors : <code>object</code>
-**Kind**: global typedef <a name="_JSON_colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L612"><small>(defined@612)</small></a>  
+**Kind**: global typedef <a name="_JSON_colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L612"><small>(defined@612)</small></a>  
 **Properties**
 
 | Name | Type |
@@ -882,7 +882,7 @@
 <a name="_JSON_parts"></a>
 
 ## \_JSON\_parts : <code>object</code>
-**Kind**: global typedef <a name="_JSON_parts" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L621"><small>(defined@621)</small></a>  
+**Kind**: global typedef <a name="_JSON_parts" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L621"><small>(defined@621)</small></a>  
 **Properties**
 
 | Name | Type |
@@ -905,7 +905,7 @@
 <a name="_JSON_config_colors"></a>
 
 ## \_JSON\_config\_colors : <code>object</code>
-**Kind**: global typedef <a name="_JSON_config_colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L636"><small>(defined@636)</small></a>  
+**Kind**: global typedef <a name="_JSON_config_colors" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L636"><small>(defined@636)</small></a>  
 **Properties**
 
 | Name | Type | Default |
@@ -922,7 +922,7 @@
 <a name="_JSON_config_parts"></a>
 
 ## \_JSON\_config\_parts : <code>object</code>
-**Kind**: global typedef <a name="_JSON_config_parts" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L645"><small>(defined@645)</small></a>  
+**Kind**: global typedef <a name="_JSON_config_parts" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L645"><small>(defined@645)</small></a>  
 **Properties**
 
 | Name | Type | Default |
@@ -945,21 +945,21 @@
 <a name="_JSON_safe_layers_nth"></a>
 
 ## \_JSON\_safe\_layers\_nth : [<code>Array.&lt;\_JSON\_parts\_keys&gt;</code>](#_JSON_parts_keys)
-**Kind**: global typedef <a name="_JSON_safe_layers_nth" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L660"><small>(defined@660)</small></a>  
+**Kind**: global typedef <a name="_JSON_safe_layers_nth" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L660"><small>(defined@660)</small></a>  
 
 * * *
 
 <a name="_JSON_safe_layers"></a>
 
 ## \_JSON\_safe\_layers : [<code>\_JSON\_safe\_layers\_nth</code>](#_JSON_safe_layers_nth) \| [<code>Array.&lt;\_JSON\_safe\_layers\_nth&gt;</code>](#_JSON_safe_layers_nth)
-**Kind**: global typedef <a name="_JSON_safe_layers" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L664"><small>(defined@664)</small></a>  
+**Kind**: global typedef <a name="_JSON_safe_layers" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L664"><small>(defined@664)</small></a>  
 
 * * *
 
 <a name="json"></a>
 
 ## json : <code>object</code> ℗
-**Kind**: global typedef <a name="json" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L669"><small>(defined@669)</small></a>  
+**Kind**: global typedef <a name="json" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/master/dist/client/bigheads-module.js#L669"><small>(defined@669)</small></a>  
 **Access**: private  
 **Properties**
 

@@ -2,6 +2,6 @@
 /* global gulp_place */
 module.exports= {
     pathHelper: function(path){
-        return "gulp_place('app.homepage.replace(`#readme`, ``)', 'variable')/blob/main/gulp_place('docs_file', 'variable')";
+        return "gulp_place('app.homepage.replace(`#readme`, ``)', 'variable')/blob/master/gulp_place('docs_file', 'variable')";
     }
 };
