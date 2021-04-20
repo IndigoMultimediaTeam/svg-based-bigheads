@@ -2,8 +2,9 @@ import { parts_dictionary, colors as colors_initial, isNotGenderType } from "../
 const [ wrapper_buttons, wrapper_colors, wrapper_avatar, wrapper_below ]= document.getElementsByTagName("article")[0].getElementsByTagName("div");
 const href= "../client/bigheads.svg";
 let config= randomPartsConfig(parts_dictionary);
+const config_keys= Object.keys(config).filter(isNotGenderType).filter(n=> parts_dictionary[n].length>1);
 let colors= randomColorsConfig(colors_initial);
-let active_type= "eyes";
+let active_type= config_keys[randomTill(config_keys.length)];
 const style_colors= document.head.appendChild(createElement("style", { innerHTML: colorStyle() }));
 
 /** @type {HTMLElement[]} */
@@ -16,9 +17,7 @@ const avatar_el= wrapper_avatar.appendChild(createElement("svg-bigheads", { href
 wrapper_avatar.appendChild(parts_els[1]);
 updatePartsValues();
 
-Object.keys(config)
-    .filter(isNotGenderType)
-    .filter(n=> parts_dictionary[n].length>1)
+config_keys
     .forEach(value=> wrapper_buttons.appendChild(createElement("button", { value, onclick: updatePartsTypes, textContent: buttonName(value) })));
     wrapper_below.appendChild(createElement("button", {
         textContent: "Change gender",
@@ -32,6 +31,7 @@ colors.skin.values.map((color, value)=> wrapper_below.appendChild(createElement(
         className: "colorButton", onclick: updateColor, value, style: `background-color: ${color};`, color_type: "skin"
     })))
     .forEach((el, i)=> Reflect.set(el.dataset, "current", i));
+wrapper_below.appendChild(createElement("button", { textContent: "Random", onclick: ()=> location.reload() }));
 
 function changeAvatar(){
     const [ type, value ]= this.config;
@@ -76,8 +76,7 @@ function updatePartsTypes(){
 function randomPartsConfig(parts_dictionary){
     return Object.keys(parts_dictionary).reduce(function(out, type){
         const values= parts_dictionary[type];
-        const { floor, random }= Math;
-        Reflect.set(out, type, values[floor(random()*values.length)]);
+        Reflect.set(out, type, values[randomTill(values.length)]);
         return out;
     }, {});
 }
@@ -91,7 +90,7 @@ function randomColorsConfig(colors_initial){
             case "hair":    values.push("#ef8f8f"); break;
             case "mouth":   values.push("#f28297"); break;
         }
-        Reflect.set(out, curr, { values, current: 0 });
+        Reflect.set(out, curr, { values, current: randomTill(2) });
         return out;
     }, {});
 }
@@ -104,3 +103,7 @@ function emptyElement(container){
 }
 function getShift(i){ return i?1:-1; }
 function buttonName(value){ return value.charAt(0).toUpperCase()+value.slice(1); }
+function randomTill(max= 1){
+    const { floor, random }= Math;
+    return floor(random()*max);
+}

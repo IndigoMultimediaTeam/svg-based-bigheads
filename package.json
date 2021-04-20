@@ -1,7 +1,7 @@
 {
     "name": "svg-based-bigheads",
     "fullName": "SVGBigHeads",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "DEV – https://bigheads.io/ alternative based on pieces of SVGs for better non-technical cooperation",
     "main": "gulpfile.js",
     "app_keys_map": [
@@ -23,7 +23,7 @@
         ]
     ],
     "sequence": [
-        "!svg",
+        "svg",
         "javascript",
         "doc"
     ],

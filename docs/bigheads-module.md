@@ -41,6 +41,11 @@
 <dt><a href="#createElement">createElement</a> : <code><a href="#__createElementNS">__createElementNS</a></code> ℗</dt>
 <dd><p>Creates elemnet in <em>svg</em> namespace</p>
 </dd>
+<dt><a href="#version">version</a> : <code>string</code></dt>
+<dd><p>Library version</p>
+</dd>
+<dt><a href="#type">type</a> : <code>&quot;client&quot;</code> | <code>&quot;server&quot;</code></dt>
+<dd></dd>
 </dl>
 
 ## Functions
@@ -529,6 +534,22 @@
 
 **Kind**: global constant <a name="createElement" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L191"><small>(defined@191)</small></a>  
 **Access**: private  
+
+* * *
+
+<a name="version"></a>
+
+## version : <code>string</code>
+>Library version
+
+**Kind**: global constant <a name="version" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L687"><small>(defined@687)</small></a>  
+
+* * *
+
+<a name="type"></a>
+
+## type : <code>&quot;client&quot;</code> \| <code>&quot;server&quot;</code>
+**Kind**: global constant <a name="type" href="https://github.com/IndigoMultimediaTeam/svg-based-bigheads/blob/main/dist/client/bigheads-module.js#L691"><small>(defined@691)</small></a>  
 
 * * *
 

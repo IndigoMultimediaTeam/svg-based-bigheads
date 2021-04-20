@@ -22,16 +22,20 @@ Přibude ještě serverová část složená z kombinace PHP a JS. Tedy JS čá
 - [ ] *2.0*: LTS verze (dokončení *1.5* + EN texty)
 
 ## Rozcestník
-- [Struktura avatara z pohledu grafika](wiki/svgs.cs)
-- [Úprava avatara z pohledu grafika](wiki/svgs_edit.cs)
+- [Struktura avatara z pohledu grafika](../../wiki/svgs.cs)
+- [Úprava avatara z pohledu grafika](../../wiki/svgs_edit.cs)
 - [Použití na klientovi](#client-side)
 - Použití na serveru
 - [Správa repozitáře](#technical-bg)
 
 ## Client-side
-Lze použít knihovny ve složce [dist/client](dist/client). Soubory `*-module(.min).js` odpovídají ES modulům, případně lze použít *bundle* verzi či pro *namespace* (`const SVGBigHeads= (function SVGBigHeads_iief(){…})();`).
+Lze použít knihovny ve složce [dist/client](dist/client). Soubory `*-module(.min).js` odpovídají [JS modulům](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), případně lze použít *bundle* verzi či *namespace* (`const SVGBigHeads= (function SVGBigHeads_iief(){…})();`).
 
-[Ukázka editoru avatara](https://refined-github-html-preview.kidonng.workers.dev/IndigoMultimediaTeam/svg-based-bigheads/raw/dev-1.0.Sx/dist/client-example/index.html) (zdrojové soubory [./bin/client-example](./dist/client-example/)).
+Dokumentace k nalezení v [docs/bigheads-module.md](docs/bigheads-module.md).
+
+[Ukázka použití (editor avatara)](https://refined-github-html-preview.kidonng.workers.dev/IndigoMultimediaTeam/svg-based-bigheads/raw/master/dist/client-example/index.html) (zdrojové soubory [./bin/client-example](./dist/client-example/)).
 
 ## Technical BG
 Repozitář naklonujte jak jste zvyklí, poté stačí použít `npm install` a `gulp` (alternativně `npm run gulp`). Sekvence úkolů se provádí dle [package.json](package.json) (klíč `sequence`), položka začínající `!` se přeskakuje.
+
+Konkrétní `gulp` tasky jsou k nalezení v [gulp/tasks/](gulp/tasks/).

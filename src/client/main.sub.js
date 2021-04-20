@@ -50,3 +50,13 @@ gulp_place("../svgs/parts.types.sub.js", "file_once");
  * @returns {json}
  * */
 function getFromJSON(){ return JSON.parse(`gulp_place("../svgs/parts.json", "file_once")`); }
+
+/**
+ * Library version
+ * @constant {string}
+ */
+export const version= gulp_place("app.version", "variable");
+/**
+ * @constant {"client"|"server"}
+ */
+export const type= "client";
