@@ -22,8 +22,8 @@ Přibude ještě serverová část složená z kombinace PHP a JS. Tedy JS čá
 - [ ] *2.0*: LTS verze (dokončení *1.5* + EN texty)
 
 ## Rozcestník
-- [Struktura avatara z pohledu grafika](docs/svgs.cs)
-- [Úprava avatara z pohledu grafika](docs/svgs_edit.cs)
+- [Struktura avatara z pohledu grafika](docs/svgs.cs.md)
+- [Úprava avatara z pohledu grafika](docs/svgs_edit.cs.md)
 - [Použití na klientovi](#client-side)
 - Použití na serveru
 - [Správa repozitáře](#technical-bg)
