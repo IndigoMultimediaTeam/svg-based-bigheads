@@ -33,8 +33,8 @@ Lze použít knihovny ve složce [dist/client](dist/client). Soubory `*-module(.
 
 Vzhledem k přibaleným web komponentám stačí v HTML použít tagy `<svg-bigheads …>` či `<svg-bigheads-part type="…" value="…">`:
 ```html
-<svg-bigheads href="dist/client/bigheads.svg" hair="mohawk" glasses="pincenez">
-<svg-bigheads-part href="dist/client/bigheads.svg" type="glasses" value="pincenez">
+<svg-bigheads href="dist/client/bigheads.svg" hair="mohawk" glasses="pincenez"></svg-bigheads>
+<svg-bigheads-part href="dist/client/bigheads.svg" type="glasses" value="pincenez"></svg-bigheads-part>
 ```
 … možnosti (typy) *‚hair, glasses, …’* odpovídají složkám (svg vrstvám) v [src/svgs/](src/svgs/) (a vl. také generovanému [parts.json](src/svgs/parts.json) – klíč **parts**).
 Možné hodnoty pak jednotlivým souborům, přesněji viz klíč **parts** v automaticky generovaném souboru [parts.json](src/svgs/parts.json).
@@ -59,6 +59,8 @@ Dokumentace k nalezení v [docs/bigheads-module.md](docs/bigheads-module.md). 
 - [parts_dictionary](docs/bigheads-module.md#parts_dictionary): objekt obsahující všehny vrstvy a možné hodnoty
 
 [Ukázka použití (editor avatara)](https://refined-github-html-preview.kidonng.workers.dev/IndigoMultimediaTeam/svg-based-bigheads/raw/master/dist/client-example/index.html) (zdrojové soubory [./bin/client-example](./dist/client-example/)).
+
+*Poznámka: Protože prozatím napříč prohlížeči lze definovat jen obecný element `HTMLElement`, tak ve výsledku komponenty vypadají takto: `<svg-bigheads …><svg …>…</svg></svg-bigheads>`. Do stránky se tedy přidávají styly dle [`style_global.create`](dist/client/bigheads-module.js#L290).*
 
 ## Technical BG
 Repozitář naklonujte jak jste zvyklí, poté stačí použít `npm install` a `gulp` (alternativně `npm run gulp`). Sekvence úkolů se provádí dle [package.json](package.json) (klíč `sequence`), položka začínající `!` se přeskakuje.
