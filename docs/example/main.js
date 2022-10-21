@@ -1,6 +1,6 @@
-import { parts_dictionary, colors as colors_initial, isNotGenderType } from "../client/bigheads-module.js";
+import { parts_dictionary, colors as colors_initial, isNotGenderType } from "./bigheads-module.js";
 const [ wrapper_buttons, wrapper_colors, wrapper_avatar, wrapper_below ]= document.getElementsByTagName("article")[0].getElementsByTagName("div");
-const href= "../client/bigheads.svg";
+const href= "./bigheads.svg";
 let config= randomPartsConfig(parts_dictionary);
 const config_keys= Object.keys(config).filter(isNotGenderType).filter(n=> parts_dictionary[n].length>1);
 let colors= randomColorsConfig(colors_initial);
