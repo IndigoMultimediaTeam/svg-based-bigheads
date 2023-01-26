@@ -33,7 +33,7 @@ Pro nasazení stačí použít přímo vygenerované soubory ve složce [dist/cl
 Soubory `*-module(.min).js` odpovídají [JS modulům](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
 případně lze použít *bundle* verzi či *namespace* (`const SVGBigHeads= (function SVGBigHeads_iief(){…})();`).
 
-Alternativně, pro případ použití vlastních možností, bude potřeba nejprve provést [build](#buildeni).
+Alternativně, pro případ použití vlastních možností, bude potřeba nejprve provést [build](#buildění).
 
 Vzhledem k rezignaci web komponent je vhodné použít script před jejich použitím (typicky umístit do hlavičky).
 Poté již stačí v HTML použít tagy `<svg-bigheads …>` či `<svg-bigheads-part type="…" value="…">`:
@@ -77,6 +77,8 @@ npx gulp
 Sekvence úkolů se provádí dle [package.json](package.json) (klíč `sequence`), položka začínající `!` se přeskakuje.
 
 Konkrétní `gulp` tasky jsou k nalezení v [gulp/tasks/](gulp/tasks/).
+
+Pro otestování ukázky v [dokumentaci](./docs/example) stačí použít `npx serve ./docs/example`
 
 ## Editace SVG částí
 Bohužel podpora importu svg souborů není 100% podporována v grafických editorech. Tj. například se nesprávně vykreslují `rgba` barvy.
