@@ -29,9 +29,14 @@ Přibude ještě serverová část složená z kombinace PHP a JS. Tedy JS čá
 - [Správa repozitáře](#technical-bg)
 
 ## Client-side
-Lze použít knihovny ve složce [dist/client](dist/client). Soubory `*-module(.min).js` odpovídají [JS modulům](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), případně lze použít *bundle* verzi či *namespace* (`const SVGBigHeads= (function SVGBigHeads_iief(){…})();`). Vzhledem k rezignaci web komponent je vhodné použít script před jejich použitím (typicky umístit do hlavičky).
+Pro nasazení stačí použít přímo vygenerované soubory ve složce [dist/client](dist/client).
+Soubory `*-module(.min).js` odpovídají [JS modulům](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
+případně lze použít *bundle* verzi či *namespace* (`const SVGBigHeads= (function SVGBigHeads_iief(){…})();`).
 
-Vzhledem k přibaleným web komponentám stačí v HTML použít tagy `<svg-bigheads …>` či `<svg-bigheads-part type="…" value="…">`:
+Alternativně, pro případ použití vlastních možností, bude potřeba nejprve provést [build](#buildeni).
+
+Vzhledem k rezignaci web komponent je vhodné použít script před jejich použitím (typicky umístit do hlavičky).
+Poté již stačí v HTML použít tagy `<svg-bigheads …>` či `<svg-bigheads-part type="…" value="…">`:
 ```html
 <svg-bigheads href="dist/client/bigheads.svg" hair="mohawk" glasses="pincenez"></svg-bigheads>
 <svg-bigheads-part href="dist/client/bigheads.svg" type="glasses" value="pincenez"></svg-bigheads-part>
@@ -62,7 +67,21 @@ Dokumentace k nalezení v [docs/bigheads-module.md](docs/bigheads-module.md). 
 
 *Poznámka: Protože prozatím napříč prohlížeči lze definovat jen obecný element `HTMLElement`, tak ve výsledku komponenty vypadají takto: `<svg-bigheads …><svg …>…</svg></svg-bigheads>`. Do stránky se tedy přidávají styly dle [`style_global.create`](dist/client/bigheads-module.js#L290).*
 
-## Technical BG
-Repozitář naklonujte jak jste zvyklí, poté stačí použít `npm install` a `gulp` (alternativně `npm run gulp`). Sekvence úkolů se provádí dle [package.json](package.json) (klíč `sequence`), položka začínající `!` se přeskakuje.
+## Buildění
+Repozitář naklonujte jak jste zvyklí, poté
+```bash
+npm ci
+npx gulp
+```
+…alternativně `npm run gulp`.
+Sekvence úkolů se provádí dle [package.json](package.json) (klíč `sequence`), položka začínající `!` se přeskakuje.
 
 Konkrétní `gulp` tasky jsou k nalezení v [gulp/tasks/](gulp/tasks/).
+
+## Editace SVG částí
+Bohužel podpora importu svg souborů není 100% podporována v grafických editorech. Tj. například se nesprávně vykreslují `rgba` barvy.
+Obejít to lze tak, že v programovacím editoru nahradíme problematické části, poté je grafik může poupravit a poté opět programátor doladí změny.
+
+Jako příklad dolaďování je nastavení barvy, která se má měnit. V grafickém souboru se na tvrdo použije např. `red` a tuto
+barvu také nastavíme v [parts_initial.json](./src/svgs/parts_initial.json) (klíč `colors`). Při buildu se již tato barva
+nahradí příslušnou CSS proměnnou.

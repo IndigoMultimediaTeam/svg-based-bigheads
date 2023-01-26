@@ -1,4 +1,5 @@
 /* jshint node: true, maxparams: 4 */
+const { sep }= require('path');
 module.exports= function({app, gulp, error, $g, $o, $run}){
     const src= [ "src", "_svgs" ].map(n=> app.directories[n]).join("");
     const bin= [ "bin", "_client" ].map(n=> app.directories[n]).join("");
@@ -83,7 +84,7 @@ module.exports= function({app, gulp, error, $g, $o, $run}){
         return Reflect.get(target, property);
     }
     function generateID({ basename, dirname }){
-        let part= dirname.split("bigheads-parts\\")[1];
+        let part= dirname.split("bigheads-parts"+sep)[1];
         const name= basename.split(".")[0];
         if(!part) part= name;
         return part+"-"+name;
